@@ -1,13 +1,171 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+.side-bar-list{
+    background-color: #e6eeff; 
+    border-radius: 8px;
+    box-shadow: 1px 1px 1px 1px rgb(216, 216, 216);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.side-bar-list:hover{
+    background-color: #eef3fd; 
+    border-radius: 8px;
+}
+
+.side-bar-drop-list{
+    background-color: #dbe7ff;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.side-bar-drop-list li{
+    border-bottom: 1px solid rgb(230, 246, 250);
+    margin-right: 2px;
+}
+
+.side-bar-drop-list li:hover{
+    background-color: #eef3fd;
+    border-radius: 6px;
+}
+
+
+@layer utilities {
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+   /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scrollbar {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+  }
+}
+
+
+
+/* member tree */
+.tree-node {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  .line {
+    position: absolute;
+    background: black;
+    margin-top: 60px;
+  }
+  .vertical-line {
+    width: 3px;
+    border-radius: 10px;
+  }
+  .horizontal-line {
+    height: 3px;
+    margin-top: 40px;
+    border-radius: 10px;
+  }
+  
+  /* ------------------------ */
+
+  .tree-member-first-box div ul li{
+    color: rgb(53, 53, 53);
+    font-weight: 500;
+    
+  }
+
+
+
+
+
+
+
+  /* event  */
+  .event-custom-tab button{
+    background-color: #f0f0f0;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    font-weight: 500;
+    border-radius: 8px;
+  }
+
+
+  .inplay-game-buttons button{
+    background-color: rgb(79, 204, 241);
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border-radius: 8px;
+    font-weight: 700;
+  }
+
+  .inplay-game-buttons button:nth-of-type(even) {
+    background-color: rgb(172, 255, 200); /* Background color for odd-numbered buttons */
+}
+
+
+
+.big-small-buttons .btn1{
+    background-color: rgb(233, 195, 69); 
+    padding-top: 8px;
+    padding-bottom: 8px; 
+    border-top-right-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+    border-radius: 16px;
+    font-weight: 700; 
+}
+.big-small-buttons .btn2{
+  background-color: rgb(79, 204, 241); 
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border-top-left-radius: 0px !important;
+  border-bottom-left-radius: 0px !important;
+  border-radius: 16px;
+  font-weight: 700; 
+}
+
+
+.color-game-history button{ 
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border-radius: 8px;
+  font-weight: 700;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  width: 33%;
+}
+
+.color-game-history button:hover{
+  background-color: #ff9600;
+}
+
+
+.color-game-amount button{
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border-radius: 8px;
+  font-weight: 700;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  width: 33%;
+  background-color: #dffff8;
+  box-shadow:  5px 5px 5px 0px #cbd5e0;
+  border: 0.5px solid rgb(229, 253, 255);
+}
+
+.color-game-quantity button{ 
+  background-color: #96ffb9;
+  font-size: 18px;
+  font-weight: 700;
+  border: 1px solid rgb(128, 128, 128);
 }

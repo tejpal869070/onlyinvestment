@@ -1,0 +1,37 @@
+import React from "react";
+import { Link } from "react-router-dom";
+
+export default function WithdrawalTypeSelect() {
+  return (
+    <div className="lg:pl-10 my-4 mt-10">
+      <div class="flex flex-wrap   gap-6 mt-6">
+        <Link
+          to={{
+            pathname: "/home",
+            search: "?money=withdrawal&withdrawalType=bank",
+          }}
+          class="relative"
+          href="/"
+        >
+          <span class="absolute top-0 left-0 mt-1 ml-1 h-full w-full rounded bg-black"></span>
+          <span class="fold-bold relative inline-block h-full w-full rounded border-2 border-black bg-white px-3 py-1 text-base font-bold text-black transition duration-100 hover:bg-yellow-400 hover:text-gray-900">
+            BANK
+          </span>
+        </Link>
+        <Link
+          to={{
+            pathname: "/home",
+            search: "?money=withdrawal&withdrawalType=crypto",
+          }}
+          class="relative"
+          href="/"
+        >
+          <span class="absolute top-0 left-0 mt-1 ml-1 h-full w-full rounded bg-black"></span>
+          <span class="fold-bold relative inline-block h-full w-full rounded border-2 border-black bg-white px-3 py-1 text-base font-bold text-black transition duration-100 hover:bg-yellow-400 hover:text-gray-900">
+            CRYPTO
+          </span>
+        </Link>
+      </div>
+    </div>
+  );
+}
