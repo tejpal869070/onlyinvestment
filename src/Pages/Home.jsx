@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FcPortraitMode } from "react-icons/fc";
 import { IoLogOut } from "react-icons/io5";
 import { FaMoneyBillTransfer } from "react-icons/fa6";
@@ -9,8 +9,29 @@ import { GiTakeMyMoney } from "react-icons/gi";
 import { Link } from "react-router-dom";
 import InnerSection from "./userPages/InnerSection";
 import { FaCoins } from "react-icons/fa6";
+import Cookies from "js-cookie";
+import { GetUserDetails } from "../Controllers/User/UserController";
 
 export default function Home() {
+  const [user, setUser] = React.useState({});
+  const handleLogout = async () => {
+    Cookies.remove("token");
+    Cookies.remove("mobile");
+    window.location.href = "/";
+  };
+
+  const userDataGet = async () => {
+    const response = await GetUserDetails();
+    if (response !== null) {
+      console.log(response);
+      setUser(response[0]);
+    }
+  };
+
+  useEffect(() => {
+    userDataGet();
+  }, []);
+
   return (
     <div className=" ">
       <nav class="bg-[#919ffdfc] z-10 border-b-2 border-gray-200 dark:bg-gray-900 fixed w-full">
@@ -34,21 +55,23 @@ export default function Home() {
               class="flex text-sm bg-gray-800 rounded-full md:me-0  ring-4  ring-gray-300 dark:focus:ring-gray-600"
               id="user-menu-button"
               onClick={() => {
-                document.getElementById("user-dropdown").classList.toggle("hidden");
+                document
+                  .getElementById("user-dropdown")
+                  .classList.toggle("hidden");
               }}
             >
               <FcPortraitMode size={30} />
             </button>
             <div
-              class="z-50 hidden my-4 mt-10 right-2 shadow-xl text-base list-none bg-white  absolute divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
+              class="z-50 hidden my-4 mt-10 border-[0.01px] border-gray right-2 shadow-xl text-base list-none bg-white  absolute divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
               id="user-dropdown"
             >
-              <div class="px-4 py-3">
-                <span class="block text-sm text-gray-900 dark:text-white">
-                  Bonnie Green
+              <div class="px-4 py-3 border-b-2 border-gray">
+                <span class="block  text-gray-900 dark:text-white">
+                {user.uname}
                 </span>
                 <span class="block text-sm  text-gray-500 truncate dark:text-gray-400">
-                  name@flowbite.com
+                  {user.email}
                 </span>
               </div>
               <ul class="py-2" aria-labelledby="user-menu-button">
@@ -77,12 +100,12 @@ export default function Home() {
                   </Link>
                 </li>
                 <li>
-                  <Link
-                    to={"/"}
+                  <button
+                    onClick={handleLogout}
                     class="block px-4 py-2 text-sm text-gray-700  dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                   >
                     Sign out
-                  </Link>
+                  </button>
                 </li>
               </ul>
             </div>
@@ -652,13 +675,13 @@ export default function Home() {
             </li>
 
             <li className="bg-[#ffb2b2] rounded-lg">
-              <a
-                href="/"
-                class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#abbaff] dark:hover:bg-gray-700 group"
+              <div
+                onClick={handleLogout}
+                class="flex items-center cursor-pointer p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#abbaff] dark:hover:bg-gray-700 group"
               >
                 <IoLogOut size={26} />
                 <span class="flex-1 ms-3 whitespace-nowrap">Logout</span>
-              </a>
+              </div>
             </li>
           </ul>
         </div>
