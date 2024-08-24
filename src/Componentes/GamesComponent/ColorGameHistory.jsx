@@ -23,9 +23,9 @@ const data = [
 ];
 
 export default function ColorGameHistory() {
-  return (
+  return ( 
     <div>
-      <div class="relative overflow-x-auto z-[-10]">
+      <div class="relative overflow-x-auto  z-0">
         <table class="w-full text-[16px] font-semibold text-left rtl:text-right text-black dark:text-gray-400">
           <thead class="text-sm text-black uppercase bg-gray-200 rounded-lg dark:bg-gray-700 dark:text-gray-400">
             <tr>

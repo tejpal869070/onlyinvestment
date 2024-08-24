@@ -11,7 +11,7 @@ export default function Withdrawal() {
   return (
     <div>
       <div className="relative z-0">
-        <p className="lg:pl-10 font-bold text-xl">Money Out {">"}Withdrawal</p>
+        <p className="lg:pl-10 font-bold text-xl dark:text-white">Money Out {">"}Withdrawal</p>
         {/* Select Withdrawal type */}
         <WithdrawalTypeSelect />
         {withdrawalType === "bank" ? <BankWithDrawal /> : <CryptoWithdrawal />}

@@ -6,12 +6,12 @@ export default function UsdtDeposit() {
   return (
     <div>
       <div className=" ">
-        <p className="font-bold text-xl">Money In {">"} USDT Deposit </p>
-        <div className="w-full p-2 border-2 border-black mt-6 py-4 border-b-4 rounded-lg shadow-lg m-auto flex flex-col">
-          <h1 className="text-center font-semibold text-lg">
+        <p className="font-bold text-xl dark:text-white">Money In {">"} USDT Deposit </p>
+        <div className="w-full p-2 border-2 border-black dark:border-gray-200 mt-6 py-4 border-b-4 rounded-lg shadow-lg m-auto flex flex-col">
+          <h1 className="text-center font-semibold text-lg dark:text-white">
             TRC20 USDT ADDRESS
           </h1>
-          <p className="text-center font-semibold flex  justify-center align-center items-center gap-2  bg-[#ff9600] px-4 mt-2 py-1 inline m-auto rounded-lg ">
+          <p className="text-center dark:text-white font-semibold flex  justify-center align-center items-center gap-2  bg-[#ff9600] px-4 mt-2 py-1 inline m-auto rounded-lg ">
             TGw3xDnEoc7xycSvLDM2k4KiPrpyHpTZws{" "}
             <FaCopy className="cursor-pointer  " />
           </p>
@@ -20,8 +20,8 @@ export default function UsdtDeposit() {
           </h1>
           <img alt="qr-code" src={qrcode} className="h-60 w-60 m-auto mt-4" />
 
-          <div className="font-medium border-t-2 mt-6 border-black">
-            <p className="text-[red] mt-2 font-semibold">Note:</p>
+          <div className="font-medium dark:text-white border-t-2 mt-6 border-black dark:border-white">
+            <p className="text-[red] dark:text-white mt-2 font-semibold">Note:</p>
             <p>1. Minimum Deposit $10.00</p>
             <p>
               2. After complete the transaction amount will be credited in your

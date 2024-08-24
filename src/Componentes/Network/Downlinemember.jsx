@@ -30,7 +30,7 @@ const data = [
 export default function Downlinemember() {
   return (
     <div>
-      <h1 className="mb-4 font-bold text-lg">Downline Member</h1>
+      <h1 className="mb-4 font-bold text-lg dark:text-white">Downline Member</h1>
       <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <thead class="text-xs font-semibold text-black uppercase bg-gray-300 dark:bg-gray-700 dark:text-gray-400">
@@ -74,7 +74,7 @@ export default function Downlinemember() {
               {data.map((item, index) => (
                 <tr
                   key={index}
-                  class="odd:bg-white text-black font-semibold odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
+                  class="odd:bg-white text-black font-semibold odd:dark:bg-gray-900 dark:text-gray-300 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
                 >
                   <th
                     scope="row"

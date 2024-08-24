@@ -62,16 +62,16 @@ export default function Dashboard() {
       <div class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
         {data.map((item, index) => (
           <div
-            className="p-[3px] bg-gray-400 shadow-lg rounded shadow-4"
+            className="p-[3px] bg-gray-400   shadow-lg rounded shadow-4"
             key={index}
           >
-            <div class="flex flex-col w-full     p-4 justify-center rounded bg-white h-28 dark:bg-gray-800">
+            <div class="flex flex-col w-full  p-4 justify-center rounded bg-white dark:bg-[#00000000] h-28  ">
               <div className="w-full flex justify-between">
                 {item.icons}
                 {index === 7 ? (
                   ""
                 ) : (
-                  <p className="cursor-pointer font-semibold text-[blue]">
+                  <p className="cursor-pointer font-semibold text-[blue] dark:text-white">
                     View
                   </p>
                 )}

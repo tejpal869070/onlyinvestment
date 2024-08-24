@@ -32,3 +32,29 @@ export const GetUserDetails = async () => {
     return null;
   }
 };
+
+export const ChangePasswordControll = async (formData) => {
+  try {
+    const postData = {
+      mobile: mobile,
+      password: formData.password,
+      new_password: formData.new_password,
+    };
+
+    const axiosConfig = {
+      headers: {
+        Authorization: `Bearer ${bearerToken}`,
+      },
+    };
+
+    const response = await axios.post(
+      `${API.url}user/change-password`,
+      postData,
+      axiosConfig
+    );
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

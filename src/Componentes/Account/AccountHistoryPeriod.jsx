@@ -4,7 +4,7 @@ export default function AccountHistoryPeriod() {
   return (
     <div className="flex gap-4">
       <div>
-        <select className="text-black  border-2 border-[#ff9600]  hover:shadow-lg    rounded  text-md font-semibold px-5 py-1 text-left inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+        <select className="text-black  border-2 border-[#ff9600]  hover:shadow-lg    rounded  text-md font-semibold px-5 py-1 text-left inline-flex items-center      ">
           <option value="0">--Type--</option>
           <option value="Deposit">Deposit</option>
           <option value="Withdrawal">Withdrawal</option>
@@ -39,14 +39,14 @@ export default function AccountHistoryPeriod() {
       </div>
       {/* date  */}
       <div className="flex items-center gap-1">
-        <p>From</p>
+        <p  className="text-gray-200">From</p>
         <input
           aria-label="Date"
           placeholder="Start Date"
           type="date"
           className="border-2 border-[#ff9600] rounded py-1"
         />
-        <p>to</p>
+        <p className="text-gray-200">to</p>
         <input
           aria-label="Date"
           placeholder="Start Date"
@@ -54,8 +54,8 @@ export default function AccountHistoryPeriod() {
           className="border-2 border-[#ff9600] rounded py-1"
         />
         <a class="relative ml-6" href="/">
-          <span class="absolute top-0 left-0 mt-1 ml-1 h-full w-full rounded bg-black"></span>
-          <span class="fold-bold relative inline-block h-full w-full rounded border-2 border-black bg-white px-3 py-1 text-base font-bold text-black transition duration-100 hover:bg-yellow-400 hover:text-gray-900">
+          <span class="absolute top-0 left-0 mt-1 ml-1 h-full w-full rounded bg-black dark:bg-gray-400"></span>
+          <span class="fold-bold relative inline-block h-full w-full rounded border-2 border-black dark:border-gray-500 bg-white px-3 py-1 text-base font-bold text-black transition duration-100 hover:bg-yellow-400 hover:text-gray-900">
             SEARCH
           </span>
         </a>

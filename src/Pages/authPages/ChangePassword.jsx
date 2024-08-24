@@ -2,10 +2,13 @@ import React, { useState } from "react";
 import Cookies from "js-cookie";
 import bg1 from "../../assets/photos/security-bg.jpg";
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import { Loading1 } from "../../Componentes/Loading1";
+import { ChangePasswordControll } from "../../Controllers/User/UserController";
 
-export default function ResetPassword() {
+export default function ChangePassword() {
   const [formError, setFormError] = useState();
-  const [resetting, setReset] = useState(false);
+  const [resetting, setResetting] = useState(false);
 
   const sessionMobile = Cookies.get("mobile");
 
@@ -22,19 +25,42 @@ export default function ResetPassword() {
 
   const resetPassord = async (e) => {
     e.preventDefault();
-    setReset(true);
-    if (user.password.length < 6) {
-      setFormError("Old password must be more then 6");
-      setReset(false);
+    setResetting(true);
+    if (user.mobile !== sessionMobile) {
+      toast.error("Please check mobile number.");
+      setResetting(false);
       return;
-    } else if (user.mobile !== sessionMobile) {
-      setFormError("Mobile incorrect");
-      setReset(false);
+    } else if (user.password.length < 6) {
+      toast.error("Enter a valid old password");
+      setResetting(false);
       return;
     } else if (user.new_password.length < 6) {
-      setFormError("New password must be more then 6");
-      setReset(false);
+      toast.error("New password should be 6 digit long.");
+      setResetting(false);
       return;
+    }
+
+    try {
+      const response = await ChangePasswordControll(user);
+      if (response.error === false) {
+        Cookies.remove("mobile");
+        Cookies.remove("token");
+        toast.success("Password reset success!" ,{
+          position: "top-center",
+        });
+        toast.success("Please Login Again!");
+        setResetting(false);
+
+        setTimeout(function () {
+          window.location.href = "/";
+        }, 1500);
+      } else {
+        toast.error(response.message);
+        setResetting(false);
+      }
+    } catch (error) {
+      setResetting(false);
+      toast.error("Something went wrong");
     }
   };
 
@@ -114,17 +140,16 @@ export default function ResetPassword() {
                 type="submit"
                 class="w-full text-white bg-[blue] hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
               >
-                {resetting ? "Processing..." : "Reset Password"}
+                {resetting ? <Loading1 width={40} /> : "Reset Password"}
               </button>
             </form>
             <div className="text-center mt-4 font-semibold  underline">
-              <Link to={"/home"} >
-                Go Back{" "}
-              </Link>
+              <Link to={"/home"}>Go Back </Link>
             </div>
           </div>
         </div>
       </section>
+      <ToastContainer />
     </div>
   );
 }

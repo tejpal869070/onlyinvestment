@@ -73,7 +73,7 @@ export default function DepositHistory() {
                 {data.map((item, index) => (
                   <tr
                     key={index}
-                    class="odd:bg-white text-black font-semibold odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
+                    class="odd:bg-white text-black font-semibold dark:text-gray-200 odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
                   >
                     <th
                       scope="row"

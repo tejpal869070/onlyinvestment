@@ -22,7 +22,7 @@ export default function TableComponent({ tableHead, tableData }) {
             {tableData.map((item, index) => (
               <tr
                 key={index}
-                class="odd:bg-white odd:dark:bg-gray-900 text-black font-medium even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
+                class="odd:bg-white dark:text-gray-300 odd:dark:bg-gray-900 text-black font-medium even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
               >
                 <td class="px-6 py-4">{index + 1}.</td>
                 {Object.entries(item).map(([key, value]) => (

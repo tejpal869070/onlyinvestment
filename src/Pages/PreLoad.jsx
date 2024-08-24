@@ -7,7 +7,7 @@ export default function PreLoad() {
   const navigate = useNavigate();
   useEffect(() => {
     setTimeout(() => {
-      navigate("/login");
+      navigate("/home");
     }, 3400);
   }, [navigate]);
 

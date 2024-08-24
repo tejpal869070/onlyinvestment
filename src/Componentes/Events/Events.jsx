@@ -14,7 +14,7 @@ export default function Events({ gameType }) {
 
   return (
     <div>
-      <p className="uppercase font-bold ">
+      <p className="uppercase font-bold dark:text-white">
         <img
           alt="imageer"
           src={

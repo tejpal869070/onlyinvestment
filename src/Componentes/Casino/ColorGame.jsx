@@ -30,7 +30,7 @@ export default function ColorGame() {
         </div>
       </div>
 
-      <div className="bg-gradient-to-r from-rose-100 to-teal-100 py-4">
+      <div className="bg-gradient-to-r from-rose-100 to-teal-100 dark:bg-gradient-to-r dark:from-slate-500 dark:to-slate-800 py-4">
         {/* color buttons */}
         <div className="flex gap-6 justify-center py-2 border-b-2 border-white">
           {Array(3)

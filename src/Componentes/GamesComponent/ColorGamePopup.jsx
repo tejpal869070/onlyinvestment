@@ -5,8 +5,8 @@ const ColorGamePopup = ({ isOpen, onClose }) => {
 
   if (!isOpen) return null;
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white p-6 rounded-lg shadow-lg relative">
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black bg-opacity-50">
+      <div className="bg-white dark:bg-[#bbbbbb] p-6 rounded-lg   shadow-lg relative">
         <h2 className="text-xl font-bold mb-2 text-center">Color Game </h2>
         <p className="text-center    py-1  font-bold bg-[#ffe487] px-12 rounded-lg">
           Selected 5

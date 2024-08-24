@@ -38,7 +38,7 @@ export default function ReferIncome() {
   ];
   return (
     <div>
-      <p className="font-bold text-xl mb-6">
+      <p className="font-bold text-xl mb-6 dark:text-white">
         Income Manager {">"} Reffer Income
       </p>
       <DateSelector />

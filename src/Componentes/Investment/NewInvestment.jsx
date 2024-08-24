@@ -30,13 +30,13 @@ export default function NewInvestment() {
   return (
     <div>
       <div>
-        <p className="lg:pl-10 font-bold text-xl mb-6">
+        <p className="lg:pl-10 font-bold dark:text-white text-xl mb-6">
           Investment {">"}New Investment
         </p>
-        <div class="bg-white border border-4 rounded-lg shadow relative lg:mx-10  ">
+        <div class="bg-white dark:bg-black border border-4 rounded-lg shadow relative lg:mx-10  ">
           <div class="p-6 space-y-6">
             <div>
-              <p className="  font-medium text-md   mb-2">
+              <p className=" dark:text-white font-medium text-md   mb-2">
                 Date: {months[month]} {date} {year}
               </p>
               <p className="  font-medium text-lg text-[green] mb-4">
@@ -58,7 +58,7 @@ export default function NewInvestment() {
                 <div class="col-span-12 ">
                   <label
                     for="product-details"
-                    class="text-sm font-medium text-gray-900 block mb-2"
+                    class="text-sm font-medium text-gray-900 dark:text-white block mb-2"
                   >
                     Security Code *
                   </label>
@@ -75,7 +75,7 @@ export default function NewInvestment() {
 
               <div class="flex flex-wrap justify-center gap-6 mt-6">
                 <a class="relative" href="/">
-                  <span class="absolute top-0 left-0 mt-1 ml-1 h-full w-full rounded bg-black"></span>
+                  <span class="absolute top-0 left-0 mt-1 ml-1 h-full w-full rounded bg-black dark:bg-gray-500"></span>
                   <span class="fold-bold relative inline-block h-full w-full rounded border-2 border-black bg-white px-3 py-1 text-base font-bold text-black transition duration-100 hover:bg-yellow-400 hover:text-gray-900">
                     SUBMIT
                   </span>

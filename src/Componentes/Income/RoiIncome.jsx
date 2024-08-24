@@ -32,7 +32,6 @@ export default function RoiIncome() {
       price: "$799",
       action: "More",
     },
-     
   ];
 
   const tableHead = [
@@ -45,7 +44,9 @@ export default function RoiIncome() {
   ];
   return (
     <div>
-      <p className="font-bold text-xl mb-6">Income Manager {">"} ROI Income</p>
+      <p className="font-bold text-xl mb-6 dark:text-white">
+        Income Manager {">"} ROI Income
+      </p>
       <DateSelector />
       <TableComponent tableData={tableData} tableHead={tableHead} />
     </div>

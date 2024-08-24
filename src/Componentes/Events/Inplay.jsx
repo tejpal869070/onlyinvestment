@@ -43,7 +43,7 @@ export default function Inplay() {
       <div className="  flex gap-4 mt-6 mb-8">
         {buttons.map((item, index) => (
           <button class="relative" onClick={() => setSelectedButton(index + 1)}>
-            <span class="absolute top-0 left-0 mt-1 ml-1 h-full w-full rounded bg-black"></span>
+            <span class="absolute top-0 left-0 mt-1 ml-1 h-full w-full rounded bg-black dark:bg-gray-500"></span>
             <span
               class={`${
                 selectedButton === index + 1 ? "bg-yellow-400" : "bg-white"

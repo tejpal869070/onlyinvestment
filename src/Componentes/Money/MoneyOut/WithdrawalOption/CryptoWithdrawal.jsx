@@ -3,7 +3,7 @@ import React from "react";
 export default function CryptoWithdrawal() {
   return (
     <div>
-      <div class="bg-white border border-4 rounded-lg shadow relative lg:mx-10  ">
+      <div class="bg-white dark:bg-black border border-4 rounded-lg dark:border-gray-300 shadow relative lg:mx-10  ">
         <div class="p-6 space-y-6">
           <p className="text-[red] font-medium">
             Dear All, <br />{" "}
@@ -18,7 +18,7 @@ export default function CryptoWithdrawal() {
               <div class="col-span-6 sm:col-span-3">
                 <label
                   for="product-name"
-                  class="text-sm font-medium text-gray-900 block mb-2"
+                  class="text-sm font-medium dark:text-white text-gray-900 block mb-2"
                 >
                   TRC20 Address*
                 </label>
@@ -26,7 +26,7 @@ export default function CryptoWithdrawal() {
                   type="text"
                   name="product-name"
                   id="product-name"
-                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                  class="shadow-sm bg-gray-50 border border-gray-300 dark:bg-gray-400 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                   placeholder="TRC20 ADDRESS"
                   required=""
                 />
@@ -35,7 +35,7 @@ export default function CryptoWithdrawal() {
               <div class="col-span-6 sm:col-span-3">
                 <label
                   for="product-details"
-                  class="text-sm font-medium text-gray-900 block mb-2"
+                  class="text-sm font-medium dark:text-white text-gray-900 block mb-2"
                 >
                   Withdrawal Amount *
                 </label>
@@ -43,7 +43,7 @@ export default function CryptoWithdrawal() {
                   type="text"
                   name="price"
                   id="price"
-                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                  class="shadow-sm bg-gray-50 border border-gray-300 dark:bg-gray-400 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                   placeholder="WITHDRAW AMOUNT"
                   required=""
                 />
@@ -51,7 +51,7 @@ export default function CryptoWithdrawal() {
               <div class="col-span-6 sm:col-span-3">
                 <label
                   for="product-details"
-                  class="text-sm font-medium text-gray-900 block mb-2"
+                  class="text-sm font-medium dark:text-white text-gray-900 block mb-2"
                 >
                   Security Code *
                 </label>
@@ -59,7 +59,7 @@ export default function CryptoWithdrawal() {
                   type="password"
                   name="price"
                   id="price"
-                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                  class="shadow-sm bg-gray-50 border border-gray-300 dark:bg-gray-400 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                   placeholder="******"
                   required=""
                 />
@@ -67,14 +67,14 @@ export default function CryptoWithdrawal() {
             </div>
             <div class="flex flex-wrap justify-center gap-6 mt-6">
               <a class="relative" href="/">
-                <span class="absolute top-0 left-0 mt-1 ml-1 h-full w-full rounded bg-black"></span>
-                <span class="fold-bold relative inline-block h-full w-full rounded border-2 border-black bg-white px-3 py-1 text-base font-bold text-black transition duration-100 hover:bg-yellow-400 hover:text-gray-900">
+                <span class="absolute top-0 left-0 mt-1 ml-1 h-full w-full rounded bg-black dark:bg-gray-400"></span>
+                <span class="fold-bold relative inline-block h-full w-full rounded border-2 border-black dark:border-gray-500 bg-white px-3 py-1 text-base font-bold text-black transition duration-100 hover:bg-yellow-400 hover:text-gray-900">
                   CONFIRM WITHDRAWAL
                 </span>
               </a>
               <a href="/" class="relative">
-                <span class="absolute top-0 left-0 mt-1 ml-1 h-full w-full rounded bg-gray-700"></span>
-                <span class="fold-bold relative inline-block h-full w-full rounded border-2 border-black bg-black px-3 py-1 text-base font-bold text-white transition duration-100 hover:bg-gray-900 hover:text-yellow-500">
+                <span class="absolute top-0 left-0 mt-1 ml-1 h-full w-full rounded bg-gray-700 dark:bg-gray-400"></span>
+                <span class="fold-bold relative inline-block h-full w-full rounded border-2 border-black dark:border-gray-500 bg-black px-3 py-1 text-base font-bold text-white transition duration-100 hover:bg-gray-900 hover:text-yellow-500">
                   CLEAR
                 </span>
               </a>

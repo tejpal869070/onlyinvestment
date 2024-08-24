@@ -3,14 +3,14 @@ import React from "react";
 export default function BankWithDrawal() {
   return (
     <div>
-      <div class="bg-white border border-4 rounded-lg shadow relative lg:mx-10  ">
+      <div class="bg-white dark:bg-black border border-4 dark:border-gray-300 rounded-lg shadow relative lg:mx-10  ">
         <div class="p-6 space-y-6">
           <form action="#" className="uppercase">
             <div class="grid grid-cols-6 gap-6">
               <div class="col-span-6 sm:col-span-3">
                 <label
                   for="product-name"
-                  class="text-sm font-medium text-gray-900 block mb-2"
+                  class="text-sm font-medium text-gray-900 block mb-2 dark:text-white"
                 >
                   Beneficary Name *
                 </label>
@@ -18,7 +18,7 @@ export default function BankWithDrawal() {
                   type="text"
                   name="product-name"
                   id="product-name"
-                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                  class="shadow-sm bg-gray-50 border border-gray-300 dark:bg-gray-400 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                   placeholder="TARUN"
                   required=""
                 />
@@ -26,7 +26,7 @@ export default function BankWithDrawal() {
               <div class="col-span-6 sm:col-span-3">
                 <label
                   for="category"
-                  class="text-sm font-medium text-gray-900 block mb-2"
+                  class="text-sm font-medium text-gray-900 block mb-2 dark:text-white"
                 >
                   Account Number *
                 </label>
@@ -34,7 +34,7 @@ export default function BankWithDrawal() {
                   type="number"
                   name="category"
                   id="category"
-                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                  class="shadow-sm bg-gray-50 border border-gray-300 dark:bg-gray-400 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                   placeholder="61289235654"
                   required=""
                 />
@@ -42,7 +42,7 @@ export default function BankWithDrawal() {
               <div class="col-span-6 sm:col-span-3">
                 <label
                   for="brand"
-                  class="text-sm font-medium text-gray-900 block mb-2"
+                  class="text-sm font-medium text-gray-900 block mb-2 dark:text-white"
                 >
                   Bank Name *
                 </label>
@@ -50,7 +50,7 @@ export default function BankWithDrawal() {
                   type="text"
                   name="brand"
                   id="brand"
-                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                  class="shadow-sm bg-gray-50 border border-gray-300 dark:bg-gray-400 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                   placeholder="BANK NAME"
                   required=""
                 />
@@ -58,7 +58,7 @@ export default function BankWithDrawal() {
               <div class="col-span-6 sm:col-span-3">
                 <label
                   for="price"
-                  class="text-sm font-medium text-gray-900 block mb-2"
+                  class="text-sm font-medium text-gray-900 block mb-2 dark:text-white"
                 >
                   Bank Branch *
                 </label>
@@ -66,7 +66,7 @@ export default function BankWithDrawal() {
                   type="number"
                   name="price"
                   id="price"
-                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                  class="shadow-sm bg-gray-50 border border-gray-300 dark:bg-gray-400 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                   placeholder="BANK BRANCH"
                   required=""
                 />
@@ -74,7 +74,7 @@ export default function BankWithDrawal() {
               <div class="col-span-6 sm:col-span-3">
                 <label
                   for="product-details"
-                  class="text-sm font-medium text-gray-900 block mb-2"
+                  class="text-sm font-medium text-gray-900 block mb-2 dark:text-white"
                 >
                   IFSC Code *
                 </label>
@@ -82,7 +82,7 @@ export default function BankWithDrawal() {
                   type="text"
                   name="price"
                   id="price"
-                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                  class="shadow-sm bg-gray-50 border border-gray-300 dark:bg-gray-400 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                   placeholder="BANK6545"
                   required=""
                 />
@@ -90,7 +90,7 @@ export default function BankWithDrawal() {
               <div class="col-span-6 sm:col-span-3">
                 <label
                   for="product-details"
-                  class="text-sm font-medium text-gray-900 block mb-2"
+                  class="text-sm font-medium text-gray-900 block mb-2 dark:text-white"
                 >
                   Mobile *
                 </label>
@@ -98,7 +98,7 @@ export default function BankWithDrawal() {
                   type="number"
                   name="price"
                   id="price"
-                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                  class="shadow-sm bg-gray-50 border border-gray-300 dark:bg-gray-400 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                   placeholder="MOBILE NUMBER"
                   required=""
                 />
@@ -106,7 +106,7 @@ export default function BankWithDrawal() {
               <div class="col-span-6 sm:col-span-3">
                 <label
                   for="product-details"
-                  class="text-sm font-medium text-gray-900 block mb-2"
+                  class="text-sm font-medium text-gray-900 block mb-2 dark:text-white"
                 >
                   Withdrawal Amount *
                 </label>
@@ -114,7 +114,7 @@ export default function BankWithDrawal() {
                   type="text"
                   name="price"
                   id="price"
-                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                  class="shadow-sm bg-gray-50 border border-gray-300 dark:bg-gray-400 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                   placeholder="40 USDT"
                   required=""
                 />
@@ -122,7 +122,7 @@ export default function BankWithDrawal() {
               <div class="col-span-6 sm:col-span-3">
                 <label
                   for="product-details"
-                  class="text-sm font-medium text-gray-900 block mb-2"
+                  class="text-sm font-medium text-gray-900 block mb-2 dark:text-white"
                 >
                   Security Code *
                 </label>
@@ -130,7 +130,7 @@ export default function BankWithDrawal() {
                   type="password"
                   name="price"
                   id="price"
-                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                  class="shadow-sm bg-gray-50 border border-gray-300 dark:bg-gray-400 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                   placeholder="******"
                   required=""
                 />
@@ -156,14 +156,14 @@ export default function BankWithDrawal() {
             </p>
             <div class="flex flex-wrap justify-center gap-6 mt-6">
               <a class="relative" href="/">
-                <span class="absolute top-0 left-0 mt-1 ml-1 h-full w-full rounded bg-black"></span>
-                <span class="fold-bold relative inline-block h-full w-full rounded border-2 border-black bg-white px-3 py-1 text-base font-bold text-black transition duration-100 hover:bg-yellow-400 hover:text-gray-900">
+                <span class="absolute top-0 left-0 mt-1 ml-1 h-full w-full rounded bg-black dark:bg-gray-400"></span>
+                <span class="fold-bold relative inline-block h-full w-full rounded border-2 border-black dark:border-gray-500 bg-white px-3 py-1 text-base font-bold text-black transition duration-100 hover:bg-yellow-400 hover:text-gray-900">
                   CONFIRM WITHDRAWAL
                 </span>
               </a>
               <a href="/" class="relative">
-                <span class="absolute top-0 left-0 mt-1 ml-1 h-full w-full rounded bg-gray-700"></span>
-                <span class="fold-bold relative inline-block h-full w-full rounded border-2 border-black bg-black px-3 py-1 text-base font-bold text-white transition duration-100 hover:bg-gray-900 hover:text-yellow-500">
+                <span class="absolute top-0 left-0 mt-1 ml-1 h-full w-full rounded bg-gray-700 dark:bg-gray-400"></span>
+                <span class="fold-bold relative inline-block h-full w-full rounded border-2 border-black dark:border-gray-500 bg-black px-3 py-1 text-base font-bold text-white transition duration-100 hover:bg-gray-900 hover:text-yellow-500">
                   CLEAR
                 </span>
               </a>

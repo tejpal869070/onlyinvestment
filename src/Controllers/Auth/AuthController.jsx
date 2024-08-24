@@ -23,13 +23,14 @@ export const CheckUserExistance = async (formData) => {
   }
 };
 
-export const userRegistration = async (userData) => {
+export const userRegistration = async (formData) => {
   try {
     const postData = {
-      user_name: userData.user_name,
-      mobile: userData.mobile,
-      password: userData.password,
-      email: userData.email,
+      name: formData.name,
+      mobile: formData.mobile,
+      password: formData.password,
+      email: formData.email,
+      token: formData.token
     };
 
     const response = await axios.post(`${API.url}user/register`, postData);
@@ -82,6 +83,21 @@ export const CheckToken = async () => {
       postData,
       axiosConfig
     );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const VerifyOtp = async (formData) => {
+  try {
+    const postData = {
+      email: formData.email,
+      otp: formData.otp,
+    };
+
+    const response = await axios.post(`${API.url}user/verify-otp`, postData);
+
     return response.data;
   } catch (error) {
     throw error;
