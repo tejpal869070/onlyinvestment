@@ -4,6 +4,8 @@ import { FaWallet, FaGoogleWallet } from "react-icons/fa";
 import { PiHandWithdrawFill } from "react-icons/pi";
 import { FaMoneyBills } from "react-icons/fa6";
 import { GiWallet, GiMoneyStack } from "react-icons/gi";
+import Hero1 from "./Hero1";
+import GamesSlider from "./GamesSlider";
 
 const data = [
   {
@@ -59,6 +61,8 @@ const data = [
 export default function Dashboard() {
   return (
     <div>
+      <Hero1/>
+      <GamesSlider/>
       <div class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
         {data.map((item, index) => (
           <div

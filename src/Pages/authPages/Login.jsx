@@ -52,7 +52,7 @@ export default function Login() {
         return;
       }
     } catch (error) {
-      if (error.response.status === 404) {
+      if (error.response && error.response.status === 404) {
         toast.error("Invalid Credentials");
         setCreating(false);
         return;
