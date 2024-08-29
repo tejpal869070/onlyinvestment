@@ -38,7 +38,7 @@ export default function MatchingIncome() {
   ];
   return (
     <div>
-      <p className="font-bold text-xl mb-6 dark:text-white">Income Manager {">"}Matching Income</p>
+      <p className="font-bold text-xl mb-6   dark:text-white">Income Manager {">"}Matching Income</p>
       <DateSelector/>
       <TableComponent tableData={tableData} tableHead={tableHead} />
     </div>

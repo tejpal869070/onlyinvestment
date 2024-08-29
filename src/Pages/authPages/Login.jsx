@@ -123,8 +123,9 @@ export default function Login() {
                   </div>
                   <p className="text-sm">
                     Don't have an account?{" "}
-                    <Link to={"/register"}>Register Now</Link>
+                    <Link to={"/register"} className="underlined text-[blue]">Register Now</Link>
                   </p>
+                  <Link to={"/forget-password"} className="text-sm font-semibold cursor-pointer">Forgot Password ?</Link>
                 </div>
               </form>
             </div>

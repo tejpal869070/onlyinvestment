@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FcPortraitMode } from "react-icons/fc";
 import { IoLogOut } from "react-icons/io5";
 import { FaMoneyBillTransfer } from "react-icons/fa6";
@@ -15,6 +15,8 @@ import ThemeToggle from "../Controllers/ThemeToggle";
 
 export default function Home() {
   const [user, setUser] = React.useState({});
+  const dropdownClassList = "flex w-full p-2 pl-0 text-gray-900 rounded-lg group dark:text-black dark:hover:text-white dark:hover:bg-gray-400  hover:animate-fade-right hover:animate-once hover:justify-center hover:animate-duration-[400ms]"
+
   const handleLogout = async () => {
     Cookies.remove("token");
     Cookies.remove("mobile");
@@ -24,8 +26,8 @@ export default function Home() {
   const userDataGet = async () => {
     const response = await GetUserDetails();
     if (response !== null) {
-      console.log(response);
       setUser(response[0]);
+      localStorage.setItem("userDetails", JSON.stringify(response[0]));
     }
   };
 
@@ -33,12 +35,32 @@ export default function Home() {
     userDataGet();
   }, []);
 
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  // Toggle dropdown visibility
+  const toggleDropdown = () => setIsOpen((prevState) => !prevState);
+
+  // Close dropdown when clicking outside of it
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <div className="dark:bg-black w-full h-full ">
       <nav class="bg-[#919ffdfc] z-10 border-b-2 border-gray-200 dark:bg-gray-900 fixed w-full">
         <div class="  flex flex-wrap items-center justify-between mx-auto p-4">
           <a
-            href="https://flowbite.com/"
+            href="?home"
             class="flex items-center space-x-3 rtl:space-x-reverse sm:pl-64"
           >
             <img
@@ -53,18 +75,17 @@ export default function Home() {
           <div class="flex flex-col items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             <button
               type="button"
-              class="flex text-sm bg-gray-800 rounded-full md:me-0  ring-4  ring-gray-300 dark:focus:ring-gray-600"
+              className="flex text-sm bg-gray-800 rounded-full md:me-0 ring-4 ring-gray-300 dark:focus:ring-gray-600"
               id="user-menu-button"
-              onClick={() => {
-                document
-                  .getElementById("user-dropdown")
-                  .classList.toggle("hidden");
-              }}
+              onClick={toggleDropdown}
             >
               <FcPortraitMode size={30} />
             </button>
             <div
-              class="z-50 hidden my-4 mt-10 border-[0.01px] border-gray right-2 shadow-xl text-base list-none bg-white  absolute divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
+              className={`z-50 my-4 mt-10 border-[0.01px] border-gray right-2 shadow-xl text-base list-none bg-white absolute divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 ${
+                isOpen ? "" : "hidden"
+              }`}
+              ref={dropdownRef}
               id="user-dropdown"
             >
               <div class="px-4 py-3 border-b-2 border-gray">
@@ -205,12 +226,12 @@ export default function Home() {
               </button>
               <ul
                 id="events-dropdown"
-                class="hidden side-bar-drop-list list-disc py-2 pl-4 space-y-2"
+                class="hidden side-bar-drop-list animate-fade-down animate-duration-500  list-disc py-2 pl-4 space-y-2  "
               >
                 <li className="ml-11  ">
                   <Link
                     to={{ pathname: "/home", search: `?event=inplay` }}
-                    class="flex w-full p-2 pl-0 text-gray-900 rounded-lg group dark:text-black dark:hover:text-white dark:hover:bg-gray-500  hover:justify-center "
+                    class={`${dropdownClassList}`}
                   >
                     Inplay
                   </Link>
@@ -218,7 +239,7 @@ export default function Home() {
                 <li className="ml-11">
                   <Link
                     to={{ pathname: "/home", search: `?event=cricket` }}
-                    class="flex w-full p-2 pl-0 text-gray-900 rounded-lg group dark:text-black dark:hover:text-white dark:hover:bg-gray-500  hover:justify-center "
+                    class={`${dropdownClassList}`}
                   >
                     Cricket
                   </Link>
@@ -226,7 +247,7 @@ export default function Home() {
                 <li className="ml-11">
                   <Link
                     to={{ pathname: "/home", search: `?event=football` }}
-                    class="flex w-full p-2 pl-0 text-gray-900 rounded-lg group dark:text-black dark:hover:text-white dark:hover:bg-gray-500  hover:justify-center "
+                    class={`${dropdownClassList}`}
                   >
                     Football
                   </Link>
@@ -234,7 +255,7 @@ export default function Home() {
                 <li className="ml-11">
                   <Link
                     to={{ pathname: "/home", search: `?event=tennis` }}
-                    class="flex w-full p-2 pl-0 text-gray-900 rounded-lg group dark:text-black dark:hover:text-white dark:hover:bg-gray-500  hover:justify-center "
+                    class={`${dropdownClassList}`}
                   >
                     Tennis
                   </Link>
@@ -275,12 +296,12 @@ export default function Home() {
               </button>
               <ul
                 id="casino-dropdown"
-                class="hidden side-bar-drop-list list-disc py-2 pl-4 space-y-2"
+                class="hidden side-bar-drop-list animate-fade-down animate-duration-500  list-disc py-2 pl-4 space-y-2"
               >
                 <li className="ml-11">
                   <Link
                     to={{ pathname: "/home", search: `?game=color-game` }}
-                    class="flex w-full p-2 pl-0 text-gray-900 rounded-lg group dark:text-black dark:hover:text-white dark:hover:bg-gray-500  hover:justify-center "
+                    class={`${dropdownClassList}`}
                   >
                     Color Play
                   </Link>
@@ -288,7 +309,7 @@ export default function Home() {
                 <li className="ml-11">
                   <Link
                     to={{ pathname: "/home", search: `?game=card-2020` }}
-                    class="flex w-full p-2 pl-0 text-gray-900 rounded-lg group dark:text-black dark:hover:text-white dark:hover:bg-gray-500  hover:justify-center "
+                    class={`${dropdownClassList}`}
                   >
                     Card 2020
                   </Link>
@@ -328,7 +349,7 @@ export default function Home() {
               </button>
               <ul
                 id="investment-dropdown"
-                class="hidden side-bar-drop-list list-disc py-2 pl-2 space-y-2"
+                class="hidden side-bar-drop-list animate-fade-down animate-duration-500  list-disc py-2 pl-2 space-y-2"
               >
                 <li className="ml-11">
                   <Link
@@ -336,7 +357,7 @@ export default function Home() {
                       pathname: "/home",
                       search: `?investment=new-investment`,
                     }}
-                    class="flex w-full p-2 pl-0 text-gray-900 rounded-lg group dark:text-black dark:hover:text-white dark:hover:bg-gray-500  hover:justify-center "
+                    class={`${dropdownClassList}`}
                   >
                     New Investment
                   </Link>
@@ -347,7 +368,7 @@ export default function Home() {
                       pathname: "/home",
                       search: `?investment=investment-history`,
                     }}
-                    class="flex w-full p-2 pl-0 text-gray-900 rounded-lg group dark:text-black dark:hover:text-white dark:hover:bg-gray-500  hover:justify-center "
+                    class={`${dropdownClassList}`}
                   >
                     Investment History
                   </Link>
@@ -386,7 +407,7 @@ export default function Home() {
               </button>
               <ul
                 id="network-dropdown"
-                class="hidden side-bar-drop-list list-disc py-2 pl-4 space-y-2"
+                class="hidden side-bar-drop-list animate-fade-down animate-duration-500  list-disc py-2 pl-4 space-y-2"
               >
                 <li className="ml-11">
                   <Link
@@ -394,7 +415,7 @@ export default function Home() {
                       pathname: "/home",
                       search: `?network=downline-member`,
                     }}
-                    class="flex w-full p-2 pl-0 text-gray-900 rounded-lg group dark:text-black dark:hover:text-white dark:hover:bg-gray-500  hover:justify-center "
+                    class={`${dropdownClassList}`}
                   >
                     My Downline Member
                   </Link>
@@ -405,7 +426,7 @@ export default function Home() {
                       pathname: "/home",
                       search: `?network=direct-downline`,
                     }}
-                    class="flex w-full p-2 pl-0 text-gray-900 rounded-lg group dark:text-black dark:hover:text-white dark:hover:bg-gray-500  hover:justify-center "
+                    class={`${dropdownClassList}`}
                   >
                     Direct Downline
                   </Link>
@@ -416,7 +437,7 @@ export default function Home() {
                       pathname: "/home",
                       search: `?network=add-new-member`,
                     }}
-                    class="flex w-full p-2 pl-0 text-gray-900 rounded-lg group dark:text-black dark:hover:text-white dark:hover:bg-gray-500  hover:justify-center "
+                    class={`${dropdownClassList}`}
                   >
                     Add New Member
                   </Link>
@@ -424,7 +445,7 @@ export default function Home() {
                 <li className="ml-11">
                   <Link
                     to={{ pathname: "/home", search: `?network=member-tree` }}
-                    class="flex w-full p-2 pl-0 text-gray-900 rounded-lg group dark:text-black dark:hover:text-white dark:hover:bg-gray-500  hover:justify-center "
+                    class={`${dropdownClassList}`}
                   >
                     My Member Tree
                   </Link>
@@ -472,7 +493,7 @@ export default function Home() {
               </button>
               <ul
                 id="money-dropdown"
-                class="hidden side-bar-drop-list list-disc py-2 pl-2 space-y-2"
+                class="hidden side-bar-drop-list animate-fade-down animate-duration-500  list-disc py-2 pl-2 space-y-2"
               >
                 <li className="ml-11">
                   <button
@@ -481,14 +502,14 @@ export default function Home() {
                         document.getElementById("money-in-dropdown");
                       moneyDropdown.classList.toggle("hidden");
                     }}
-                    class="flex w-full p-2 pl-0 text-gray-900 rounded-lg group dark:text-black dark:hover:text-white dark:hover:bg-gray-500  hover:justify-center "
+                    class={`${dropdownClassList}`}
                   >
                     Money In
                   </button>
                 </li>
                 <ul
                   id="money-in-dropdown"
-                  class="hidden side-bar-drop-list list-square	 py-2 space-y-2 pl-4"
+                  class="hidden side-bar-drop-list animate-fade-down animate-duration-500  list-square	 py-2 space-y-2 pl-4"
                 >
                   <li>
                     <Link
@@ -517,14 +538,14 @@ export default function Home() {
                         document.getElementById("money-out-dropdown");
                       moneyDropdown.classList.toggle("hidden");
                     }}
-                    class="flex w-full p-2 pl-0 text-gray-900 rounded-lg group dark:text-black dark:hover:text-white dark:hover:bg-gray-500  hover:justify-center "
+                    class={`${dropdownClassList}`}
                   >
                     Money Out
                   </button>
                 </li>
                 <ul
                   id="money-out-dropdown"
-                  class="hidden side-bar-drop-list list-square	 py-2 space-y-2 pl-4"
+                  class="hidden side-bar-drop-list animate-fade-down animate-duration-500  list-square	 py-2 space-y-2 pl-4"
                 >
                   <li>
                     <Link
@@ -581,7 +602,7 @@ export default function Home() {
               </button>
               <ul
                 id="account-dropdown"
-                class=" hidden py-2 pl-2 list-disc	  space-y-2"
+                class=" hidden py-2 pl-2 list-disc	animate-fade-down animate-duration-500   space-y-2"
               >
                 <li className="ml-11">
                   <Link
@@ -594,7 +615,7 @@ export default function Home() {
                 <li className="ml-11">
                   <Link
                     to={{ pathname: "/home", search: `?account=today-history` }}
-                    class="flex w-full p-2 pl-0 text-gray-900 rounded-lg group dark:text-black dark:hover:text-white dark:hover:bg-gray-500  hover:justify-center "
+                    class={`${dropdownClassList}`}
                   >
                     Today History
                   </Link>
@@ -605,7 +626,7 @@ export default function Home() {
                       pathname: "/home",
                       search: `?account=account-history`,
                     }}
-                    class="flex w-full p-2 pl-0 text-gray-900 rounded-lg group dark:text-black dark:hover:text-white dark:hover:bg-gray-500  hover:justify-center "
+                    class={`${dropdownClassList}`}
                   >
                     Account History
                   </Link>
@@ -645,7 +666,7 @@ export default function Home() {
               </button>
               <ul
                 id="income-dropdown"
-                class=" hidden py-2 pl-2 list-disc	  space-y-2"
+                class=" hidden py-2 pl-2 list-disc	animate-fade-down animate-duration-500   space-y-2"
               >
                 <li className="ml-11">
                   <Link
@@ -664,7 +685,7 @@ export default function Home() {
                       pathname: "/home",
                       search: `?income=refferer-income`,
                     }}
-                    class="flex w-full p-2 pl-0 text-gray-900 rounded-lg group dark:text-black dark:hover:text-white dark:hover:bg-gray-500  hover:justify-center "
+                    class={`${dropdownClassList}`}
                   >
                     Refferer Income
                   </Link>
@@ -672,7 +693,7 @@ export default function Home() {
                 <li className="ml-11">
                   <Link
                     to={{ pathname: "/home", search: `?income=roi-income` }}
-                    class="flex w-full p-2 pl-0 text-gray-900 rounded-lg group dark:text-black dark:hover:text-white dark:hover:bg-gray-500  hover:justify-center "
+                    class={`${dropdownClassList}`}
                   >
                     ROI Income
                   </Link>

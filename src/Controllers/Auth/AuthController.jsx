@@ -30,7 +30,7 @@ export const userRegistration = async (formData) => {
       mobile: formData.mobile,
       password: formData.password,
       email: formData.email,
-      token: formData.token
+      token: formData.token,
     };
 
     const response = await axios.post(`${API.url}user/register`, postData);
@@ -98,6 +98,24 @@ export const VerifyOtp = async (formData) => {
 
     const response = await axios.post(`${API.url}user/verify-otp`, postData);
 
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const ForgetPasswordApi = async (formData) => {
+  try {
+    const dataToSent = {
+      email: formData.email,
+      password: formData.password,
+      token: formData.token,
+    };
+
+    const response = await axios.post(
+      `${API.url}user/forget-password`,
+      dataToSent
+    );
     return response.data;
   } catch (error) {
     throw error;

@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
+import ViewPlans from "./ViewPlans";
 
 export default function NewInvestment() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const onClose = () => {
+    setIsOpen(false);
+  };
   const options = [
     { label: "BASIC", value: "BASIC" },
     { label: "SILVER", value: "SILVER" },
@@ -33,6 +39,14 @@ export default function NewInvestment() {
         <p className="lg:pl-10 font-bold dark:text-white text-xl mb-6">
           Investment {">"}New Investment
         </p>
+        <div className="ml-10 mb-4">
+          <button
+            onClick={() => setIsOpen(true)}
+            class="animate-bounce shadow-xl focus:animate-none   inline-flex text-md font-medium bg-indigo-900 mt-3 px-4 py-2 rounded-lg tracking-wide text-white"
+          >
+            <span class="ml-2">View Plans 🏀</span>
+          </button>
+        </div>
         <div class="bg-white dark:bg-black border border-4 rounded-lg shadow relative lg:mx-10  ">
           <div class="p-6 space-y-6">
             <div>
@@ -49,7 +63,11 @@ export default function NewInvestment() {
                   {/* dropdown */}
                   <select className="shadow-sm bg-gray-50 border font-semibold text-sm border-gray-300 text-gray-900 rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-1/2 p-2.5">
                     {options.map((option) => (
-                      <option key={option.value} value={option.value} className="font-semibold ">
+                      <option
+                        key={option.value}
+                        value={option.value}
+                        className="font-semibold "
+                      >
                         {option.value}
                       </option>
                     ))}
@@ -81,10 +99,11 @@ export default function NewInvestment() {
                   </span>
                 </a>
               </div>
-            </form> 
+            </form>
           </div>
         </div>
       </div>
+      {isOpen && <ViewPlans onClose={onClose} />}
     </div>
   );
 }

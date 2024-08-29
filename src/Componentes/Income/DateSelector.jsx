@@ -57,7 +57,7 @@ export default function DateSelector() {
   return (
     <div className="mb-4">
       <div className="flex items-center gap-1">
-        <p  className="text-gray-200">From</p>
+        <p  className="dark:text-gray-200">From</p>
         <input
           aria-label="Date"
           placeholder="Start Date"
@@ -65,7 +65,7 @@ export default function DateSelector() {
           className="border-2 border-[#ff9600] rounded py-1"
           onChange={handleStartDate}
         />
-        <p  className="text-gray-200">to</p>
+        <p  className="dark:text-gray-200">to</p>
         <input
           aria-label="Date"
           placeholder="Start Date"
