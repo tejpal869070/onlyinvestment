@@ -20,28 +20,28 @@ const ViewPlans = ({ url, onClose }) => {
             </div>
           </div>
           {/* plans */}
-          <div class="grid lg:grid-cols-2 px-8 gap-10 text-zinc-800 mt-10">
-            <div class="flex flex-col items-center bg-slate-100 p-8 rounded-lg shadow-lg max-w-sm">
+          <div className="grid lg:grid-cols-2 px-8 gap-10 text-zinc-800 mt-10">
+            <div className="flex flex-col items-center bg-slate-100 p-8 rounded-lg shadow-lg max-w-sm">
               <div>
-                <h2 class="font-extrabold text-3xl text-center mb-2">
+                <h2 className="font-extrabold text-3xl text-center mb-2">
                   Starter
                 </h2>
-                <p class="opacity-60 text-center">
+                <p className="opacity-60 text-center">
                   For the individual and small teams
                 </p>
-                <div class="flex flex-col items-center my-8">
-                  <p class="font-extrabold text-4xl">$29</p>
-                  <p class="text-sm opacity-60">/month</p>
+                <div className="flex flex-col items-center my-8">
+                  <p className="font-extrabold text-4xl">$29</p>
+                  <p className="text-sm opacity-60">/month</p>
                 </div>
               </div>
-              <div class="flex flex-col gap-1">
-                <p class="flex items-center text-sm">
+              <div className="flex flex-col gap-1">
+                <p className="flex items-center text-sm">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
                     fill="currentColor"
                     aria-hidden="true"
-                    class="w-4 h-4 mr-2"
+                    className="w-4 h-4 mr-2"
                   >
                     <path
                       fill-rule="evenodd"
@@ -55,7 +55,7 @@ const ViewPlans = ({ url, onClose }) => {
                     viewBox="0 0 24 24"
                     fill="currentColor"
                     aria-hidden="true"
-                    class="w-4 h-4 ml-1 fill-orange-300"
+                    className="w-4 h-4 ml-1 fill-orange-300"
                   >
                     <path
                       fill-rule="evenodd"
@@ -64,13 +64,13 @@ const ViewPlans = ({ url, onClose }) => {
                     ></path>
                   </svg>
                 </p>
-                <p class="flex items-center text-sm">
+                <p className="flex items-center text-sm">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
                     fill="currentColor"
                     aria-hidden="true"
-                    class="w-4 h-4 mr-2"
+                    className="w-4 h-4 mr-2"
                   >
                     <path
                       fill-rule="evenodd"
@@ -80,13 +80,13 @@ const ViewPlans = ({ url, onClose }) => {
                   </svg>
                   <b>10 Keywords</b>
                 </p>
-                <p class="flex items-center text-sm">
+                <p className="flex items-center text-sm">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
                     fill="currentColor"
                     aria-hidden="true"
-                    class="w-4 h-4 mr-2"
+                    className="w-4 h-4 mr-2"
                   >
                     <path
                       fill-rule="evenodd"
@@ -96,13 +96,13 @@ const ViewPlans = ({ url, onClose }) => {
                   </svg>
                   <b>100 Accounts Tracking</b>
                 </p>
-                <p class="flex items-center text-sm">
+                <p className="flex items-center text-sm">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
                     fill="currentColor"
                     aria-hidden="true"
-                    class="w-4 h-4 mr-2"
+                    className="w-4 h-4 mr-2"
                   >
                     <path
                       fill-rule="evenodd"
@@ -112,13 +112,13 @@ const ViewPlans = ({ url, onClose }) => {
                   </svg>
                   <b>3 Users</b>
                 </p>
-                <p class="flex items-center text-sm">
+                <p className="flex items-center text-sm">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
                     fill="currentColor"
                     aria-hidden="true"
-                    class="w-4 h-4 mr-2"
+                    className="w-4 h-4 mr-2"
                   >
                     <path
                       fill-rule="evenodd"
@@ -128,20 +128,20 @@ const ViewPlans = ({ url, onClose }) => {
                   </svg>{" "}
                   Basic Support
                 </p>
-                <div class="flex justify-center mt-8 ">
-                  <button class="border px-4 py-2 border-violet-400 border-4 hover:bg-violet-100 rounded-xl">
+                <div className="flex justify-center mt-8 ">
+                  <button className="border px-4 py-2 border-violet-400 border-4 hover:bg-violet-100 rounded-xl">
                     Get Started
                   </button>
                 </div>
               </div>
             </div>
-            <div class="flex flex-col items-center bg-gradient-to-br from-blue-100 via-orange-100 to-purple-100 p-8 rounded-lg shadow-lg relative border-8 border-orange-200 max-w-sm">
+            <div className="flex flex-col items-center bg-gradient-to-br from-blue-100 via-orange-100 to-purple-100 p-8 rounded-lg shadow-lg relative border-8 border-orange-200 max-w-sm">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="currentColor"
                 aria-hidden="true"
-                class="w-20 h-20 absolute -top-11 -left-11 fill-red-400"
+                className="w-20 h-20 absolute -top-11 -left-11 fill-red-400"
               >
                 <path
                   fill-rule="evenodd"
@@ -149,32 +149,32 @@ const ViewPlans = ({ url, onClose }) => {
                   clip-rule="evenodd"
                 ></path>
               </svg>
-              <p class="mono text-sm absolute -top-4 bg-red-400 text-zinc-100 py-0.5 px-2 font-bold tracking-wider rounded">
+              <p className="mono text-sm absolute -top-4 bg-red-400 text-zinc-100 py-0.5 px-2 font-bold tracking-wider rounded">
                 POPULAR
               </p>
               <div>
-                <div class="flex gap-4 justify-center">
-                  <p class="font-extrabold text-3xl mb-2">Pro</p>
+                <div className="flex gap-4 justify-center">
+                  <p className="font-extrabold text-3xl mb-2">Pro</p>
                 </div>
-                <p class="opacity-60 text-center">
+                <p className="opacity-60 text-center">
                   For agencies and businesses
                 </p>
-                <p class="opacity-60 text-center"></p>
-                <div class="flex gap-4 justify-center">
-                  <div class="flex flex-col items-center my-8">
-                    <p class="font-extrabold text-4xl">$79</p>
-                    <p class="text-sm opacity-60">/month</p>
+                <p className="opacity-60 text-center"></p>
+                <div className="flex gap-4 justify-center">
+                  <div className="flex flex-col items-center my-8">
+                    <p className="font-extrabold text-4xl">$79</p>
+                    <p className="text-sm opacity-60">/month</p>
                   </div>
                 </div>
               </div>
-              <div class="flex flex-col gap-1">
-                <p class="flex items-center text-sm">
+              <div className="flex flex-col gap-1">
+                <p className="flex items-center text-sm">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
                     fill="currentColor"
                     aria-hidden="true"
-                    class="w-4 h-4 mr-2"
+                    className="w-4 h-4 mr-2"
                   >
                     <path
                       fill-rule="evenodd"
@@ -188,7 +188,7 @@ const ViewPlans = ({ url, onClose }) => {
                     viewBox="0 0 24 24"
                     fill="currentColor"
                     aria-hidden="true"
-                    class="w-4 h-4 ml-1 fill-orange-300"
+                    className="w-4 h-4 ml-1 fill-orange-300"
                   >
                     <path
                       fill-rule="evenodd"
@@ -197,13 +197,13 @@ const ViewPlans = ({ url, onClose }) => {
                     ></path>
                   </svg>
                 </p>
-                <p class="flex items-center text-sm">
+                <p className="flex items-center text-sm">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
                     fill="currentColor"
                     aria-hidden="true"
-                    class="w-4 h-4 mr-2"
+                    className="w-4 h-4 mr-2"
                   >
                     <path
                       fill-rule="evenodd"
@@ -213,13 +213,13 @@ const ViewPlans = ({ url, onClose }) => {
                   </svg>
                   <b>25 Keywords</b>
                 </p>
-                <p class="flex items-center text-sm">
+                <p className="flex items-center text-sm">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
                     fill="currentColor"
                     aria-hidden="true"
-                    class="w-4 h-4 mr-2"
+                    className="w-4 h-4 mr-2"
                   >
                     <path
                       fill-rule="evenodd"
@@ -229,13 +229,13 @@ const ViewPlans = ({ url, onClose }) => {
                   </svg>
                   <b>250 Accounts Tracking</b>
                 </p>
-                <p class="flex items-center text-sm">
+                <p className="flex items-center text-sm">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
                     fill="currentColor"
                     aria-hidden="true"
-                    class="w-4 h-4 mr-2"
+                    className="w-4 h-4 mr-2"
                   >
                     <path
                       fill-rule="evenodd"
@@ -245,13 +245,13 @@ const ViewPlans = ({ url, onClose }) => {
                   </svg>
                   <b>10 Users</b>
                 </p>
-                <p class="flex items-center text-sm">
+                <p className="flex items-center text-sm">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
                     fill="currentColor"
                     aria-hidden="true"
-                    class="w-4 h-4 mr-2"
+                    className="w-4 h-4 mr-2"
                   >
                     <path
                       fill-rule="evenodd"
@@ -261,13 +261,13 @@ const ViewPlans = ({ url, onClose }) => {
                   </svg>
                   <b>Early Beta Features&nbsp;</b>
                 </p>
-                <p class="flex items-center text-sm">
+                <p className="flex items-center text-sm">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
                     fill="currentColor"
                     aria-hidden="true"
-                    class="w-4 h-4 mr-2"
+                    className="w-4 h-4 mr-2"
                   >
                     <path
                       fill-rule="evenodd"
@@ -277,8 +277,8 @@ const ViewPlans = ({ url, onClose }) => {
                   </svg>{" "}
                   Premium Support
                 </p>
-                <div class="flex justify-center mt-8">
-                  <button class="px-4 py-2 border-violet-400 border-4 hover:bg-violet-100 rounded-xl">
+                <div className="flex justify-center mt-8">
+                  <button className="px-4 py-2 border-violet-400 border-4 hover:bg-violet-100 rounded-xl">
                     Get Started
                   </button>
                 </div>

@@ -33,29 +33,29 @@ export default function DepositHistory() {
   return (
     <div className=" ">
       <div>
-        <h1 className="mb-6 font-bold text-lg">
+        <h1 className="mb-6 font-bold text-lg dark:text-gray-100">
           Money In {">"}Deposit History
         </h1>
-        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-          <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead class="text-xs font-semibold text-black uppercase bg-gray-300 dark:bg-gray-700 dark:text-gray-400">
+        <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+          <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead className="text-xs font-semibold text-black uppercase bg-gray-300 dark:bg-gray-700 dark:text-gray-400">
               <tr>
-                <th scope="col" class="px-4 py-3">
+                <th scope="col" className="px-4 py-3">
                   S.No.
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   AMOUNT
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   Transaction Hash
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   Ip Address
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   Status
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   Added On
                 </th>
               </tr>
@@ -73,19 +73,19 @@ export default function DepositHistory() {
                 {data.map((item, index) => (
                   <tr
                     key={index}
-                    class="odd:bg-white text-black font-semibold dark:text-gray-200 odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
+                    className="odd:bg-white text-black font-semibold dark:text-gray-200 odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
                   >
                     <th
                       scope="row"
-                      class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                      className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                     >
                       {index + 1}.
                     </th>
-                    <td class="px-4 py-4">{item.amount}</td>
-                    <td class="px-6 py-4">{item.transection_id}</td>
-                    <td class="px-6 py-4">{item.ip}</td>
-                    <td class="px-6 py-4">{item.status}</td>
-                    <td class="px-6 py-4">{item.paidType}</td>
+                    <td className="px-4 py-4">{item.amount}</td>
+                    <td className="px-6 py-4">{item.transection_id}</td>
+                    <td className="px-6 py-4">{item.ip}</td>
+                    <td className="px-6 py-4">{item.status}</td>
+                    <td className="px-6 py-4">{item.paidType}</td>
                   </tr>
                 ))}
               </tbody>

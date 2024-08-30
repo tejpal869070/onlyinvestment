@@ -25,7 +25,7 @@ export default function GamesSlider() {
     <div className="mb-10">
       <Slider {...settings}>
         {images.map((item, index) => (
-          <div className="w-full h-30 overflow-hidden gap-4">
+          <div className="w-full h-30 overflow-hidden gap-4" key={index}>
             <img alt="side" className="w-[90%] rounded-lg   border-2 border-gray-500 h-[140px] object-cover" src={item} />
           </div>
         ))}

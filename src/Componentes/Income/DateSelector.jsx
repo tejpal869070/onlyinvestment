@@ -73,9 +73,9 @@ export default function DateSelector() {
           className="border-2 border-[#ff9600] rounded py-1"
           onChange={handleEndDate}
         />
-        <button class="relative ml-6" onClick={handleSearch}>
-          <span class="absolute top-0 left-0 mt-1 ml-1 h-full w-full rounded bg-black dark:bg-gray-400"></span>
-          <span class="fold-bold relative inline-block h-full w-full rounded border-2 border-black dark:border-gray-500 bg-white px-3 py-1 text-base font-bold text-black transition duration-100 hover:bg-yellow-400 hover:text-gray-900">
+        <button className="relative ml-6" onClick={handleSearch}>
+          <span className="absolute top-0 left-0 mt-1 ml-1 h-full w-full rounded bg-black dark:bg-gray-400"></span>
+          <span className="fold-bold relative inline-block h-full w-full rounded border-2 border-black dark:border-gray-500 bg-white px-3 py-1 text-base font-bold text-black transition duration-100 hover:bg-yellow-400 hover:text-gray-900">
             SEARCH
           </span>
         </button>

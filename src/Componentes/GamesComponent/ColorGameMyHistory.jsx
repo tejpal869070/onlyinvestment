@@ -25,20 +25,20 @@ const data = [
 export default function ColorGameMyHistory() {
   return (
     <div>
-      <div class="relative overflow-x-auto">
-        <table class="w-full text-[16px] font-semibold text-left rtl:text-right text-black dark:text-gray-400">
-          <thead class="text-sm text-black uppercase bg-gray-200 rounded-lg dark:bg-gray-700 dark:text-gray-400">
+      <div className="relative overflow-x-auto">
+        <table className="w-full text-[16px] font-semibold text-left rtl:text-right text-black dark:text-gray-400">
+          <thead className="text-sm text-black uppercase bg-gray-200 rounded-lg dark:bg-gray-700 dark:text-gray-400">
             <tr>
-              <th scope="col" class="px-6 py-3">
+              <th scope="col" className="px-6 py-3">
                 Period
               </th>
-              <th scope="col" class="px-6 py-3">
+              <th scope="col" className="px-6 py-3">
                 Number
               </th>
-              <th scope="col" class="px-6 py-3">
+              <th scope="col" className="px-6 py-3">
                 Big-Small
               </th>
-              <th scope="col" class="px-6 py-3">
+              <th scope="col" className="px-6 py-3">
                 Color
               </th>
             </tr>
@@ -47,17 +47,17 @@ export default function ColorGameMyHistory() {
             {data.map((item, index) => (
               <tr
                 key={index}
-                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
               >
                 <th
                   scope="row"
-                  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                 >
                   {item.period}
                 </th>
-                <td class="px-6 py-4">{item.number}</td>
-                <td class="px-6 py-4">{item.big_small}</td>
-                <td class="px-6 py-4">
+                <td className="px-6 py-4">{item.number}</td>
+                <td className="px-6 py-4">{item.big_small}</td>
+                <td className="px-6 py-4">
                   <FaCircle color={item.color} />
                 </td>
               </tr>

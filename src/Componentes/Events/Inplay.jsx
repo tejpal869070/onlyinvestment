@@ -42,10 +42,10 @@ export default function Inplay() {
       {/* custom Tabs */}
       <div className="  flex gap-4 mt-6 mb-8">
         {buttons.map((item, index) => (
-          <button class="relative" onClick={() => setSelectedButton(index + 1)}>
-            <span class="absolute top-0 left-0 mt-1 ml-1 h-full w-full rounded bg-black dark:bg-gray-500"></span>
+          <button className="relative" onClick={() => setSelectedButton(index + 1)}>
+            <span className="absolute top-0 left-0 mt-1 ml-1 h-full w-full rounded bg-black dark:bg-gray-500"></span>
             <span
-              class={`${
+              className={`${
                 selectedButton === index + 1 ? "bg-yellow-400" : "bg-white"
               } fold-bold relative inline-block h-full w-full rounded border-2 border-black   px-3 py-1 text-base font-bold text-black transition duration-100 hover:bg-yellow-400 hover:text-gray-900`}
             >

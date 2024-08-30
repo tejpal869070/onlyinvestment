@@ -31,32 +31,32 @@ export default function DirextDownline() {
   return (
     <div>
       <h1 className="mb-4 font-bold text-lg dark:text-white">Direct Downline </h1>
-      <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-          <thead class="text-xs font-semibold text-black uppercase bg-gray-300 dark:bg-gray-700 dark:text-gray-400">
+      <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+          <thead className="text-xs font-semibold text-black uppercase bg-gray-300 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-              <th scope="col" class="px-6 py-3">
+              <th scope="col" className="px-6 py-3">
                 S.No.
               </th>
-              <th scope="col" class="px-6 py-3">
+              <th scope="col" className="px-6 py-3">
                 USERNAME
               </th>
-              <th scope="col" class="px-6 py-3">
+              <th scope="col" className="px-6 py-3">
                 PHONE
               </th>
-              <th scope="col" class="px-6 py-3">
+              <th scope="col" className="px-6 py-3">
                 POSITION
               </th>
-              <th scope="col" class="px-6 py-3">
+              <th scope="col" className="px-6 py-3">
                 JOINING
               </th>
-              <th scope="col" class="px-6 py-3">
+              <th scope="col" className="px-6 py-3">
                 PAID/UNPAID
               </th>
-              <th scope="col" class="px-6 py-3">
+              <th scope="col" className="px-6 py-3">
                 TOTAL INVST
               </th>
-              <th scope="col" class="px-6 py-3">
+              <th scope="col" className="px-6 py-3">
                 FIRST INVST. DATE
               </th>
             </tr>
@@ -74,21 +74,21 @@ export default function DirextDownline() {
               {data.map((item, index) => (
                 <tr
                   key={index}
-                  class="odd:bg-white text-black font-semibold odd:dark:bg-gray-900 dark:text-gray-300 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
+                  className="odd:bg-white text-black font-semibold odd:dark:bg-gray-900 dark:text-gray-300 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
                 >
                   <th
                     scope="row"
-                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                   >
                     {index + 1}.
                   </th>
-                  <td class="px-6 py-4">{item.username}</td>
-                  <td class="px-6 py-4">{item.phone}</td>
-                  <td class="px-6 py-4">{item.position}</td>
-                  <td class="px-6 py-4">{item.joining}</td>
-                  <td class="px-6 py-4">{item.paidType}</td>
-                  <td class="px-6 py-4">{item.totalInvest}</td>
-                  <td class="px-6 py-4">{item.firstInveDate}</td>
+                  <td className="px-6 py-4">{item.username}</td>
+                  <td className="px-6 py-4">{item.phone}</td>
+                  <td className="px-6 py-4">{item.position}</td>
+                  <td className="px-6 py-4">{item.joining}</td>
+                  <td className="px-6 py-4">{item.paidType}</td>
+                  <td className="px-6 py-4">{item.totalInvest}</td>
+                  <td className="px-6 py-4">{item.firstInveDate}</td>
                 </tr>
               ))}
             </tbody>

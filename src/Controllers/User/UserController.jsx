@@ -84,3 +84,48 @@ export const DepositRequest = async (formData) => {
     throw error;
   }
 };
+
+export const GetPaymentMethod = async () => {
+  const postData = {
+    mobile: mobile,
+  };
+
+  const axiosConfig = {
+    headers: {
+      Authorization: `Bearer ${bearerToken}`,
+    },
+  };
+  try {
+    const response = await axios.post(
+      `${API.url}user/get-pay-method`,
+      postData,
+      axiosConfig
+    );
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const CreateAccountPin = async (pin) => {
+  const postData = {
+    mobile: mobile,
+    pin: pin,
+  };
+
+  const axiosConfig = {
+    headers: {
+      Authorization: `Bearer ${bearerToken}`,
+    },
+  };
+  try {
+    const response = await axios.post(
+      `${API.url}user/create-pin`,
+      postData,
+      axiosConfig
+    );
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};

@@ -12,14 +12,19 @@ import { FaCoins } from "react-icons/fa6";
 import Cookies from "js-cookie";
 import { GetUserDetails } from "../Controllers/User/UserController";
 import ThemeToggle from "../Controllers/ThemeToggle";
+import { Loading1 } from "../Componentes/Loading1";
+import CreatePin from "../Componentes/Dashboard/CratePin";
 
 export default function Home() {
   const [user, setUser] = React.useState({});
-  const dropdownClassList = "flex w-full p-2 pl-0 text-gray-900 rounded-lg group dark:text-black dark:hover:text-white dark:hover:bg-gray-400  hover:animate-fade-right hover:animate-once hover:justify-center hover:animate-duration-[400ms]"
+  const [loading, setLoading] = useState(true);
+  const dropdownClassList =
+    "flex w-full p-2 pl-0 text-gray-900 rounded-lg group dark:text-black dark:hover:text-white dark:hover:bg-gray-400  hover:animate-fade-right hover:animate-once hover:justify-center hover:animate-duration-[400ms]";
 
   const handleLogout = async () => {
     Cookies.remove("token");
     Cookies.remove("mobile");
+    localStorage.removeItem("userDetails");
     window.location.href = "/";
   };
 
@@ -28,6 +33,7 @@ export default function Home() {
     if (response !== null) {
       setUser(response[0]);
       localStorage.setItem("userDetails", JSON.stringify(response[0]));
+      setLoading(false);
     }
   };
 
@@ -55,24 +61,32 @@ export default function Home() {
     };
   }, []);
 
+  if (loading) {
+    return (
+      <div className="w-screen h-screen flex items-center justify-center m-auto inset-0">
+        <Loading1 />{" "}
+      </div>
+    );
+  }
+
   return (
     <div className="dark:bg-black w-full h-full ">
-      <nav class="bg-[#919ffdfc] z-10 border-b-2 border-gray-200 dark:bg-gray-900 fixed w-full">
-        <div class="  flex flex-wrap items-center justify-between mx-auto p-4">
+      <nav className="bg-[#919ffdfc] z-10 border-b-2 border-gray-200 dark:bg-gray-900 fixed w-full">
+        <div className="  flex flex-wrap items-center justify-between mx-auto p-4">
           <a
             href="?home"
-            class="flex items-center space-x-3 rtl:space-x-reverse sm:pl-64"
+            className="flex items-center space-x-3 rtl:space-x-reverse sm:pl-64"
           >
             <img
               src="https://flowbite.com/docs/images/logo.svg"
-              class="h-8"
+              className="h-8"
               alt="Flowbite Logo"
             />
-            <span class="self-center text-2xl font-semibold whitespace-nowrap  text-white">
+            <span className="self-center text-2xl font-semibold whitespace-nowrap  text-white">
               Finance
             </span>
           </a>
-          <div class="flex flex-col items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+          <div className="flex flex-col items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             <button
               type="button"
               className="flex text-sm bg-gray-800 rounded-full md:me-0 ring-4 ring-gray-300 dark:focus:ring-gray-600"
@@ -88,19 +102,19 @@ export default function Home() {
               ref={dropdownRef}
               id="user-dropdown"
             >
-              <div class="px-4 py-3 border-b-2 border-gray">
-                <span class="block  text-gray-900 dark:text-white">
+              <div className="px-4 py-3 border-b-2 border-gray">
+                <span className="block  text-gray-900 dark:text-white">
                   {user.uname}
                 </span>
-                <span class="block text-sm  text-gray-500 truncate dark:text-gray-400">
+                <span className="block text-sm  text-gray-500 truncate dark:text-gray-400">
                   {user.email}
                 </span>
               </div>
-              <ul class="py-2" aria-labelledby="user-menu-button">
+              <ul className="py-2" aria-labelledby="user-menu-button">
                 <li>
                   <a
                     href="/home"
-                    class="block px-4 py-2 text-sm text-gray-700  dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                    className="block px-4 py-2 text-sm text-gray-700  dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                   >
                     Dashboard
                   </a>
@@ -108,7 +122,7 @@ export default function Home() {
                 <li>
                   <a
                     href="/"
-                    class="block px-4 py-2 text-sm text-gray-700  dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                    className="block px-4 py-2 text-sm text-gray-700  dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                   >
                     Settings
                   </a>
@@ -116,20 +130,20 @@ export default function Home() {
                 <li>
                   <Link
                     to={"/change-password"}
-                    class="block px-4 py-2 text-sm text-gray-700  dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                    className="block px-4 py-2 text-sm text-gray-700  dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                   >
                     Change Password
                   </Link>
                 </li>
                 <li>
-                  <div class="block px-4 py-2 text-sm text-gray-700  dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                  <div className="block px-4 py-2 text-sm text-gray-700  dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
                     <ThemeToggle />
                   </div>
                 </li>
                 <li>
                   <button
                     onClick={handleLogout}
-                    class="block px-4 py-2 text-sm text-gray-700  dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                    className="block px-4 py-2 text-sm text-gray-700  dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                   >
                     Sign out
                   </button>
@@ -148,11 +162,11 @@ export default function Home() {
                 sidebar.classList.toggle("translate-x-0");
                 sidebar.classList.toggle("-translate-x-full");
               }}
-              class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden  focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+              className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden  focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
             >
-              <span class="sr-only">Open sidebar</span>
+              <span className="sr-only">Open sidebar</span>
               <svg
-                class="w-6 h-6"
+                className="w-6 h-6"
                 aria-hidden="true"
                 fill="currentColor"
                 viewBox="0 0 20 20"
@@ -171,18 +185,18 @@ export default function Home() {
 
       <aside
         id="sidebar-multi-level-sidebar"
-        class="fixed top-0 left-0 z-40 w-64 h-screen border-r-2   transition-transform -translate-x-full sm:translate-x-0"
+        className="fixed top-0 left-0 z-40 w-64 h-screen border-r-2   transition-transform -translate-x-full sm:translate-x-0"
         aria-label="Sidebar"
       >
-        <div class="h-full px-3 pt-16 py-4 overflow-y-auto no-scrollbar bg-[#919ffdfc] dark:bg-gray-800">
-          <ul class="space-y-2 font-medium">
+        <div className="h-full px-3 pt-16 py-4 overflow-y-auto no-scrollbar bg-[#919ffdfc] dark:bg-gray-800">
+          <ul className="space-y-2 font-medium">
             <li className="side-bar-list">
               <Link
                 to={{ pathname: "/home", search: `?dashboard` }}
-                class="flex items-center p-2 text-gray-900 dark:hover:text-white rounded-lg dark:text-white  dark:hover:bg-gray-100 "
+                className="flex items-center p-2 text-gray-900 dark:hover:text-white rounded-lg dark:text-white  dark:hover:bg-gray-100 "
               >
                 <svg
-                  class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                  className="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="currentColor"
@@ -191,13 +205,13 @@ export default function Home() {
                   <path d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z" />
                   <path d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z" />
                 </svg>
-                <span class="ms-3 dark:text-black">Dashboard</span>
+                <span className="ms-3 dark:text-black">Dashboard</span>
               </Link>
             </li>
             <li className="side-bar-list">
               <button
                 type="button"
-                class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group  dark:text-black dark:hover:bg-gray-500 hover:text-center"
+                className="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group  dark:text-black dark:hover:bg-gray-500 hover:text-center"
                 onClick={() => {
                   const moneyDropdown =
                     document.getElementById("events-dropdown");
@@ -205,11 +219,11 @@ export default function Home() {
                 }}
               >
                 <PiNetworkFill size={24} className="dark:text-black" />
-                <span class="flex-1 ms-3 text-left rtl:text-right dark:text-black whitespace-nowrap">
+                <span className="flex-1 ms-3 text-left rtl:text-right dark:text-black whitespace-nowrap">
                   Events
                 </span>
                 <svg
-                  class="w-3 h-3"
+                  className="w-3 h-3"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -226,12 +240,12 @@ export default function Home() {
               </button>
               <ul
                 id="events-dropdown"
-                class="hidden side-bar-drop-list animate-fade-down animate-duration-500  list-disc py-2 pl-4 space-y-2  "
+                className="hidden side-bar-drop-list animate-fade-down animate-duration-500  list-disc py-2 pl-4 space-y-2  "
               >
                 <li className="ml-11  ">
                   <Link
                     to={{ pathname: "/home", search: `?event=inplay` }}
-                    class={`${dropdownClassList}`}
+                    className={`${dropdownClassList}`}
                   >
                     Inplay
                   </Link>
@@ -239,7 +253,7 @@ export default function Home() {
                 <li className="ml-11">
                   <Link
                     to={{ pathname: "/home", search: `?event=cricket` }}
-                    class={`${dropdownClassList}`}
+                    className={`${dropdownClassList}`}
                   >
                     Cricket
                   </Link>
@@ -247,7 +261,7 @@ export default function Home() {
                 <li className="ml-11">
                   <Link
                     to={{ pathname: "/home", search: `?event=football` }}
-                    class={`${dropdownClassList}`}
+                    className={`${dropdownClassList}`}
                   >
                     Football
                   </Link>
@@ -255,7 +269,7 @@ export default function Home() {
                 <li className="ml-11">
                   <Link
                     to={{ pathname: "/home", search: `?event=tennis` }}
-                    class={`${dropdownClassList}`}
+                    className={`${dropdownClassList}`}
                   >
                     Tennis
                   </Link>
@@ -266,7 +280,7 @@ export default function Home() {
             <li className="side-bar-list">
               <button
                 type="button"
-                class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group  dark:text-black dark:hover:bg-gray-500 hover:text-center"
+                className="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group  dark:text-black dark:hover:bg-gray-500 hover:text-center"
                 onClick={() => {
                   const moneyDropdown =
                     document.getElementById("casino-dropdown");
@@ -275,11 +289,11 @@ export default function Home() {
               >
                 <FaCoins size={20} className="dark:text-black" />
 
-                <span class="flex-1 ms-3 text-left rtl:text-right dark:text-black whitespace-nowrap">
+                <span className="flex-1 ms-3 text-left rtl:text-right dark:text-black whitespace-nowrap">
                   Live Casino
                 </span>
                 <svg
-                  class="w-3 h-3"
+                  className="w-3 h-3"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -296,12 +310,12 @@ export default function Home() {
               </button>
               <ul
                 id="casino-dropdown"
-                class="hidden side-bar-drop-list animate-fade-down animate-duration-500  list-disc py-2 pl-4 space-y-2"
+                className="hidden side-bar-drop-list animate-fade-down animate-duration-500  list-disc py-2 pl-4 space-y-2"
               >
                 <li className="ml-11">
                   <Link
                     to={{ pathname: "/home", search: `?game=color-game` }}
-                    class={`${dropdownClassList}`}
+                    className={`${dropdownClassList}`}
                   >
                     Color Play
                   </Link>
@@ -309,7 +323,7 @@ export default function Home() {
                 <li className="ml-11">
                   <Link
                     to={{ pathname: "/home", search: `?game=card-2020` }}
-                    class={`${dropdownClassList}`}
+                    className={`${dropdownClassList}`}
                   >
                     Card 2020
                   </Link>
@@ -319,7 +333,7 @@ export default function Home() {
             <li className="side-bar-list">
               <button
                 type="button"
-                class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group  dark:text-black dark:hover:bg-gray-500 hover:text-center"
+                className="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group  dark:text-black dark:hover:bg-gray-500 hover:text-center"
                 onClick={() => {
                   const moneyDropdown = document.getElementById(
                     "investment-dropdown"
@@ -328,11 +342,11 @@ export default function Home() {
                 }}
               >
                 <FaMoneyBillTransfer size={24} className="dark:text-black" />
-                <span class="flex-1 ms-3 text-left rtl:text-right dark:text-black whitespace-nowrap">
+                <span className="flex-1 ms-3 text-left rtl:text-right dark:text-black whitespace-nowrap">
                   Investment
                 </span>
                 <svg
-                  class="w-3 h-3"
+                  className="w-3 h-3"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -349,7 +363,7 @@ export default function Home() {
               </button>
               <ul
                 id="investment-dropdown"
-                class="hidden side-bar-drop-list animate-fade-down animate-duration-500  list-disc py-2 pl-2 space-y-2"
+                className="hidden side-bar-drop-list animate-fade-down animate-duration-500  list-disc py-2 pl-2 space-y-2"
               >
                 <li className="ml-11">
                   <Link
@@ -357,7 +371,7 @@ export default function Home() {
                       pathname: "/home",
                       search: `?investment=new-investment`,
                     }}
-                    class={`${dropdownClassList}`}
+                    className={`${dropdownClassList}`}
                   >
                     New Investment
                   </Link>
@@ -368,7 +382,7 @@ export default function Home() {
                       pathname: "/home",
                       search: `?investment=investment-history`,
                     }}
-                    class={`${dropdownClassList}`}
+                    className={`${dropdownClassList}`}
                   >
                     Investment History
                   </Link>
@@ -378,7 +392,7 @@ export default function Home() {
             <li className="side-bar-list">
               <button
                 type="button"
-                class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group  dark:text-black dark:hover:bg-gray-500 hover:text-center"
+                className="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group  dark:text-black dark:hover:bg-gray-500 hover:text-center"
                 onClick={() => {
                   const moneyDropdown =
                     document.getElementById("network-dropdown");
@@ -386,11 +400,11 @@ export default function Home() {
                 }}
               >
                 <PiNetworkFill size={24} className="dark:text-black" />
-                <span class="flex-1 ms-3 text-left rtl:text-right dark:text-black whitespace-nowrap">
+                <span className="flex-1 ms-3 text-left rtl:text-right dark:text-black whitespace-nowrap">
                   Network
                 </span>
                 <svg
-                  class="w-3 h-3"
+                  className="w-3 h-3"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -407,7 +421,7 @@ export default function Home() {
               </button>
               <ul
                 id="network-dropdown"
-                class="hidden side-bar-drop-list animate-fade-down animate-duration-500  list-disc py-2 pl-4 space-y-2"
+                className="hidden side-bar-drop-list animate-fade-down animate-duration-500  list-disc py-2 pl-4 space-y-2"
               >
                 <li className="ml-11">
                   <Link
@@ -415,7 +429,7 @@ export default function Home() {
                       pathname: "/home",
                       search: `?network=downline-member`,
                     }}
-                    class={`${dropdownClassList}`}
+                    className={`${dropdownClassList}`}
                   >
                     My Downline Member
                   </Link>
@@ -426,7 +440,7 @@ export default function Home() {
                       pathname: "/home",
                       search: `?network=direct-downline`,
                     }}
-                    class={`${dropdownClassList}`}
+                    className={`${dropdownClassList}`}
                   >
                     Direct Downline
                   </Link>
@@ -437,7 +451,7 @@ export default function Home() {
                       pathname: "/home",
                       search: `?network=add-new-member`,
                     }}
-                    class={`${dropdownClassList}`}
+                    className={`${dropdownClassList}`}
                   >
                     Add New Member
                   </Link>
@@ -445,7 +459,7 @@ export default function Home() {
                 <li className="ml-11">
                   <Link
                     to={{ pathname: "/home", search: `?network=member-tree` }}
-                    class={`${dropdownClassList}`}
+                    className={`${dropdownClassList}`}
                   >
                     My Member Tree
                   </Link>
@@ -456,7 +470,7 @@ export default function Home() {
             <li className="side-bar-list">
               <button
                 type="button"
-                class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group  dark:text-black dark:hover:bg-gray-500 hover:text-center"
+                className="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group  dark:text-black dark:hover:bg-gray-500 hover:text-center"
                 onClick={() => {
                   const moneyDropdown =
                     document.getElementById("money-dropdown");
@@ -472,11 +486,11 @@ export default function Home() {
                 }}
               >
                 <BsBank2 size={24} className="dark:text-black" />
-                <span class="flex-1 ms-3 text-left rtl:text-right dark:text-black whitespace-nowrap">
+                <span className="flex-1 ms-3 text-left rtl:text-right dark:text-black whitespace-nowrap">
                   Money
                 </span>
                 <svg
-                  class="w-3 h-3"
+                  className="w-3 h-3"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -493,7 +507,7 @@ export default function Home() {
               </button>
               <ul
                 id="money-dropdown"
-                class="hidden side-bar-drop-list animate-fade-down animate-duration-500  list-disc py-2 pl-2 space-y-2"
+                className="hidden side-bar-drop-list animate-fade-down animate-duration-500  list-disc py-2 pl-2 space-y-2"
               >
                 <li className="ml-11">
                   <button
@@ -502,19 +516,19 @@ export default function Home() {
                         document.getElementById("money-in-dropdown");
                       moneyDropdown.classList.toggle("hidden");
                     }}
-                    class={`${dropdownClassList}`}
+                    className={`${dropdownClassList}`}
                   >
                     Money In
                   </button>
                 </li>
                 <ul
                   id="money-in-dropdown"
-                  class="hidden side-bar-drop-list animate-fade-down animate-duration-500  list-square	 py-2 space-y-2 pl-4"
+                  className="hidden side-bar-drop-list animate-fade-down animate-duration-500  list-square	 py-2 space-y-2 pl-4"
                 >
                   <li>
                     <Link
                       to={{ pathname: "/home", search: `?money=usdt-deposit` }}
-                      class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-6 group  dark:text-black dark:hover:bg-gray-500 hover:text-center"
+                      className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-6 group  dark:text-black dark:hover:bg-gray-500 hover:text-center"
                     >
                       - USDT Deposit
                     </Link>
@@ -525,7 +539,7 @@ export default function Home() {
                         pathname: "/home",
                         search: `?money=deposit-history`,
                       }}
-                      class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-6 group  dark:text-black dark:hover:bg-gray-500 hover:text-center"
+                      className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-6 group  dark:text-black dark:hover:bg-gray-500 hover:text-center"
                     >
                       - Deposit History
                     </Link>
@@ -538,19 +552,19 @@ export default function Home() {
                         document.getElementById("money-out-dropdown");
                       moneyDropdown.classList.toggle("hidden");
                     }}
-                    class={`${dropdownClassList}`}
+                    className={`${dropdownClassList}`}
                   >
                     Money Out
                   </button>
                 </li>
                 <ul
                   id="money-out-dropdown"
-                  class="hidden side-bar-drop-list animate-fade-down animate-duration-500  list-square	 py-2 space-y-2 pl-4"
+                  className="hidden side-bar-drop-list animate-fade-down animate-duration-500  list-square	 py-2 space-y-2 pl-4"
                 >
                   <li>
                     <Link
                       to={{ pathname: "/home", search: `?money=withdrawal` }}
-                      class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-6 group  dark:text-black dark:hover:bg-gray-500 hover:text-center"
+                      className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-6 group  dark:text-black dark:hover:bg-gray-500 hover:text-center"
                     >
                       - Withdrawal
                     </Link>
@@ -561,7 +575,7 @@ export default function Home() {
                         pathname: "/home",
                         search: `?money=withdrawal-history`,
                       }}
-                      class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-6 group  dark:text-black dark:hover:bg-gray-500 hover:text-center"
+                      className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-6 group  dark:text-black dark:hover:bg-gray-500 hover:text-center"
                     >
                       - Withdrawal History
                     </Link>
@@ -573,7 +587,7 @@ export default function Home() {
             <li className="side-bar-list">
               <button
                 type="button"
-                class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group  dark:text-black dark:hover:bg-gray-500 hover:text-center"
+                className="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group  dark:text-black dark:hover:bg-gray-500 hover:text-center"
                 onClick={() => {
                   const moneyDropdown =
                     document.getElementById("account-dropdown");
@@ -581,11 +595,11 @@ export default function Home() {
                 }}
               >
                 <RiAccountCircleFill size={24} className="dark:text-black" />
-                <span class="flex-1 ms-3 text-left rtl:text-right dark:text-black whitespace-nowrap">
+                <span className="flex-1 ms-3 text-left rtl:text-right dark:text-black whitespace-nowrap">
                   My Account
                 </span>
                 <svg
-                  class="w-3 h-3"
+                  className="w-3 h-3"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -602,12 +616,12 @@ export default function Home() {
               </button>
               <ul
                 id="account-dropdown"
-                class=" hidden py-2 pl-2 list-disc	animate-fade-down animate-duration-500   space-y-2"
+                className=" hidden py-2 pl-2 list-disc	animate-fade-down animate-duration-500   space-y-2"
               >
                 <li className="ml-11">
                   <Link
                     to={{ pathname: "/home", search: `?account=send-money` }}
-                    class="flex items-center w-full p-2  pl-0 text-gray-900 transition duration-75 rounded-lg   group  dark:text-black dark:hover:bg-gray-500 hover:text-center"
+                    className="flex items-center w-full p-2  pl-0 text-gray-900 transition duration-75 rounded-lg   group  dark:text-black dark:hover:bg-gray-500 hover:text-center"
                   >
                     Send Money
                   </Link>
@@ -615,7 +629,7 @@ export default function Home() {
                 <li className="ml-11">
                   <Link
                     to={{ pathname: "/home", search: `?account=today-history` }}
-                    class={`${dropdownClassList}`}
+                    className={`${dropdownClassList}`}
                   >
                     Today History
                   </Link>
@@ -626,7 +640,7 @@ export default function Home() {
                       pathname: "/home",
                       search: `?account=account-history`,
                     }}
-                    class={`${dropdownClassList}`}
+                    className={`${dropdownClassList}`}
                   >
                     Account History
                   </Link>
@@ -637,7 +651,7 @@ export default function Home() {
             <li className="side-bar-list">
               <button
                 type="button"
-                class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group  dark:text-black dark:hover:bg-gray-500 hover:text-center"
+                className="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group  dark:text-black dark:hover:bg-gray-500 hover:text-center"
                 onClick={() => {
                   const moneyDropdown =
                     document.getElementById("income-dropdown");
@@ -645,11 +659,11 @@ export default function Home() {
                 }}
               >
                 <GiTakeMyMoney size={24} className="dark:text-black" />
-                <span class="flex-1 ms-3 text-left rtl:text-right dark:text-black whitespace-nowrap">
+                <span className="flex-1 ms-3 text-left rtl:text-right dark:text-black whitespace-nowrap">
                   My Income
                 </span>
                 <svg
-                  class="w-3 h-3"
+                  className="w-3 h-3"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -666,7 +680,7 @@ export default function Home() {
               </button>
               <ul
                 id="income-dropdown"
-                class=" hidden py-2 pl-2 list-disc	animate-fade-down animate-duration-500   space-y-2"
+                className=" hidden py-2 pl-2 list-disc	animate-fade-down animate-duration-500   space-y-2"
               >
                 <li className="ml-11">
                   <Link
@@ -674,7 +688,7 @@ export default function Home() {
                       pathname: "/home",
                       search: `?income=matching-income`,
                     }}
-                    class="flex items-center w-full p-2  pl-0 text-gray-900 transition duration-75 rounded-lg   group  dark:text-black dark:hover:bg-gray-500 hover:text-center"
+                    className="flex items-center w-full p-2  pl-0 text-gray-900 transition duration-75 rounded-lg   group  dark:text-black dark:hover:bg-gray-500 hover:text-center"
                   >
                     Matching Income
                   </Link>
@@ -685,7 +699,7 @@ export default function Home() {
                       pathname: "/home",
                       search: `?income=refferer-income`,
                     }}
-                    class={`${dropdownClassList}`}
+                    className={`${dropdownClassList}`}
                   >
                     Refferer Income
                   </Link>
@@ -693,7 +707,7 @@ export default function Home() {
                 <li className="ml-11">
                   <Link
                     to={{ pathname: "/home", search: `?income=roi-income` }}
-                    class={`${dropdownClassList}`}
+                    className={`${dropdownClassList}`}
                   >
                     ROI Income
                   </Link>
@@ -704,10 +718,10 @@ export default function Home() {
             <li className="bg-[#ffb2b2] rounded-lg">
               <div
                 onClick={handleLogout}
-                class="flex items-center cursor-pointer p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#abbaff] dark:hover:bg-gray-700 group"
+                className="flex items-center cursor-pointer p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#abbaff] dark:hover:bg-gray-700 group"
               >
                 <IoLogOut size={26} className="dark:text-black" />
-                <span class="flex-1 ms-3 dark:text-black whitespace-nowrap">
+                <span className="flex-1 ms-3 dark:text-black whitespace-nowrap">
                   Logout
                 </span>
               </div>
@@ -718,10 +732,13 @@ export default function Home() {
 
       {/* Content */}
       <div className=" ">
-        <div class="p-8 sm:ml-64  pt-24 ">
+        <div className="p-8 sm:ml-64  pt-24 ">
           <InnerSection />
         </div>
       </div>
+
+      {/* Create pin */}
+      {user && user?.user_pin === "N" && <CreatePin/> }
     </div>
   );
 }

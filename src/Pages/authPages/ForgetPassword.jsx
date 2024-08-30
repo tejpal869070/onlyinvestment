@@ -135,54 +135,54 @@ export default function ForgetPassword() {
 
   return (
     <div className="bg-gray-400 h-screen">
-      <div class="container mx-auto ">
-        <div class="flex justify-center   px-6 py-12">
-          <div class="w-full shadow-xl  xl:w-3/4 lg:w-11/12 flex">
+      <div className="container mx-auto ">
+        <div className="flex justify-center   px-6 py-12">
+          <div className="w-full shadow-xl  xl:w-3/4 lg:w-11/12 flex">
             <div
-              class="w-full h-auto bg-gray-400 hidden lg:block lg:w-1/2 bg-cover rounded-l-lg"
+              className="w-full h-auto bg-gray-400 hidden lg:block lg:w-1/2 bg-cover rounded-l-lg"
               style={{ backgroundImage: `url(${bg1})` }}
             ></div>
-            <div class="w-full lg:w-1/2 bg-white p-5 rounded-lg lg:rounded-l-none">
-              <div class="px-8 mb-2  ">
-                <h3 class="pt-4 mb-2 text-2xl font-semibold">
+            <div className="w-full lg:w-1/2 bg-white p-5 rounded-lg lg:rounded-l-none">
+              <div className="px-8 mb-2  ">
+                <h3 className="pt-4 mb-2 text-2xl font-semibold">
                   Forgot Your Password?
                 </h3>
-                <p class="mb-4 text-sm text-gray-700">
+                <p className="mb-4 text-sm text-gray-700">
                   Enter Email - Verify OTP - Reset Password
                 </p>
-                <p class="mb-2 text-sm text-[red]">{error}</p>
+                <p className="mb-2 text-sm text-[red]">{error}</p>
               </div>
               {!otpSuccess ? (
                 !otpSent ? (
                   <form
-                    class="px-8 pt-6 pb-8 mb-4 bg-white rounded"
+                    className="px-8 pt-6 pb-8 mb-4 bg-white rounded"
                     onSubmit={handleForgetPassword}
                   >
-                    <div class="mb-4">
+                    <div className="mb-4">
                       <label
-                        class="block mb-2 text-sm font-bold text-gray-700"
+                        className="block mb-2 text-sm font-bold text-gray-700"
                         for="email"
                       >
                         Email
                       </label>
                       <input
-                        class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                        className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                         id="email"
                         type="email"
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="Enter Email Address..."
                       />
                     </div>
-                    <div class="mb-6 text-center">
+                    <div className="mb-6 text-center">
                       <button
-                        class="w-full px-4 py-2 font-bold text-white bg-red-500 rounded-full hover:bg-red-700 focus:outline-none focus:shadow-outline"
+                        className="w-full px-4 py-2 font-bold text-white bg-red-500 rounded-full hover:bg-red-700 focus:outline-none focus:shadow-outline"
                         type="submit"
                         disabled={loading}
                       >
                         {loading ? <Loading1 width={30} /> : "SUBMIT"}
                       </button>
                     </div>
-                    <hr class="mb-6 border-t" />
+                    <hr className="mb-6 border-t" />
                   </form>
                 ) : (
                   <form
@@ -226,16 +226,16 @@ export default function ForgetPassword() {
               ) : (
                 <div className="px-8 pt-4 pb-8 mb-4 bg-white rounded">
                   <form onSubmit={handleChangePassword}>
-                    <div class="mb-4 flex flex-col gap-4">
+                    <div className="mb-4 flex flex-col gap-4">
                       <input
-                        class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                        className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                         id="password"
                         type="password"
                         onChange={(e) => setPassword(e.target.value)}
                         placeholder="New Password..."
                       />
                       <input
-                        class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                        className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                         id="password"
                         type="password"
                         onChange={(e) => setConfirmPassword(e.target.value)}
@@ -252,17 +252,17 @@ export default function ForgetPassword() {
                   </form>
                 </div>
               )}
-              <div class="text-center">
+              <div className="text-center">
                 <Link
-                  class="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
+                  className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
                   to={"/register"}
                 >
                   Create an Account!
                 </Link>
               </div>
-              <div class="text-center">
+              <div className="text-center">
                 <Link
-                  class="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
+                  className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
                   to={"/login"}
                 >
                   Already have an account? Login!
