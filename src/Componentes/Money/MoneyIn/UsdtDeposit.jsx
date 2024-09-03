@@ -3,7 +3,10 @@ import qrcode from "../../../assets/photos/deposit-qr.png";
 import { FaCopy } from "react-icons/fa";
 import Slider from "react-slick";
 import { ToastContainer, toast } from "react-toastify";
-import { GetPaymentMethod } from "../../../Controllers/User/UserController";
+import {
+  DepositRequest,
+  GetPaymentMethod,
+} from "../../../Controllers/User/UserController";
 import { MdCancel } from "react-icons/md";
 import { Loading1 } from "../../Loading1";
 
@@ -42,7 +45,7 @@ export default function UsdtDeposit() {
       toast.error("Please enter valid UTR no.");
       setCreating(false);
       return;
-    } else if (deposit_id < 0) {
+    } else if (deposit_id < 0 || deposit_id === undefined) {
       toast.error("Please select deposit method.");
       setCreating(false);
       return;
@@ -55,7 +58,32 @@ export default function UsdtDeposit() {
       setCreating(false);
       return;
     }
-    console.log(formData);
+    try {
+      const response = await DepositRequest(formData);
+      if (response.status) {
+        toast.success("Deposit successful");
+        setCreating(false);
+        setAmount("");
+        setUtr("");
+        setImage(null);
+        setSepositId();
+      } else {
+        toast.error("Something Went Wrong");
+        setCreating(false);
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 302) {
+        toast.error(error.response.data.message);
+        setAmount("");
+        setUtr("");
+        setImage(null);
+        setSepositId();
+        setCreating(false);
+      } else {
+        toast.error("Server Error !");
+        setCreating(false);
+      }
+    }
   };
 
   const settings = {
@@ -169,6 +197,7 @@ export default function UsdtDeposit() {
                     onChange={(e) => setSepositId(e.target.value)}
                     className="shadow-sm bg-gray-50 border border-gray-300 dark:bg-gray-400 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-[70%] p-2.5"
                   >
+                    <option>---Select Deposit---</option>
                     {paymentMethods &&
                       paymentMethods.map((item, index) => (
                         <option value={item.id}>
@@ -220,6 +249,15 @@ export default function UsdtDeposit() {
                   </button>
                 </div>
               </form>
+            </div>
+            <div className="border-t-2 border-gray-400 mt-6 text-sm rounded-lg font-semibold pt-4 bg-gradient-to-r from-rose-100 to-teal-100 pl-2 pb-4">
+              <p>Note.</p>
+              <p>
+                1. You can submit only one deposit request at a time, New request
+                can be made after success or fail of previous one.
+              </p>
+              <p>2. Minimum deposit amount is Rs.100</p>
+              <p>3. Submittion of wrong deposit details will be declined.</p>
             </div>
           </div>
         ) : (

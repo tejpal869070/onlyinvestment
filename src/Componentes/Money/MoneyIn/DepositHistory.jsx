@@ -1,35 +1,37 @@
-import React from "react";
-
-const data = [
-  {
-    amount: "40 USDT",
-    transection_id:
-      "69476ec765b2b67cabba4371019280d3013913d8b95a37242dbe0f9ffdc4157d",
-    ip: "192.168.1.555",
-    position: "LEFT",
-    status: "COMPLETED",
-    paidType: "UNPAID",
-    totalInvest: "$1000",
-    firstInveDate: "15-16-2024",
-    category: "Laptop",
-    price: "$2999",
-  },
-  {
-    amount: "18 USDT",
-    transection_id:
-      "97465ec765b2b67cabba43654654d3013913d8b95a37242dbe0f9ffdc454sdf",
-    ip: "192.168.2.457",
-    position: "RIGHT",
-    status: "PENDING",
-    paidType: "PAID",
-    totalInvest: "$1000",
-    firstInveDate: "15-16-2024",
-    category: "Laptop PC",
-    price: "$1999",
-  },
-];
+import React, { useEffect, useState } from "react";
+import { GetUserPaymentHistory } from "../../../Controllers/User/UserController";
+import { FaEye } from "react-icons/fa";
+import { Loading1 } from "../../Loading1";
 
 export default function DepositHistory() {
+  const [data, setData] = useState([]);
+  const [selectedIndex, setSelectedIndex] = useState();
+  const [loading, setLoading] = useState(true);
+  const [visible, setVisible] = useState(false);
+
+  const GetPaymentHistory = async () => {
+    const response = await GetUserPaymentHistory();
+    if (response !== null) {
+      setData(response.filter((item) => item.payment_type === "Deposit"));
+      setLoading(false);
+    } else {
+      setData([]);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    GetPaymentHistory();
+  }, []);
+
+  if (loading) {
+    return (
+      <div>
+        <Loading1 />
+      </div>
+    );
+  }
+
   return (
     <div className=" ">
       <div>
@@ -50,7 +52,7 @@ export default function DepositHistory() {
                   Transaction Hash
                 </th>
                 <th scope="col" className="px-6 py-3">
-                  Ip Address
+                  TYPE
                 </th>
                 <th scope="col" className="px-6 py-3">
                   Status
@@ -69,8 +71,9 @@ export default function DepositHistory() {
                 </tr>
               </tbody>
             ) : (
-              <tbody>
-                {data.map((item, index) => (
+              data &&
+              data.map((item, index) => (
+                <tbody>
                   <tr
                     key={index}
                     className="odd:bg-white text-black font-semibold dark:text-gray-200 odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
@@ -82,13 +85,57 @@ export default function DepositHistory() {
                       {index + 1}.
                     </th>
                     <td className="px-4 py-4">{item.amount}</td>
-                    <td className="px-6 py-4">{item.transection_id}</td>
-                    <td className="px-6 py-4">{item.ip}</td>
+                    <td className="px-6 py-4">{item.transaction_id}</td>
+                    <td className="px-6 py-4">{item.type}</td>
                     <td className="px-6 py-4">{item.status}</td>
-                    <td className="px-6 py-4">{item.paidType}</td>
+                    <td className="px-6 py-4">
+                      <FaEye
+                        size={20}
+                        className="cursor-pointer"
+                        onClick={() => {
+                          setSelectedIndex(index);
+                          setVisible((pre) => !pre);
+                        }}
+                      />
+                    </td>
                   </tr>
-                ))}
-              </tbody>
+                  {visible && selectedIndex === index ? (
+                    <tr className=" bg-gray-300 dark:bg-black animate-fade-down animate-duration-500">
+                      {item.type === "UPI" ? (
+                        <td colSpan="8 ">
+                          <div className="p-6 text-black font-medium dark:text-gray-200   ">
+                            <p>Transaction ID: {item.transaction_id}</p>
+                            <p>Amount: {item.amount}</p>
+                            <p>Date: {item.date.split("T")[0]}</p>
+                            <p>Transfered To: {item.upi_id}</p>
+                            <p>Status: {item.status}</p>
+                          </div>
+                        </td>
+                      ) : item.type === "Bank" ? (
+                        <td colSpan="8">
+                          <div className="p-6 text-black font-medium dark:text-gray-200   border-gray-700">
+                            <p>Transaction ID: {item.transaction_id}</p>
+                            <p>Amount: {item.amount}</p>
+                            <p>Date: {item.date.split("T")[0]}</p>
+                            <p>Transfered To: </p>
+                            <div >
+                              <p>Account Holder: {item.ac_holder_name}</p>
+                              <p>Account No.: {item.ac_no}</p>
+                              <p>Bank Name: {item.bank_name}</p>
+                              <p>IFSC: {item.ifsc_code}</p>
+                            </div>
+                            <p>Status: {item.status}</p>
+                          </div>
+                        </td>
+                      ) : (
+                        ""
+                      )}
+                    </tr>
+                  ) : (
+                    ""
+                  )}
+                </tbody>
+              ))
             )}
           </table>
         </div>

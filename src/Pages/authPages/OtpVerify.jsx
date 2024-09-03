@@ -37,7 +37,7 @@ export default function OtpVerify({ goBack, formData }) {
           });
           setTimeout(function () {
             window.location.href = "/login";
-          }, 2500);
+          }, 1500);
         } else {
           toast.error("Something went wrong !", {
             position: "top-center",

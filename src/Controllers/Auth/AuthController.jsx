@@ -121,3 +121,42 @@ export const ForgetPasswordApi = async (formData) => {
     throw error;
   }
 };
+
+export const GetUserNameByMobile = async (mobile) => {
+  try {
+    const dataToSent = {
+      user_mobile: mobile,
+    };
+
+    const response = await axios.post(`${API.url}user/check-user`, dataToSent);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const SendMoneyToUser = async (formData) => {
+  try {
+    const dataToSent = {
+      pin: formData.pin,
+      mobile: mobile,
+      amount: formData.amount,
+      user_mobile: formData.userMobile,
+    };
+
+    const axiosConfig = {
+      headers: {
+        Authorization: `Bearer ${bearerToken}`,
+      },
+    };
+
+    const response = await axios.post(
+      `${API.url}user/money-transfer`,
+      dataToSent,
+      axiosConfig
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

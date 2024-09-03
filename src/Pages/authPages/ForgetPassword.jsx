@@ -33,19 +33,26 @@ export default function ForgetPassword() {
   const handleForgetPassword = async (e) => {
     e.preventDefault();
     setLoading(true);
+
     if (email.length < 10) {
       setError("Enter Valid Email.");
       setLoading(false);
       return;
     }
-    // otp send function
-    const otpResponse = await SendOtp(formData);
-    if (otpResponse.status) {
-      setError("");
-      setLoading(false);
-      setOtpSent(true);
-    } else {
-      setError("Server Error !");
+
+    try {
+      // otp send function
+      const otpResponse = await SendOtp(formData);
+
+      if (otpResponse.status) {
+        setError("");
+        setOtpSent(true);
+      } else {
+        setError("Server Error !");
+      }
+    } catch (error) { 
+      setError("An unexpected error occurred.");  
+    } finally {
       setLoading(false);
     }
   };

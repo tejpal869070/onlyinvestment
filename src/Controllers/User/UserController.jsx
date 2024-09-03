@@ -61,9 +61,9 @@ export const ChangePasswordControll = async (formData) => {
 
 export const DepositRequest = async (formData) => {
   const formDataToSend = new FormData();
-  formDataToSend.append("transection_id", formData.transection_id);
+  formDataToSend.append("transection_id", formData.utr);
   formDataToSend.append("mobile", mobile);
-  formDataToSend.append("d_image", formData.d_image);
+  formDataToSend.append("image", formData.image);
   formDataToSend.append("amount", formData.amount);
   formDataToSend.append("deposit_id", formData.deposit_id);
 
@@ -127,5 +127,31 @@ export const CreateAccountPin = async (pin) => {
     return response.data;
   } catch (error) {
     return error;
+  }
+};
+
+export const GetUserPaymentHistory = async () => {
+  try {
+    const postData = {
+      mobile: mobile,
+    };
+
+    const axiosConfig = {
+      headers: {
+        Authorization: `Bearer ${bearerToken}`,
+      },
+    };
+    const response = await axios.post(
+      `${API.url}user/get-deposit-request`,
+      postData,
+      axiosConfig
+    );
+    if (response?.data?.status) {
+      return response.data.data;
+    } else {
+      return null;
+    }
+  } catch (error) {
+    return null;
   }
 };

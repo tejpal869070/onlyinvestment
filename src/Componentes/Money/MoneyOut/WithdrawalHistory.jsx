@@ -1,37 +1,34 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { FaRegEye } from "react-icons/fa"; 
+import { GetUserPaymentHistory } from "../../../Controllers/User/UserController";
+import { Loading1 } from "../../Loading1";
 
 export default function WithdrawalHistory() {
   const [isVisible, setIsVisible] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(null);
-  const data = [
-    {
-      amount: "40 USDT",
-      transection_id:
-        "69476ec765b2b67cabba4371019280d3013913d8b95a37242dbe0f9ffdc4157d",
-      ip: "192.168.1.555",
-      type: "CRYPTO",
-      status: "COMPLETED",
-      paidType: "UNPAID",
-      totalInvest: "$1000",
-      firstInveDate: "15-16-2024",
-      category: "Laptop",
-      price: "$2999",
-    },
-    {
-      amount: "18 USDT",
-      transection_id:
-        "97465ec765b2b67cabba43654654d3013913d8b95a37242dbe0f9ffdc454sdf",
-      ip: "192.168.2.457",
-      type: "BANK",
-      status: "PENDING",
-      paidType: "PAID",
-      totalInvest: "$1000",
-      firstInveDate: "15-16-2024",
-      category: "Laptop PC",
-      price: "$1999",
-    },
-  ];
+   
+
+
+  const [data, setData] = useState([]); 
+  const [loading, setLoading] = useState(true);
+  const [visible, setVisible] = useState(false);
+
+  const GetPaymentHistory = async () => {
+    const response = await GetUserPaymentHistory();
+    if (response !== null) {
+      setData(response.filter((item) => item.payment_type === "Withdrawal"));
+      setLoading(false);
+    } else {
+      setData([]);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    GetPaymentHistory();
+  }, []);
+
+  
 
   const showModal = useCallback(
     (index) => {
@@ -40,6 +37,14 @@ export default function WithdrawalHistory() {
     },
     [setIsVisible, setSelectedIndex]
   );
+
+  if (loading) {
+    return (
+      <div>
+        <Loading1 />
+      </div>
+    );
+  }
 
   return (
     <div className="relative">
@@ -58,9 +63,7 @@ export default function WithdrawalHistory() {
                   <th scope="col" className="px-6 py-3">
                     AMOUNT
                   </th>
-                  <th scope="col" className="px-6 py-3">
-                    Ip Address
-                  </th>
+                   
                   <th scope="col" className="px-6 py-3">
                     withdrawal type
                   </th>
@@ -93,8 +96,7 @@ export default function WithdrawalHistory() {
                       >
                         {index + 1}.
                       </th>
-                      <td className="px-4 py-4">{item.amount}</td>
-                      <td className="px-6 py-4">{item.ip}</td>
+                      <td className="px-4 py-4">{item.amount}</td> 
                       <td className="px-6 py-4">{item.type}</td>
                       <td className="px-6 py-4">{item.status}</td>
                       <td className="px-6 py-4">{item.firstInveDate}</td>
