@@ -1,45 +1,42 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { FaRegEye } from "react-icons/fa";
+import { MyInvestMentHistory } from "../../Controllers/User/UserController";
+import { Loading1 } from "../Loading1";
 
 export default function InvestmentHistory() {
-  const [isVisible, setIsVisible] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState(null);
-  const data = [
-    {
-      amount: "40 USDT",
-      transection_id:
-        "69476ec765b2b67cabba4371019280d3013913d8b95a37242dbe0f9ffdc4157d",
-      ip: "192.168.1.555",
-      type: "CRYPTO",
-      status: "COMPLETED",
-      paidType: "UNPAID",
-      totalInvest: "$1000",
-      firstInveDate: "15-16-2024",
-      category: "Laptop",
-      price: "$2999",
-    },
-    {
-      amount: "18 USDT",
-      transection_id:
-        "97465ec765b2b67cabba43654654d3013913d8b95a37242dbe0f9ffdc454sdf",
-      ip: "192.168.2.457",
-      type: "BANK",
-      status: "PENDING",
-      paidType: "PAID",
-      totalInvest: "$1000",
-      firstInveDate: "15-16-2024",
-      category: "Laptop PC",
-      price: "$1999",
-    },
-  ];
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const showModal = useCallback(
-    (index) => {
-      setIsVisible((pre) => !pre);
-      setSelectedIndex(index);
-    },
-    [setIsVisible, setSelectedIndex]
-  );
+  function getEndDate(initialDate, days) {
+    const date = new Date(initialDate);
+    date.setDate(date.getDate() + days);
+    return date.toISOString().split('T')[0];
+  }
+
+   
+
+  const GetHistory = async () => {
+    const response = await MyInvestMentHistory();
+    if (response !== null) {
+      setData(response);
+      setLoading(false);
+    } else {
+      setData([]);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    GetHistory();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-gray-800 bg-opacity-50 z-[9999]">
+        <Loading1 />
+      </div>
+    );
+  }
 
   return (
     <div className="relative">
@@ -56,26 +53,26 @@ export default function InvestmentHistory() {
                     S.No.
                   </th>
                   <th scope="col" className="px-6 py-3">
-                    AMOUNT
+                    INVESTMENT
                   </th>
                   <th scope="col" className="px-6 py-3">
-                    Ip Address
+                    TYPE
                   </th>
                   <th scope="col" className="px-6 py-3">
-                    withdrawal type
+                    CLAIM TIME
                   </th>
                   <th scope="col" className="px-6 py-3">
                     Status
                   </th>
                   <th scope="col" className="px-6 py-3">
-                    DATE
+                    DATE START
                   </th>
                   <th scope="col" className="px-6 py-3">
-                    ACTION
+                    DATE END
                   </th>
                 </tr>
               </thead>
-              {data.length === 0 ? (
+              {data && data.length === 0 ? (
                 <tbody>
                   <tr>
                     <td colspan="8" className="text-center p-4">
@@ -94,27 +91,16 @@ export default function InvestmentHistory() {
                         {index + 1}.
                       </th>
                       <td className="px-4 py-4">{item.amount}</td>
-                      <td className="px-6 py-4">{item.ip}</td>
-                      <td className="px-6 py-4">{item.type}</td>
-                      <td className="px-6 py-4">{item.status}</td>
-                      <td className="px-6 py-4">{item.firstInveDate}</td>
+                      <td className="px-4 py-4">{item.plan_name}</td>
                       <td className="px-6 py-4">
-                        <FaRegEye
-                          size={20}
-                          className="cursor-pointer"
-                          onClick={() => showModal(index)}
-                        />
+                        {item.times} {item.title}
+                      </td>
+                      <td className="px-6 py-4">{item.status}</td>
+                      <td className="px-6 py-4">{item.date.split("T")[0]}</td>
+                      <td className="px-6 py-4">
+                        {getEndDate(item.date, Number(item.times))}
                       </td>
                     </tr>
-                    {isVisible && selectedIndex === index ? (
-                      <tr>
-                        <td colspan="7" className="text-center p-4">
-                          No Records Found!
-                        </td>
-                      </tr>
-                    ) : (
-                      ""
-                    )}
                   </tbody>
                 ))
               )}

@@ -56,7 +56,7 @@ export default function Login() {
         setCreating(false);
         return;
       }
-      toast.error("Something Went Wrong");
+      toast.error("Server Error !");
       setCreating(false);
     }
   };
