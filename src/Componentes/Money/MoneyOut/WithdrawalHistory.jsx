@@ -99,7 +99,7 @@ export default function WithdrawalHistory() {
                       <td className="px-4 py-4">{item.amount}</td> 
                       <td className="px-6 py-4">{item.type}</td>
                       <td className="px-6 py-4">{item.status}</td>
-                      <td className="px-6 py-4">{item.firstInveDate}</td>
+                      <td className="px-6 py-4">{item.date.split('T')[0]}</td>
                       <td className="px-6 py-4">
                         <FaRegEye
                           size={20}

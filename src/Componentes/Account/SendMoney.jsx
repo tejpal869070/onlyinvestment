@@ -88,7 +88,7 @@ export default function SendMoney() {
         setUserVerified(false);
         setSendTo("");
         setLoading(false);
-        userDataGet()
+        userDataGet();
       } else {
         toast.error("Failed to send money");
         setLoading(false);

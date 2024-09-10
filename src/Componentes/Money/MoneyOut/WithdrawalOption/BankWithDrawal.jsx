@@ -154,13 +154,13 @@ export default function BankWithDrawal() {
     return (
       <div className="fixed top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-[#000000d1] bg-opacity-50 z-[9999]">
         <img alt="success" src={successImg} />
-        <p className="text-2xl text-white font-semibold">Investment Success.</p>
+        <p className="text-2xl text-white font-semibold">Withdrawal Success !</p>
       </div>
     );
   }
 
   return (
-    <div className="z-[9999]">
+    <div className="z-[9999] relative">
       <div className="bg-white dark:bg-black border border-4 dark:border-gray-300 rounded-lg shadow relative lg:mx-10  ">
         <div className="p-6 space-y-6">
           <div>

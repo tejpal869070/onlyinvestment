@@ -72,6 +72,7 @@ export default function NewInvestment() {
         setSuccess(true);
         setLoading(false);
         setInvestmentPlan(PlansData[0].id);
+        userDataGet()
         setAmount(100);
         setPin("");
         setTimeout(() => {
