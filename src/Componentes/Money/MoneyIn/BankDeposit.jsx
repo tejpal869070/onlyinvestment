@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import qrcode from "../../../assets/photos/deposit-qr.png";
 import { FaCopy } from "react-icons/fa";
 import Slider from "react-slick";
 import { ToastContainer, toast } from "react-toastify";
@@ -9,8 +8,11 @@ import {
 } from "../../../Controllers/User/UserController";
 import { MdCancel } from "react-icons/md";
 import { Loading1 } from "../../Loading1";
+import { API } from "../../../Controllers/Api";
+import CopyToClipboard from "react-copy-to-clipboard";
+import CryptoDeposit from "./CryptoDeposit";
 
-export default function UsdtDeposit() {
+export default function BankDeposit() {
   const [tab, setTab] = useState(1);
   const [paymentMethods, setPaymentMethods] = useState([]);
   const [utr, setUtr] = useState("");
@@ -18,13 +20,17 @@ export default function UsdtDeposit() {
   const [deposit_id, setSepositId] = useState();
   const [image, setImage] = useState(null);
   const [creating, setCreating] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  const [data, setData] = useState();
 
   // Get Deposit methodes -----------------------------------------------
   const getDepositMethode = async () => {
     const response = await GetPaymentMethod();
     if (response.status) {
       setPaymentMethods(response.data);
-      console.log(response.data);
+      setData(response.usdt[0]);
+      setLoading(false);
     } else {
       setPaymentMethods([]);
     }
@@ -100,6 +106,14 @@ export default function UsdtDeposit() {
   useEffect(() => {
     getDepositMethode();
   }, []);
+
+  if (loading) {
+    return (
+      <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-gray-800 bg-opacity-50 z-[9999]">
+        <Loading1 />
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -253,38 +267,15 @@ export default function UsdtDeposit() {
             <div className="border-t-2 border-gray-400 mt-6 text-sm rounded-lg font-semibold pt-4 bg-gradient-to-r from-rose-100 to-teal-100 pl-2 pb-4">
               <p>Note.</p>
               <p>
-                1. You can submit only one deposit request at a time, New request
-                can be made after success or fail of previous one.
+                1. You can submit only one deposit request at a time, New
+                request can be made after success or fail of previous one.
               </p>
               <p>2. Minimum deposit amount is Rs.100</p>
               <p>3. Submittion of wrong deposit details will be declined.</p>
             </div>
           </div>
         ) : (
-          <div className="w-full p-2 border-2 border-black dark:border-gray-200 mt-6 py-4 border-b-4 rounded-lg shadow-lg m-auto flex flex-col">
-            <h1 className="text-center font-semibold text-lg dark:text-white">
-              TRC20 USDT ADDRESS
-            </h1>
-            <p className="text-center dark:text-white font-semibold flex  justify-center align-center items-center gap-2  bg-[#ff9600] px-4 mt-2 py-1 inline m-auto rounded-lg ">
-              TGw3xDnEoc7xycSvLDM2k4KiPrpyHpTZws{" "}
-              <FaCopy className="cursor-pointer  " />
-            </p>
-            <h1 className="text-center font-semibold text-lg text-[#426D98] mt-4">
-              OR SCAN
-            </h1>
-            <img alt="qr-code" src={qrcode} className="h-60 w-60 m-auto mt-4" />
-
-            <div className="font-medium dark:text-white border-t-2 mt-6 border-black dark:border-white">
-              <p className="text-[red] dark:text-white mt-2 font-semibold">
-                Note:
-              </p>
-              <p>1. Minimum Deposit $10.00</p>
-              <p>
-                2. After complete the transaction amount will be credited in
-                your account.
-              </p>
-            </div>
-          </div>
+          <CryptoDeposit data={data} />
         )}
         {/*  */}
       </div>

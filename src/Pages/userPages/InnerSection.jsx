@@ -5,7 +5,7 @@ import Downlinemember from "../../Componentes/Network/Downlinemember";
 import DirextDownline from "../../Componentes/Network/DirectDownline";
 import AddNewMember from "../../Componentes/Network/AddNewMember";
 import MemberTree from "../../Componentes/Network/MemberTree";
-import UsdtDeposit from "../../Componentes/Money/MoneyIn/UsdtDeposit";
+import BankDeposit from "../../Componentes/Money/MoneyIn/BankDeposit";
 import DepositHistory from "../../Componentes/Money/MoneyIn/DepositHistory";
 import Withdrawal from "../../Componentes/Money/MoneyOut/Withdrawal";
 import WithdrawalHistory from "../../Componentes/Money/MoneyOut/WithdrawalHistory";
@@ -53,7 +53,7 @@ export default function InnerSection() {
   } else if (paramsData && paramsData.network === "member-tree") {
     return <div>{<MemberTree />}</div>;
   } else if (paramsData && paramsData.money === "usdt-deposit") {
-    return <div> {<UsdtDeposit />} </div>;
+    return <div> {<BankDeposit />} </div>;
   } else if (paramsData && paramsData.money === "deposit-history") {
     return <div> {<DepositHistory />} </div>;
   } else if (paramsData && paramsData.money === "withdrawal") {
