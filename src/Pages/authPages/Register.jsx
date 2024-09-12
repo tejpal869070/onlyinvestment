@@ -139,6 +139,7 @@ export default function Register() {
                   </button> */}
                       <button
                         type="submit"
+                        disabled={loading}
                         className="relative w-full text-center cursor-pointer"
                       >
                         <span className="absolute top-0 left-0 mt-1 ml-1 h-full w-full rounded bg-black"></span>

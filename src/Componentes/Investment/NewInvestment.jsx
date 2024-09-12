@@ -8,6 +8,8 @@ import {
 import { ToastContainer, toast } from "react-toastify";
 import { Loading1 } from "../Loading1";
 import successImg from "../../assets/photos/success1-1--unscreen.gif";
+import gif1 from "../../assets/photos/growwealthgif.gif";
+import VerifyPin from "../VerifyPin";
 
 export default function NewInvestment() {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,15 +20,25 @@ export default function NewInvestment() {
   const [pin, setPin] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [verifyPinPopup, setVerifyPinPop] = useState(false);
 
   const onClose = () => {
     setIsOpen(false);
   };
 
+  const onclose2 = () => {
+    setVerifyPinPop(false);
+  };
+
+  const successFunction = async (pin) => { 
+    formData.pin = pin
+    console.log(pin)
+    handleForm();
+  };
+
   const formData = {
     amount: amount,
-    investmentPlan: investmentPlan,
-    pin: pin,
+    investmentPlan: investmentPlan, 
   };
 
   const userDataGet = async () => {
@@ -46,8 +58,7 @@ export default function NewInvestment() {
     }
   };
 
-  const handleForm = async (e) => {
-    e.preventDefault();
+  const handleForm = async () => {
     setLoading(true);
     if (investmentPlan < 0) {
       toast.error("Invalid investment plan");
@@ -61,18 +72,14 @@ export default function NewInvestment() {
       toast.error("Minimum Amount is Rs.100");
       setLoading(false);
       return;
-    } else if (pin.length !== 4) {
-      toast.error("Invalid Pin");
-      setLoading(false);
-      return;
-    }
+    } 
     try {
       const response = await MakeNewInvestment(formData);
       if (response.status) {
         setSuccess(true);
         setLoading(false);
         setInvestmentPlan(PlansData[0].id);
-        userDataGet()
+        userDataGet();
         setAmount(100);
         setPin("");
         setTimeout(() => {
@@ -97,25 +104,7 @@ export default function NewInvestment() {
     GetAllPlans();
   }, []);
 
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
-  const date = new Date().getDate();
-  const month = new Date().getMonth();
-  const year = new Date().getFullYear();
-
+  
   useEffect(() => {
     userDataGet();
   }, []);
@@ -131,98 +120,98 @@ export default function NewInvestment() {
 
   return (
     <div>
-      <div>
-        <p className="lg:pl-10 font-bold dark:text-white text-xl mb-6">
-          Investment {">"}New Investment
-        </p>
-        <div className="ml-10 mb-4">
-          <button
-            onClick={() => setIsOpen(true)}
-            className="animate-bounce shadow-xl focus:animate-none   inline-flex text-md font-medium bg-indigo-900 mt-3 px-4 py-2 rounded-lg tracking-wide text-white"
-          >
-            <span className="ml-2">View Plans 🏀</span>
-          </button>
-        </div>
-        <div className="bg-white dark:bg-black border border-4 rounded-lg shadow relative lg:mx-10  ">
-          <div className="p-6 space-y-6">
-            <div>
-              <p className=" dark:text-white font-medium text-md   mb-2">
-                Date: {months[month]} {date} {year}
-              </p>
+      <div class="   flex items-center justify-center  ">
+        <div class="bg-[#e1e6ff] text-gray-500 rounded-3xl shadow-xl w-full overflow-hidden">
+          <div class="md:flex flex-row-reverse w-full">
+            <div class="hidden md:block w-1/2 bg-indigo-500 py-10 px-10">
+              <img alt="animation" className="w-full h-full " src={gif1} />
+            </div>
+            <div class="w-full md:w-1/2 py-10 px-5 md:px-10">
+              <div class="text-center mb-6">
+                <h1 class="font-bold text-3xl text-gray-900">NEW INVESTMENT</h1>
+                <p>Let Your Money Work for You.</p>
+              </div>
               <p className="  font-medium text-lg text-[green] mb-4">
                 Account Balance: ₹{user && user.wallet_balance}
               </p>
-            </div>
-            <form onSubmit={handleForm} className="uppercase">
-              <div className="grid grid-cols-6 gap-6">
-                <div className="col-span-12 ">
-                  {/* dropdown */}
-                  <select
-                    onChange={(e) => setInvestmentPlan(e.target.value)}
-                    defaultChecked={investmentPlan}
-                    className="shadow-sm bg-gray-50 border font-semibold text-sm border-gray-300 text-gray-900 rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-1/2 p-2.5"
-                  >
-                    {PlansData &&
-                      PlansData?.map((item, index) => (
-                        <option
-                          key={index}
-                          value={item.id}
-                          className="font-semibold cursor-pointer"
-                        >
-                          {item.plan_name}
-                        </option>
-                      ))}
-                  </select>
-                </div>
-                <div className="col-span-12 ">
-                  <label
-                    for="product-details"
-                    className="text-sm font-medium text-gray-900 dark:text-white block mb-2"
-                  >
-                    Amount
-                  </label>
-                  <input
-                    type="number"
-                    className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-1/2 p-2.5"
-                    placeholder=""
-                    required=""
-                    value={amount}
-                    onChange={(e) => setAmount(e.target.value)}
-                  />
-                </div>
-                <div className="col-span-12 ">
-                  <label
-                    for="product-details"
-                    className="text-sm font-medium text-gray-900 dark:text-white block mb-2"
-                  >
-                    Security Code *
-                  </label>
-                  <input
-                    type="password"
-                    value={pin}
-                    onChange={(e) => setPin(e.target.value)}
-                    name="price"
-                    id="price"
-                    className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-1/2 p-2.5"
-                    placeholder="******"
-                    required=""
-                  />
-                </div>
-              </div>
-
-              <div className="flex flex-wrap   gap-6 mt-6">
-                <button className="relative" type="submit">
-                  <span className="absolute top-0 left-0 mt-1 ml-1 h-full w-full rounded bg-black dark:bg-gray-500"></span>
-                  <span className="fold-bold relative inline-block h-full w-full rounded border-2 border-black bg-white px-3 py-1 text-base font-bold text-black transition duration-100 hover:bg-yellow-400 hover:text-gray-900">
-                    {loading ? <Loading1 width={30} /> : "SUBMIT"}
-                  </span>
+              <div className="  mb-4">
+                <button
+                  onClick={() => setIsOpen(true)}
+                  className="animate-bounce shadow-xl focus:animate-none   inline-flex text-md font-medium bg-indigo-900 mt-3 px-4 py-2 rounded-lg tracking-wide text-white"
+                >
+                  <span className="ml-2">View Plans 🏀</span>
                 </button>
               </div>
-            </form>
+              <div >
+                <div class="flex -mx-3">
+                  <div class="w-full px-3 mb-5">
+                    <label for="" class="text-xs font-semibold px-1 text-black">
+                      Choose Plans
+                    </label>
+                    <div class="flex">
+                      <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
+                        <i class="mdi mdi-email-outline text-gray-400 text-lg"></i>
+                      </div>
+                      <select
+                        onChange={(e) => setInvestmentPlan(e.target.value)}
+                        defaultChecked={investmentPlan}
+                        class="w-full -ml-10  pr-3 py-2 text-black font-medium rounded-lg border-2 border-gray-200 outline-none focus:border-none"
+                      >
+                        {PlansData &&
+                          PlansData?.map((item, index) => (
+                            <option
+                              key={index}
+                              value={item.id}
+                              className="font-semibold cursor-pointer"
+                            >
+                              {item.plan_name}
+                            </option>
+                          ))}
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex -mx-3">
+                  <div class="w-full px-3 mb-8">
+                    <label for="" class="text-xs font-semibold px-1 text-black">
+                      Amount
+                    </label>
+                    <div class="flex">
+                      <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
+                        <i class="mdi mdi-lock-outline text-gray-400 text-lg"></i>
+                      </div>
+                      <input
+                        type="number"
+                        value={amount}
+                        onChange={(e) => setAmount(e.target.value)}
+                        class="w-full -ml-10  pr-3 py-2 rounded-lg text-black font-medium border-2 border-gray-200 outline-none focus:border-indigo-500"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="flex flex-wrap   gap-6  ">
+                  <button
+                    className="relative"
+                    onClick={() => setVerifyPinPop(true)}
+                  >
+                    <span className="absolute top-0 left-0 mt-1 ml-1 h-full w-full rounded bg-black dark:bg-gray-500"></span>
+                    <span className="fold-bold relative inline-block h-full w-full rounded border-2 border-black bg-white px-3 py-1 text-base font-bold text-black transition duration-100 hover:bg-yellow-400 hover:text-gray-900">
+                      {loading ? <Loading1 width={30} /> : "SUBMIT"}
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
       {isOpen && <ViewPlans onClose={onClose} />}
+      {verifyPinPopup && (
+        <VerifyPin
+          onclose2={onclose2}
+          successFunction={(pin) => successFunction(pin)}
+        />
+      )}
       <ToastContainer />
     </div>
   );

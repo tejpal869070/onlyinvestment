@@ -30,7 +30,7 @@ const CreatePin = () => {
         setLoading(false);
       }
     } catch (error) {
-      setError("Server Error");
+      setError("Server Error"); 
       setLoading(false);
     }
   };

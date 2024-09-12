@@ -160,3 +160,27 @@ export const SendMoneyToUser = async (formData) => {
     throw error;
   }
 };
+
+export const PinVerification = async (pin) => {
+  try {
+    const dataToSent = {
+      pin: pin,
+      mobile: mobile,
+    };
+
+    const axiosConfig = {
+      headers: {
+        Authorization: `Bearer ${bearerToken}`,
+      },
+    };
+
+    const response = await axios.post(
+      `${API.url}user/verify-pin`,
+      dataToSent,
+      axiosConfig
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

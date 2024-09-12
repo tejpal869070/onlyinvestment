@@ -13,9 +13,7 @@ import Cookies from "js-cookie";
 import { GetUserDetails } from "../Controllers/User/UserController";
 import ThemeToggle from "../Controllers/ThemeToggle";
 import { Loading1 } from "../Componentes/Loading1";
-import CreatePin from "../Componentes/Dashboard/CratePin";
-import { IoSunny } from "react-icons/io5";
-import { MdDarkMode } from "react-icons/md";
+import CreatePin from "../Componentes/Dashboard/CratePin"; 
 
 export default function Home() {
   const [user, setUser] = React.useState({});
@@ -66,7 +64,7 @@ export default function Home() {
   if (loading) {
     return (
       <div className="w-screen h-screen flex items-center justify-center m-auto inset-0">
-        <Loading1 />{" "}
+        <Loading1 />
       </div>
     );
   }

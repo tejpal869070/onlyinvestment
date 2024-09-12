@@ -66,7 +66,7 @@ const ViewPlans = ({ url, onClose }) => {
                   <div>
                     <div className="flex gap-4 justify-center mb-4">
                       <p className="font-bold text-gray-700 text-xl mb-2">
-                        ₹{((amount * item.percentage) / 100).toFixed(0)}/
+                        ₹{((Number((amount * item.percentage) / 100) + Number(amount)) / item.times).toFixed(1)}/
                         {item.plan_name}
                       </p>
                     </div>
@@ -104,7 +104,7 @@ const ViewPlans = ({ url, onClose }) => {
                           clip-rule="evenodd"
                         ></path>
                       </svg>
-                      <b>25 Keywords</b>
+                      <b>{item.percentage}% Interest Rate</b>
                     </p>
                     <p className="flex items-center text-sm">
                       <svg
@@ -126,10 +126,7 @@ const ViewPlans = ({ url, onClose }) => {
                     <div className="flex justify-center mt-8">
                       <button className="px-4 py-2 border-violet-400 border-4 hover:bg-violet-100 rounded-xl">
                         Total Return:{" "}
-                        {(
-                          ((amount * item.percentage) / 100) *
-                          item.times
-                        ).toFixed(2)}
+                        {(Number(amount * item.percentage/100) + Number(amount)).toFixed(0)}
                       </button>
                     </div>
                   </div>

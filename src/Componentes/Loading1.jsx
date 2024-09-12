@@ -7,7 +7,7 @@ export function Loading1({ width }) {
       <img alt="loading" src={loading1img} width={width} height={width} />
     </div>
   );
-}
+} 
 
 export function Loading2() {
   return (

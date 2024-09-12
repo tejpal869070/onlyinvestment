@@ -136,7 +136,7 @@ export default function BankDeposit() {
         {tab === 1 ? (
           <div className="w-full p-2 border-2 border-black dark:border-gray-100 shadow-lg mt-6 py-4 border-b-4 rounded-lg shadow-lg m-auto flex flex-col">
             <div className="grid grid-cols-12 gap-4 w-full">
-              <div className="col-span-12 md:col-span-6 p-6 rounded bg-gray-200 dark:bg-gray-600">
+              <div className="col-span-12 md:col-span-6 p-6 rounded bg-[#77adfb75] dark:bg-gray-600">
                 <p className="mb-4 font-semibold text-lg border-b-[1px] border-black dark:text-white">
                   Send INR on any of one account and fill details.
                 </p>
