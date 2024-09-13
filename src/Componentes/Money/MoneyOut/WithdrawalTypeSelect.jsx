@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function WithdrawalTypeSelect() {
   return (
-    <div className="lg:pl-10 my-4 mt-10">
+    <div className="  my-4 mt-6">
       <div className="flex flex-wrap   gap-6 mt-6">
         <Link
           to={{

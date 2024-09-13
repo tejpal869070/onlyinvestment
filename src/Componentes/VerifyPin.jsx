@@ -14,7 +14,9 @@ const VerifyPin = ({ onclose2, successFunction }) => {
     e.preventDefault();
     setLoading(true);
     if (pin.length !== 4) {
-      toast.error("Invalid PIN");
+      toast.error("Invalid PIN", {
+        position: "bottom-right",
+      });
       setLoading(false);
       return;
     }
@@ -22,22 +24,30 @@ const VerifyPin = ({ onclose2, successFunction }) => {
       const response = await PinVerification(pin);
       if (response.status) {
         setLoading(false);
-        toast.success("Verification Success !");
+        toast.success("Verification Success !", {
+          position: "bottom-right",
+        });
         successFunction(pin);
         setTimeout(() => {
           onclose2();
         }, 1000);
       } else {
-        toast.error("Please Try Again.");
+        toast.error("Please Try Again.", {
+          position: "bottom-right",
+        });
         setLoading(false);
         setPin("");
       }
     } catch (error) {
       if (error?.response?.status === 302) {
-        toast.error(`${error.response.data.message}`);
+        toast.error(`${error.response.data.message}`, {
+          position: "bottom-right",
+        });
         setLoading(false);
       } else {
-        toast.error("Server Error");
+        toast.error("Server Error", {
+          position: "bottom-right",
+        });
         setLoading(false);
       }
     }

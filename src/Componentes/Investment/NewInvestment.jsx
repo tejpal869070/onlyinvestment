@@ -31,8 +31,7 @@ export default function NewInvestment() {
   };
 
   const successFunction = async (pin) => { 
-    formData.pin = pin
-    console.log(pin)
+    formData.pin = pin 
     handleForm();
   };
 

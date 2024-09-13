@@ -12,7 +12,7 @@ export default function Details({ onClose, singleData }) {
 
   return (
     <div className="fixed top-0 left-0 w-full h-full flex justify-center pt-10  bg-gray-400 bg-opacity-50 z-[9999]">
-      <div className="text-white bg-black p-10">
+      <div className=" text-white bg-gradient-to-r from-gray-700 rounded h-[70vh] to-slate-900 p-10 inline-block">
         <h1 className="text-center text-2xl font-bold ">INVESTMENT DETAIL</h1>
         <div className="flex flex-col mt-6 gap-2">
           <div className={`${classes1}`}>
