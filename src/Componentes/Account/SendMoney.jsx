@@ -7,8 +7,14 @@ import {
 import { Loading1 } from "../Loading1";
 import { ToastContainer, toast } from "react-toastify";
 import swal from "sweetalert";
+import gif1 from "../../assets/photos/sendmoneygif.gif";
+import VerifyPin from "../VerifyPin";
+import successImg from "../../assets/photos/success1-1--unscreen.gif";
 
 export default function SendMoney() {
+  const inputClasses =
+    "shadow-sm bg-gray-50 font-medium border border-gray-300 dark:bg-gray-400 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5";
+
   const [sendTo, setSendTo] = useState("");
   const [mobile, setMobile] = useState("");
   const [amount, setAmount] = useState("");
@@ -19,6 +25,14 @@ export default function SendMoney() {
   const [userVerified, setUserVerified] = useState(false);
   const [checking, setChecking] = useState(false);
   const [user, setUser] = useState(null);
+
+  const [isOpen, setIsOpen] = useState(false);
+  const onclose2 = () => {
+    setIsOpen(false);
+  };
+  const successFunction = async (pin) => {
+    handleForm(pin);
+  };
 
   const formData = {
     userMobile: mobile,
@@ -62,8 +76,7 @@ export default function SendMoney() {
     }
   };
 
-  const handleForm = async (e) => {
-    e.preventDefault();
+  const handleForm = async (pin) => {
     setLoading(true);
     if (amount < 100) {
       toast.error("Minimum amount is 100");
@@ -79,9 +92,9 @@ export default function SendMoney() {
       return;
     }
     try {
-      const response = await SendMoneyToUser(formData);
+      const response = await SendMoneyToUser(formData, pin);
       if (response.status) {
-        swal("Success!", "Transection Success!", "success");
+        setSuccess(true);
         setAmount("");
         setPin("");
         setMobile("");
@@ -89,6 +102,9 @@ export default function SendMoney() {
         setSendTo("");
         setLoading(false);
         userDataGet();
+        setTimeout(() => {
+          setSuccess(false);
+        }, 3500);
       } else {
         toast.error("Failed to send money");
         setLoading(false);
@@ -108,121 +124,133 @@ export default function SendMoney() {
     userDataGet();
   }, []);
 
+  if (success) {
+    return (
+      <div className="fixed top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-[#000000d1] bg-opacity-50 z-[9999]">
+        <img alt="success" src={successImg} />
+        <p className="text-2xl text-white font-semibold">
+          Transection Success.
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div>
       <div>
         <p className="lg:pl-10 font-bold text-xl mb-6 dark:text-white">
           Account {">"}Send Money
         </p>
-        <div className="bg-white dark:bg-black border border-4 dark:border-gray-300 rounded-lg shadow relative lg:mx-10  ">
-          <div className="p-6 space-y-6">
-            <p className="  font-medium text-lg text-[green] mb-4">
-              Account Balance: ₹{user && user.wallet_balance}
-            </p>
-            <form onSubmit={handleForm} className="uppercase">
-              <div className="grid grid-cols-1 gap-6">
-                <div className="col-span-12 sm:col-span-3">
-                  <label
-                    for="product-name"
-                    className="text-sm font-medium text-gray-900 dark:text-white block mb-2"
+        <div class="bg-[#e1e6ff] dark:bg-[#868ba3fc] text-gray-500 rounded-3xl shadow-xl w-full overflow-hidden">
+          <div class="md:flex flex-row-reverse w-full">
+            <div class="hidden md:block w-1/2 bg-indigo-200  p-2">
+              <img alt="animation" className="w-full h-full " src={gif1} />
+            </div>
+            <div class="w-full md:w-1/2 py-10 px-5 md:px-10">
+              <div class="  mb-6">
+                <h1 class="font-bold text-3xl text-gray-900">
+                  WALLET MONEY TRANSFER
+                </h1>
+                <p className=" mt-2 font-medium text-lg text-[green] mb-4">
+                  Account Balance: ₹{user && user.wallet_balance}
+                </p>
+              </div>
+
+              <div>
+                <div className="grid grid-cols-12 gap-4">
+                  <div className="col-span-12 ">
+                    <label
+                      for="product-name"
+                      className="text-sm font-medium text-gray-900 dark:text-white block mb-2"
+                    >
+                      User Mobile No.:
+                    </label>
+                    <div className="flex gap-2">
+                      <input
+                        type="number"
+                        name="product-name"
+                        id="product-name"
+                        disabled={userVerified}
+                        className="shadow-sm font-semibold w-full bg-gray-50 border  border-gray-300 dark:bg-gray-400 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block  p-2.5"
+                        value={mobile}
+                        onChange={(e) => setMobile(e.target.value)}
+                        required=""
+                      />
+                      <button
+                        onClick={verifyMobile}
+                        disabled={userVerified}
+                        className="px-6 py-1  rounded-xl font-semibold bg-gradient-to-b from-blue-500 to-blue-600 text-white focus:ring-2 focus:ring-blue-400 hover:shadow-xl transition duration-200"
+                      >
+                        {checking ? <Loading1 width={28} /> : "VERIFY"}
+                      </button>
+                    </div>
+                    <p className="italic text-[green] font-semibold text-sm">
+                      {sendTo && sendTo}
+                    </p>
+                  </div>
+                  <div
+                    className={`col-span-12 ${
+                      !userVerified ? "hidden" : "block"
+                    }`}
                   >
-                    Client Mobile No.:
-                  </label>
-                  <div className="flex gap-2">
+                    <label
+                      for="product-details"
+                      className="text-sm font-medium text-gray-900 dark:text-white block mb-2"
+                    >
+                      Amount To be Transferred :
+                    </label>
                     <input
-                      type="number"
-                      name="product-name"
-                      id="product-name"
-                      disabled={userVerified}
-                      className="shadow-sm bg-gray-50 border w-[40%] border-gray-300 dark:bg-gray-400 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block  p-2.5"
-                      value={mobile}
-                      onChange={(e) => setMobile(e.target.value)}
+                      type="text"
+                      name="price"
+                      id="price"
+                      value={amount}
+                      onChange={(e) => setAmount(e.target.value)}
+                      disabled={!userVerified}
+                      className="shadow-sm bg-gray-50 border w-1/2 border-gray-300 dark:bg-gray-400 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block  p-2.5"
+                      placeholder="AMOUNT"
                       required=""
                     />
-                    <button
-                      onClick={verifyMobile}
-                      disabled={userVerified}
-                      className="px-6 py-1 w-[10%] rounded-xl font-semibold bg-gradient-to-b from-blue-500 to-blue-600 text-white focus:ring-2 focus:ring-blue-400 hover:shadow-xl transition duration-200"
-                    >
-                      {checking ? <Loading1 width={28} /> : "VERIFY"}
-                    </button>
                   </div>
-                  <p className="italic text-[green] font-semibold text-sm">
-                    {sendTo && sendTo}
-                  </p>
                 </div>
 
-                <div className="col-span-12 sm:col-span-3">
-                  <label
-                    for="product-details"
-                    className="text-sm font-medium text-gray-900 dark:text-white block mb-2"
-                  >
-                    Amount To be Transferred :
-                  </label>
-                  <input
-                    type="text"
-                    name="price"
-                    id="price"
-                    value={amount}
-                    onChange={(e) => setAmount(e.target.value)}
+                <div className="flex     gap-6 mt-6">
+                  <button
+                    className="relative"
+                    onClick={() => setIsOpen(true)}
                     disabled={!userVerified}
-                    className="shadow-sm bg-gray-50 border w-1/2 border-gray-300 dark:bg-gray-400 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block  p-2.5"
-                    placeholder="AMOUNT"
-                    required=""
-                  />
-                </div>
-                <div className="col-span-12 sm:col-span-3">
-                  <label
-                    for="product-details"
-                    className="text-sm font-medium text-gray-900 dark:text-white block mb-2"
                   >
-                    Security Code *
-                  </label>
-                  <input
-                    type="password"
-                    disabled={!userVerified}
-                    name="price"
-                    value={pin}
-                    onChange={(e) => setPin(e.target.value)}
-                    id="price"
-                    className="shadow-sm bg-gray-50 border w-1/2 border-gray-300 dark:bg-gray-400 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block  p-2.5"
-                    placeholder="******"
-                    required=""
-                  />
+                    <span className="absolute top-0 left-0 mt-1 ml-1 h-full w-full rounded-full bg-black dark:bg-gray-400"></span>
+                    <span className="fold-bold relative inline-block h-full w-full rounded-full border-2 border-black dark:border-gray-500 bg-white px-3 py-1 text-base font-bold text-black transition duration-100 hover:bg-yellow-400 hover:text-gray-900">
+                      {loading ? <Loading1 width={28} /> : "SEND"}
+                    </span>
+                  </button>
+                  <button
+                    className="relative"
+                    onClick={() => {
+                      setAmount("");
+                      setPin("");
+                      setMobile("");
+                      setUserVerified(false);
+                      setSendTo("");
+                    }}
+                  >
+                    <span className="absolute top-0 left-0 mt-1 ml-1 h-full w-full rounded-full bg-black dark:bg-gray-400"></span>
+                    <span className="fold-bold relative inline-block h-full w-full rounded-full border-2 border-black dark:border-gray-500 bg-white px-3 py-1 text-base font-bold text-black transition duration-100 hover:bg-yellow-400 hover:text-gray-900">
+                      CLEAR
+                    </span>
+                  </button>
                 </div>
               </div>
-
-              <div className="flex     gap-6 mt-6">
-                <button
-                  className="relative"
-                  type="submit"
-                  disabled={!userVerified}
-                >
-                  <span className="absolute top-0 left-0 mt-1 ml-1 h-full w-full rounded bg-black dark:bg-gray-400"></span>
-                  <span className="fold-bold relative inline-block h-full w-full rounded border-2 border-black dark:border-gray-500 bg-white px-3 py-1 text-base font-bold text-black transition duration-100 hover:bg-yellow-400 hover:text-gray-900">
-                    {loading ? <Loading1 width={28} /> : "SEND"}
-                  </span>
-                </button>
-                <button
-                  className="relative"
-                  onClick={() => {
-                    setAmount("");
-                    setPin("");
-                    setMobile("");
-                    setUserVerified(false);
-                    setSendTo("");
-                  }}
-                >
-                  <span className="absolute top-0 left-0 mt-1 ml-1 h-full w-full rounded bg-black dark:bg-gray-400"></span>
-                  <span className="fold-bold relative inline-block h-full w-full rounded border-2 border-black dark:border-gray-500 bg-white px-3 py-1 text-base font-bold text-black transition duration-100 hover:bg-yellow-400 hover:text-gray-900">
-                    CLEAR
-                  </span>
-                </button>
-              </div>
-            </form>
+            </div>
           </div>
         </div>
       </div>
+      {isOpen && (
+        <VerifyPin
+          onclose2={onclose2}
+          successFunction={(pin) => successFunction(pin)}
+        />
+      )}
       <ToastContainer />
     </div>
   );

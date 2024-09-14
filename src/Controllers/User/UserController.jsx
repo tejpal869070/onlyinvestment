@@ -269,3 +269,30 @@ export const AddWithdrawalRequest = async (pin, amount) => {
     throw error;
   }
 };
+
+export const AddCryptoDepositRequest = async (formData) => {
+  const postData = new FormData();
+
+  postData.append("amount", formData.amount);
+  postData.append("transection_id", formData.transection_id);
+  postData.append("image", formData.image);
+  postData.append("deposit_id", formData.deposit_id);
+  postData.append("price_at_that_time", formData.price_at_that_time);
+  postData.append("mobile", mobile);
+
+  const axiosConfig = {
+    headers: {
+      Authorization: `Bearer ${bearerToken}`,
+    },
+  };
+  try {
+    const response = await axios.post(
+      `${API.url}user/deposit-usdt-request`,
+      postData,
+      axiosConfig
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

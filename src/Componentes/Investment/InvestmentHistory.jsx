@@ -3,6 +3,7 @@ import { FaEye } from "react-icons/fa";
 import { MyInvestMentHistory } from "../../Controllers/User/UserController";
 import { Loading1 } from "../Loading1";
 import Details from "./Details";
+import gif1 from "../../assets/photos/nodatagif.gif"
 
 export default function InvestmentHistory() {
   const [data, setData] = useState([]);
@@ -47,45 +48,42 @@ export default function InvestmentHistory() {
             Investment {">"}Investment History
           </h1>
           <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-              <thead className="text-xs font-semibold text-black uppercase bg-gray-300 dark:bg-gray-700 dark:text-gray-400">
-                <tr>
-                  <th scope="col" className="px-4 py-3">
-                    S.No.
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    INVESTMENT
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    TYPE
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    CLAIM TIME
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    Status
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    DATE START
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    DATE END
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    VIEW
-                  </th>
-                </tr>
-              </thead>
-              {data && data.length === 0 ? (
-                <tbody>
+            {data && data.length === 0 ? (
+              <div>
+                <img alt="no data" src={gif1} className="m-auto" />
+                <p className="text-center font-bold text-xl">No Recoard !</p>
+              </div>
+            ) : (
+              <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead className="text-xs font-semibold text-black uppercase bg-gray-300 dark:bg-gray-700 dark:text-gray-400">
                   <tr>
-                    <td colspan="8" className="text-center p-4">
-                      No Records Found!
-                    </td>
+                    <th scope="col" className="px-4 py-3">
+                      S.No.
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      INVESTMENT
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      TYPE
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      CLAIM TIME
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      Status
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      DATE START
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      DATE END
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      VIEW
+                    </th>
                   </tr>
-                </tbody>
-              ) : (
-                data.map((item, index) => (
+                </thead>
+                {data.map((item, index) => (
                   <tbody key={index}>
                     <tr className="odd:bg-white  text-black font-semibold odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 dark:text-gray-300">
                       <th
@@ -116,14 +114,16 @@ export default function InvestmentHistory() {
                       </td>
                     </tr>
                   </tbody>
-                ))
-              )}
-            </table>
+                ))}
+              </table>
+            )}
           </div>
         </div>
       </div>
 
-      {isOpen && <Details singleData={singleData} onClose={() => setIsOpen(false)} />}
+      {isOpen && (
+        <Details singleData={singleData} onClose={() => setIsOpen(false)} />
+      )}
     </div>
   );
 }

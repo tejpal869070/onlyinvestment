@@ -69,7 +69,7 @@ export default function CryptoWithdrawal() {
 
   return (
     <div class="   flex items-center justify-center  ">
-      <div class="bg-[#e1e6ff] text-gray-500 rounded-3xl shadow-xl w-full overflow-hidden">
+      <div class="bg-[#e1e6ff] dark:bg-[#868ba3fc] text-gray-500 rounded-3xl shadow-xl w-full overflow-hidden">
         <div class="md:flex flex-row-reverse w-full">
           <div class="hidden md:block w-1/2 bg-indigo-200  p-2">
             <img alt="animation" className="w-full h-full " src={gif1} />
@@ -80,7 +80,7 @@ export default function CryptoWithdrawal() {
                 CRYPTO WITHDRAWAL
               </h1>
             </div>
-            <p className="  font-medium text-lg text-[green] mb-4">
+            <p className="  font-medium text-lg dark:text-[#d4e11d] text-[green] mb-4">
               Crypto Balance ({user.currency}) :{" "}
               {user &&
                 (user.wallet_balance / Number(user.currency_rate)).toFixed(2)}

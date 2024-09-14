@@ -135,10 +135,10 @@ export const GetUserNameByMobile = async (mobile) => {
   }
 };
 
-export const SendMoneyToUser = async (formData) => {
+export const SendMoneyToUser = async (formData, pin) => {
   try {
     const dataToSent = {
-      pin: formData.pin,
+      pin: pin,
       mobile: mobile,
       amount: formData.amount,
       user_mobile: formData.userMobile,

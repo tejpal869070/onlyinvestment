@@ -545,7 +545,7 @@ export default function Home() {
                       to={{ pathname: "/home", search: `?money=usdt-deposit` }}
                       className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-6 group  dark:text-black dark:hover:bg-gray-500 hover:text-center"
                     >
-                      - USDT Deposit
+                      - Money Deposit
                     </Link>
                   </li>
                   <li>

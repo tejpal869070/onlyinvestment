@@ -3,13 +3,65 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { ToastContainer, toast } from "react-toastify";
 import { FaCopy } from "react-icons/fa";
 import { API } from "../../../Controllers/Api";
-import { FaBitcoin } from "react-icons/fa"; 
-
+import { BsQrCodeScan } from "react-icons/bs";
+import gif1 from "../../../assets/photos/cryptodepositgif.gif";
+import { MdCancel } from "react-icons/md";
+import { GrSync } from "react-icons/gr";
+import { Loading1 } from "../../Loading1";
+import { AddCryptoDepositRequest } from "../../../Controllers/User/UserController";
 
 export default function CryptoDeposit({ data }) {
+  const inputClasses =
+    "shadow-sm bg-gray-50 font-medium border border-gray-300 dark:bg-gray-400 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5";
+
   const [cryptoPrice, setCryptoPrice] = useState(data.price);
   const [usdtPrice, setUsdtPrice] = useState();
   const [inrPrice, setInrPrice] = useState();
+  const [isQrShow, setQrShow] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const [transection_id, setTransectionId] = useState("");
+  const [amount, setAmount] = useState(10);
+  const [image, setImage] = useState(null);
+
+  const formData = {
+    amount: amount,
+    transection_id: transection_id,
+    image: image,
+    deposit_id: data.address,
+    price_at_that_time: data.price,
+  };
+
+  const handleForm = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    if (transection_id < 10) {
+      toast.error("Invalid Transaction ID");
+      setLoading(false);
+      return;
+    } else if (amount < 10) {
+      toast.error("Minimum Amount is $10");
+      setLoading(false);
+      return;
+    } else if (image === null) {
+      toast.error("Please upload Payment file/image.");
+      setLoading(false);
+      return;
+    }
+    try {
+      const response = await AddCryptoDepositRequest(formData);
+      console.log(response);
+      setLoading(false);
+    } catch (error) {
+      if (error?.response.status === 302) {
+        toast.error(`${error.response.data.message}`);
+        setLoading(false);
+      } else {
+        toast.error("Server Error !");
+        setLoading(false);
+      }
+    }
+  };
 
   const handleInrChange = (value) => {
     setInrPrice(value);
@@ -26,77 +78,170 @@ export default function CryptoDeposit({ data }) {
       position: "bottom-right",
     });
   };
-  
 
-
-   
+  if (isQrShow) {
+    return (
+      <div className="fixed top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-[#000000d1] bg-opacity-50 z-[9999]">
+        <img
+          alt="success"
+          className="w-60 h-60"
+          src={`${API.url}assets/img/${data.qr_code}`}
+        />
+        <p className="text-2xl text-white font-semibold">
+          {data?.currency} QR CODE
+        </p>
+        <MdCancel
+          className="cursor-pointer mt-6"
+          color="white"
+          onClick={() => setQrShow(false)}
+          size={28}
+        />
+      </div>
+    );
+  }
 
   return (
     <div>
-      <div className="w-full p-2 px-10 border-2 border-black dark:border-gray-200 mt-6 py-4 border-b-4 rounded-lg shadow-lg   flex flex-col">
-        <div className="flex flex-wrap justify-between w-full">
-          <div className="w-[60%] bg-[#77adfb75] p-4 rounded-lg">
-            <div className="  border-b-2 border-dotted">
-              <h1 className=" font-semibold text-lg dark:text-gray-200">
-                {data?.currency} ADDRESS
-              </h1>
-              <p className=" dark:text-white font-semibold flex items-center gap-2  mt-1 py-1 inline-block  rounded-lg ">
-                {data && data.address}{" "}
-                <CopyToClipboard text={data.address} onCopy={handleCopy}>
-                  <FaCopy className="cursor-pointer  " />
-                </CopyToClipboard>
-              </p>
+      <div className="w-full    mt-6   border-b-4 rounded-lg shadow-lg   flex flex-col">
+        <div class="bg-[#e1e6ff] dark:bg-[#868ba3fc] text-gray-500 rounded-3xl shadow-xl w-full overflow-hidden">
+          <div class="md:flex flex-row-reverse w-full">
+            <div class="hidden md:block w-1/2 bg-indigo-200  p-2">
+              <img alt="animation" className="w-full h-full " src={gif1} />
             </div>
-            <h1 className=" font-semibold text-lg text-[#426D98] dark:text-gray-400 mt-4">
-              OR SCAN
-            </h1>
-            <div className="flex flex-wrap justify-between">
-              <img
-                alt="qr-code"
-                src={`${API.url}assets/img/${data.qr_code}`}
-                className="h-60 w-60   mt-4"
-              />
-              <div className="flex flex-row-reverse items-end ">
-                <button
-                  href="#_"
-                  class="inline-flex overflow-hidden text-white bg-gray-900  rounded group"
-                >
-                  <span class="px-3.5 py-2.5 text-white bg-purple-500 group-hover:bg-purple-600 flex items-center justify-center">
-                  <FaBitcoin size={24}/>
-                  </span>
-                  <span class="pl-4 pr-5 py-2.5">Complete Transection</span>
-                </button>
+            <div class="w-full md:w-1/2 py-10 px-5 md:px-10">
+              <div class="  mb-6">
+                <h1 class="font-bold text-3xl text-gray-900">CRYPTO DEPOSIT</h1>
               </div>
-            </div>
-          </div>
-          <div className="w-[35%] bg-gray-300 dark:bg-[#1f2937] shadow-lg p-4 rounded-lg">
-            <h1 className="font-semibold text-lg dark:text-gray-200">
-              Current Rate in INR{"  "}
-              <span className="text-2xl font-bold animate-pulse	 ">
-                ₹{data?.price}
-              </span>
-            </h1>
-            <div className="bg-[#3defff54] shadow-lg p-4 mt-4 rounded-lg">
-              <div className="flex justify-between items-center">
-                <p className="text-sm font-medium dark:text-gray-200">INR</p>
-                <input
-                  className="w-[60%] rounded-lg text-sm font-medium p-2 py-1 border-2 border-gray-4000 "
-                  placeholder="INR"
-                  value={usdtPrice}
-                  type="number"
-                  onChange={(e) => handleUsdtChange(e.target.value)}
-                />
+              <div className="   ">
+                <h1 className=" font-semibold text-lg text-black dark:text-gray-200">
+                  {data?.currency} ADDRESS
+                </h1>
+                <div className="flex gap-2 items-center">
+                  <p className=" shadow-xl flex gap-2 items-center focus:animate-none   inline-flex text-md font-medium bg-indigo-900 mt-1 px-4 py-2 rounded-lg tracking-wide text-white">
+                    {data && data.address}{" "}
+                    <CopyToClipboard text={data.address} onCopy={handleCopy}>
+                      <FaCopy className="cursor-pointer  " />
+                    </CopyToClipboard>
+                  </p>
+                  <BsQrCodeScan
+                    size={28}
+                    color="black"
+                    onClick={() => setQrShow(true)}
+                    className="cursor-pointer hover:animate-jump  animate-infinite"
+                  />
+                </div>
               </div>
-              <div className="flex mt-3 justify-between items-center">
-                <p className="text-sm font-medium dark:text-gray-200"> {data.currency}</p>
-                <input
-                  className="w-[60%] rounded-lg text-sm font-medium p-2 py-1 border-2 border-gray-4000 "
-                  placeholder={data.currency}
-                  type="number"
-                  value={inrPrice}
-                  min={1}
-                  onChange={(e) => handleInrChange(e.target.value)}
-                />
+
+              <form className="mt-6" onSubmit={handleForm}>
+                <div className="grid grid-cols-12 gap-4">
+                  <div className="col-span-12 sm:col-span-12">
+                    <label
+                      for="product-name"
+                      className="text-sm font-medium text-gray-900 block mb-1 dark:text-gray-200"
+                    >
+                      Transection Hash*
+                    </label>
+                    <input
+                      type="text"
+                      name="product-name"
+                      id="product-name"
+                      className={`${inputClasses}`}
+                      placeholder=""
+                      required=""
+                      value={transection_id}
+                      onChange={(e) => setTransectionId(e.target.value)}
+                    />
+                  </div>
+                  <div className="col-span-5 sm:col-span-5 relative">
+                    <label
+                      for="product-name"
+                      className="text-sm font-medium text-gray-900 block mb-1 dark:text-gray-200"
+                    >
+                      Amount*
+                    </label>
+                    <input
+                      type="text"
+                      name="product-name"
+                      id="product-name"
+                      className={`${inputClasses}`}
+                      placeholder=""
+                      required=""
+                      value={amount}
+                      onChange={(e) => setAmount(e.target.value)}
+                    />
+                    <p className="absolute text-xs font-medium text-gray-900">
+                      1 {data.currency} ~ ₹ {data?.price}
+                    </p>
+                  </div>
+                  <div className="flex align-center items-center mt-4 col-span-7 sm:col-span-7">
+                    {image !== null ? (
+                      <p className="w-full shadow-sm bg-gray-200 border-2 pr-[22px] border-gray-700 dark:bg-gray-400 text-gray-900 font-medium  rounded-xl focus:ring-cyan-600 focus:border-cyan-600 block  px-2.5 py-2.5">
+                        {image.name}
+                      </p>
+                    ) : (
+                      <input
+                        className="shadow-sm w-full bg-gray-50 border pr-[22px] border-gray-300 dark:bg-gray-400 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block  px-2.5"
+                        name="product-name"
+                        id="product-name"
+                        type="file"
+                        onChange={(e) => setImage(e.target.files[0]) || null}
+                      />
+                    )}
+                    {image !== null ? (
+                      <MdCancel
+                        size={20}
+                        className="cursor-pointer ml-[-32px]"
+                        onClick={(e) => setImage(null)}
+                      />
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap justify-start mt-10 gap-6 w-full">
+                  <button
+                    className="relative  w-full"
+                    type="submit"
+                    disabled={loading}
+                  >
+                    <span className="absolute top-0 left-0 mt-1 ml-1 h-full w-full rounded-full bg-black dark:bg-gray-500"></span>
+                    <span
+                      className={`fold-bold text-center relative inline-block h-full w-full rounded-full border-2 border-black   bg-white px-3 py-1 text-base font-bold text-black transition hover:bg-yellow-400 duration-100  hover:text-gray-900 `}
+                    >
+                      {loading ? <Loading1 width={24} /> : "SUBMIT"}
+                    </span>
+                  </button>
+                </div>
+              </form>
+              <div className="bg-[#3defff54] flex gap-1 pb-6 shadow-lg p-4 mt-6 rounded-lg">
+                <div className=" w-full relative">
+                  <input
+                    className=" text-black rounded-lg text-sm font-medium p-2 py-1 border-2 border-gray-4000 "
+                    placeholder="INR"
+                    value={usdtPrice}
+                    type="number"
+                    onChange={(e) => handleUsdtChange(e.target.value)}
+                  />
+                  <p className="absolute font-semibold text-xs text-gray-900">
+                    INR
+                  </p>
+                </div>
+                <GrSync size={28} color="black" className="font-bold" />
+
+                <div className=" w-full relative">
+                  <input
+                    className=" text-black rounded-lg text-sm font-medium p-2 py-1 border-2 border-gray-4000 "
+                    placeholder={data.currency}
+                    type="number"
+                    value={inrPrice}
+                    min={1}
+                    onChange={(e) => handleInrChange(e.target.value)}
+                  />
+                  <p className="absolute font-semibold text-xs text-gray-900">
+                    {data.currency}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
