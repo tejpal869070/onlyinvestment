@@ -296,3 +296,25 @@ export const AddCryptoDepositRequest = async (formData) => {
     throw error;
   }
 };
+
+export const GetAccountAllStatement = async () => {
+  const postData = {
+    mobile: mobile,
+  };
+
+  const axiosConfig = {
+    headers: {
+      Authorization: `Bearer ${bearerToken}`,
+    },
+  };
+  try {
+    const response = await axios.post(
+      `${API.url}user/get-statement`,
+      postData,
+      axiosConfig
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

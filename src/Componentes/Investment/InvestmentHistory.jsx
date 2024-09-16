@@ -3,7 +3,7 @@ import { FaEye } from "react-icons/fa";
 import { MyInvestMentHistory } from "../../Controllers/User/UserController";
 import { Loading1 } from "../Loading1";
 import Details from "./Details";
-import gif1 from "../../assets/photos/nodatagif.gif"
+import gif1 from "../../assets/photos/nodatagif.gif";
 
 export default function InvestmentHistory() {
   const [data, setData] = useState([]);
@@ -85,7 +85,13 @@ export default function InvestmentHistory() {
                 </thead>
                 {data.map((item, index) => (
                   <tbody key={index}>
-                    <tr className="odd:bg-white  text-black font-semibold odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 dark:text-gray-300">
+                    <tr
+                      className={` text-black font-semibold dark:text-gray-200  border-b dark:border-gray-700 ${
+                        index % 2 === 0
+                          ? "bg-white dark:bg-gray-900"
+                          : "bg-gray-200 dark:bg-gray-800"
+                      }`}
+                    >
                       <th
                         scope="row"
                         className="px-6 py-4 font-medium text-gray-900 dark:text-gray-100 whitespace-nowrap dark:text-white"

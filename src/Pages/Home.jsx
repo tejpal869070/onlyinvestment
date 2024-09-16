@@ -176,7 +176,7 @@ export default function Home() {
                   sidebar.classList.toggle("translate-x-0");
                   sidebar.classList.toggle("-translate-x-full");
                 }}
-                className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden  focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden  focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-400 dark:focus:ring-gray-600"
               >
                 <span className="sr-only">Open sidebar</span>
                 <svg
@@ -226,7 +226,7 @@ export default function Home() {
             <li className="side-bar-list">
               <button
                 type="button"
-                className="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group  dark:text-black dark:hover:bg-gray-500 hover:text-center"
+                className="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group  dark:text-black dark:hover:bg-gray-200 hover:text-center"
                 onClick={() => {
                   const moneyDropdown =
                     document.getElementById("events-dropdown");
@@ -295,7 +295,7 @@ export default function Home() {
             <li className="side-bar-list">
               <button
                 type="button"
-                className="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group  dark:text-black dark:hover:bg-gray-500 hover:text-center"
+                className="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group  dark:text-black dark:hover:bg-gray-300 hover:text-center"
                 onClick={() => {
                   const moneyDropdown =
                     document.getElementById("casino-dropdown");
@@ -348,7 +348,7 @@ export default function Home() {
             <li className="side-bar-list">
               <button
                 type="button"
-                className="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group  dark:text-black dark:hover:bg-gray-500 hover:text-center"
+                className="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group  dark:text-black dark:hover:bg-gray-300 hover:text-center"
                 onClick={() => {
                   const moneyDropdown = document.getElementById(
                     "investment-dropdown"
@@ -407,7 +407,7 @@ export default function Home() {
             <li className="side-bar-list">
               <button
                 type="button"
-                className="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group  dark:text-black dark:hover:bg-gray-500 hover:text-center"
+                className="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group  dark:text-black dark:hover:bg-gray-300 hover:text-center"
                 onClick={() => {
                   const moneyDropdown =
                     document.getElementById("network-dropdown");
@@ -485,7 +485,7 @@ export default function Home() {
             <li className="side-bar-list">
               <button
                 type="button"
-                className="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group  dark:text-black dark:hover:bg-gray-500 hover:text-center"
+                className="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group  dark:text-black dark:hover:bg-gray-300 hover:text-center"
                 onClick={() => {
                   const moneyDropdown =
                     document.getElementById("money-dropdown");
@@ -543,7 +543,7 @@ export default function Home() {
                   <li>
                     <Link
                       to={{ pathname: "/home", search: `?money=usdt-deposit` }}
-                      className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-6 group  dark:text-black dark:hover:bg-gray-500 hover:text-center"
+                      className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-6 group  dark:text-black dark:hover:bg-gray-300 hover:text-center"
                     >
                       - Money Deposit
                     </Link>
@@ -554,7 +554,7 @@ export default function Home() {
                         pathname: "/home",
                         search: `?money=deposit-history`,
                       }}
-                      className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-6 group  dark:text-black dark:hover:bg-gray-500 hover:text-center"
+                      className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-6 group  dark:text-black dark:hover:bg-gray-300 hover:text-center"
                     >
                       - Deposit History
                     </Link>
@@ -579,7 +579,7 @@ export default function Home() {
                   <li>
                     <Link
                       to={{ pathname: "/home", search: `?money=withdrawal` }}
-                      className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-6 group  dark:text-black dark:hover:bg-gray-500 hover:text-center"
+                      className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-6 group  dark:text-black dark:hover:bg-gray-300 hover:text-center"
                     >
                       - Withdrawal
                     </Link>
@@ -590,7 +590,7 @@ export default function Home() {
                         pathname: "/home",
                         search: `?money=withdrawal-history`,
                       }}
-                      className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-6 group  dark:text-black dark:hover:bg-gray-500 hover:text-center"
+                      className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-6 group  dark:text-black dark:hover:bg-gray-300 hover:text-center"
                     >
                       - Withdrawal History
                     </Link>
@@ -602,7 +602,7 @@ export default function Home() {
             <li className="side-bar-list">
               <button
                 type="button"
-                className="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group  dark:text-black dark:hover:bg-gray-500 hover:text-center"
+                className="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group  dark:text-black dark:hover:bg-gray-300 hover:text-center"
                 onClick={() => {
                   const moneyDropdown =
                     document.getElementById("account-dropdown");
@@ -636,7 +636,7 @@ export default function Home() {
                 <li className="ml-11">
                   <Link
                     to={{ pathname: "/home", search: `?account=send-money` }}
-                    className="flex items-center w-full p-2  pl-0 text-gray-900 transition duration-75 rounded-lg   group  dark:text-black dark:hover:bg-gray-500 hover:text-center"
+                    className="flex items-center w-full p-2  pl-0 text-gray-900 transition duration-75 rounded-lg   group  dark:text-black dark:hover:bg-gray-300 hover:text-center"
                   >
                     Send Money
                   </Link>
@@ -666,7 +666,7 @@ export default function Home() {
             <li className="side-bar-list">
               <button
                 type="button"
-                className="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group  dark:text-black dark:hover:bg-gray-500 hover:text-center"
+                className="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group  dark:text-black dark:hover:bg-gray-300 hover:text-center"
                 onClick={() => {
                   const moneyDropdown =
                     document.getElementById("income-dropdown");
@@ -703,7 +703,7 @@ export default function Home() {
                       pathname: "/home",
                       search: `?income=matching-income`,
                     }}
-                    className="flex items-center w-full p-2  pl-0 text-gray-900 transition duration-75 rounded-lg   group  dark:text-black dark:hover:bg-gray-500 hover:text-center"
+                    className="flex items-center w-full p-2  pl-0 text-gray-900 transition duration-75 rounded-lg   group  dark:text-black dark:hover:bg-gray-300 hover:text-center"
                   >
                     Matching Income
                   </Link>

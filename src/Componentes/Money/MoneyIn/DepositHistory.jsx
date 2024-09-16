@@ -2,13 +2,20 @@ import React, { useEffect, useState } from "react";
 import { GetUserPaymentHistory } from "../../../Controllers/User/UserController";
 import { FaEye } from "react-icons/fa";
 import { Loading1 } from "../../Loading1";
-import gif1 from "../../../assets/photos/nodatagif.gif"
+import gif1 from "../../../assets/photos/nodatagif.gif";
+import DateSelector from "../../Income/DateSelector";
+import { useLocation } from "react-router-dom";
 
 export default function DepositHistory() {
   const [data, setData] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState();
   const [loading, setLoading] = useState(true);
   const [visible, setVisible] = useState(false);
+  const [startDate, setStartDate] = useState();
+  const [endDate, setEndDate] = useState();
+  const [filteredData, setFilteredData] = useState([]);
+
+  const location = useLocation();
 
   const GetPaymentHistory = async () => {
     const response = await GetUserPaymentHistory();
@@ -25,6 +32,31 @@ export default function DepositHistory() {
     GetPaymentHistory();
   }, []);
 
+  useEffect(() => {
+    const start = new URLSearchParams(location.search).get("from");
+    const end = new URLSearchParams(location.search).get("to");
+    setStartDate(start);
+    setEndDate(end);
+  }, [location]);
+
+  useEffect(() => {
+    // Create a new date object for the endDate and set it to the end of the day
+    const endDateObj = new Date(endDate);
+    endDateObj.setHours(23, 59, 59, 999);
+
+    if (startDate === null || endDate === null) {
+      setFilteredData(data);
+    } else {
+      // Filter data between startDate and endDate
+      const filteredData = data.filter((item) => {
+        const itemDate = new Date(item.date);
+        const startDateObj = new Date(startDate);
+        return itemDate >= startDateObj && itemDate <= endDateObj;
+      });
+      setFilteredData(filteredData);
+    }
+  }, [startDate, endDate, data]);
+
   if (loading) {
     return (
       <div>
@@ -39,8 +71,9 @@ export default function DepositHistory() {
         <h1 className="mb-6 font-bold text-lg dark:text-gray-100">
           Money In {">"}Deposit History
         </h1>
+        <DateSelector />
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-          {data && data.length === 0 ? (
+          {filteredData && filteredData.length === 0 ? (
             <div>
               <img alt="no data" src={gif1} className="m-auto" />
               <p className="text-center font-bold text-xl">No Recoard !</p>
@@ -69,7 +102,7 @@ export default function DepositHistory() {
                   </th>
                 </tr>
               </thead>
-              {data.length === 0 ? (
+              {filteredData.length === 0 ? (
                 <tbody>
                   <tr>
                     <td colspan="8" className="text-center p-4">
@@ -78,8 +111,8 @@ export default function DepositHistory() {
                   </tr>
                 </tbody>
               ) : (
-                data &&
-                data.map((item, index) => (
+                filteredData &&
+                filteredData.map((item, index) => (
                   <tbody>
                     <tr
                       key={index}

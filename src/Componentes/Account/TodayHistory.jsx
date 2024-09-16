@@ -1,38 +1,14 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { FaRegEye } from "react-icons/fa";
-import gif1 from "../../assets/photos/nodatagif.gif"
+import gif1 from "../../assets/photos/nodatagif.gif";
+import { GetAccountAllStatement } from "../../Controllers/User/UserController";
+import { Loading1 } from "../Loading1";
 
 export default function TodayHistory() {
   const [isVisible, setIsVisible] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(null);
-  const data = [
-    {
-      amount: "40 USDT",
-      transection_id: "69476ec765b2b67cabba4371dbe0f9ffdc4157d",
-      ip: "192.168.1.555",
-      type: "CRYPTO",
-      status: "COMPLETED",
-      paidType: "UNPAID",
-      credit: "$1000",
-      debit: "",
-      date: "15-16-2024",
-      category: "Laptop",
-      price: "$2999",
-    },
-    {
-      amount: "18 USDT",
-      transection_id: "97465ec765b2b67cabba436b95a372dc454sdf",
-      ip: "192.168.2.457",
-      type: "BANK",
-      status: "PENDING",
-      paidType: "PAID",
-      credit: " ",
-      debit: "$210",
-      date: "15-16-2024",
-      category: "Laptop PC",
-      price: "$1999",
-    },
-  ];
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const showModal = useCallback(
     (index) => {
@@ -41,6 +17,47 @@ export default function TodayHistory() {
     },
     [setIsVisible, setSelectedIndex]
   );
+
+  const GetAllStatement = async () => {
+    try {
+      const response = await GetAccountAllStatement();
+      if (response.status) {
+        setData(
+          response.data.filter((item) => {
+            const itemDate = new Date(item.date);
+            const today = new Date();
+            return (
+              itemDate.getFullYear() === today.getFullYear() &&
+              itemDate.getMonth() === today.getMonth() &&
+              itemDate.getDate() === today.getDate()
+            );
+          })
+        );
+
+        setLoading(false);
+      } else {
+        window.alert("Something Went Wrong.");
+        setData([]);
+        setLoading(false);
+      }
+    } catch (error) {
+      window.alert("Something Went Wrong.");
+      setData([]);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    GetAllStatement();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-gray-800 bg-opacity-50 z-[9999]">
+        <Loading1 />
+      </div>
+    );
+  }
 
   return (
     <div className="relative">
@@ -52,9 +69,9 @@ export default function TodayHistory() {
           <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
             {data && data.length === 0 ? (
               <div>
-              <img alt="no data" src={gif1} className="m-auto" />
-              <p className="text-center font-bold text-xl">No Recoard !</p>
-            </div>
+                <img alt="no data" src={gif1} className="m-auto" />
+                <p className="text-center dark:text-gray-300 font-bold text-xl">No Recoard !</p>
+              </div>
             ) : (
               <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead className="text-xs font-semibold text-black uppercase bg-gray-300 dark:bg-gray-700 dark:text-gray-400">
@@ -63,42 +80,49 @@ export default function TodayHistory() {
                       S.No.
                     </th>
                     <th scope="col" className="px-6 py-3">
-                      Transaction Date
+                      TYPE
                     </th>
                     <th scope="col" className="px-6 py-3">
                       Transaction Detail
                     </th>
                     <th scope="col" className="px-6 py-3">
-                      Credit
+                      AMOUNT
                     </th>
                     <th scope="col" className="px-6 py-3">
-                      Debit
+                      SENT TO
                     </th>
-
                     <th scope="col" className="px-6 py-3">
-                      Closing
+                      Received From
                     </th>
                   </tr>
                 </thead>
                 {data.map((item, index) => (
                   <tbody key={index}>
-                    <tr className="odd:bg-white text-black font-semibold dark:text-gray-200 odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                    <tr
+                      className={` text-black font-semibold dark:text-gray-200  border-b dark:border-gray-700 ${
+                        index % 2 === 0
+                          ? "bg-white dark:bg-gray-900"
+                          : "bg-gray-200 dark:bg-gray-800"
+                      }`}
+                    >
                       <th
                         scope="row"
                         className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                       >
                         {index + 1}.
                       </th>
-                      <td className="px-6 py-4">{item.date}</td>
-                      <td className="px-4 py-4">{item.transection_id}</td>
-                      <td className="px-6 py-4">{item.credit}</td>
-                      <td className="px-6 py-4">{item.debit}</td>
+                      <td className="px-4 py-4">{item.type}</td>
+                      <td className="px-6 py-4">{item.date.split("T")[0]}</td>
+                      <td className="px-6 py-4">₹{item.amount}</td>
                       <td className="px-6 py-4">
-                        <FaRegEye
-                          size={20}
-                          className="cursor-pointer"
-                          onClick={() => showModal(index)}
-                        />
+                        {item.description.split(" ").includes("To")
+                          ? item.description.split(" ")[2]
+                          : ""}
+                      </td>
+                      <td className="px-6 py-4">
+                        {item.description.split(" ").includes("from")
+                          ? item.description.split(" ")[2]
+                          : ""}
                       </td>
                     </tr>
                     {isVisible && selectedIndex === index ? (

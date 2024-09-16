@@ -3,6 +3,8 @@ import { FaRegEye } from "react-icons/fa";
 import { GetUserPaymentHistory } from "../../../Controllers/User/UserController";
 import { Loading1 } from "../../Loading1";
 import gif1 from "../../../assets/photos/nodatagif.gif";
+import { useLocation } from "react-router-dom";
+import DateSelector from "../../Income/DateSelector";
 
 export default function WithdrawalHistory() {
   const [isVisible, setIsVisible] = useState(false);
@@ -10,7 +12,11 @@ export default function WithdrawalHistory() {
 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [visible, setVisible] = useState(false);
+  const [startDate, setStartDate] = useState();
+  const [endDate, setEndDate] = useState();
+  const [filteredData, setFilteredData] = useState([]);
+
+  const location = useLocation();
 
   const GetPaymentHistory = async () => {
     const response = await GetUserPaymentHistory();
@@ -35,6 +41,31 @@ export default function WithdrawalHistory() {
     [setIsVisible, setSelectedIndex]
   );
 
+  useEffect(() => {
+    const start = new URLSearchParams(location.search).get("from");
+    const end = new URLSearchParams(location.search).get("to");
+    setStartDate(start);
+    setEndDate(end);
+  }, [location]);
+
+  useEffect(() => {
+    // Create a new date object for the endDate and set it to the end of the day
+    const endDateObj = new Date(endDate);
+    endDateObj.setHours(23, 59, 59, 999);
+
+    if (startDate === null || endDate === null) {
+      setFilteredData(data);
+    } else {
+      // Filter data between startDate and endDate
+      const filteredData = data.filter((item) => {
+        const itemDate = new Date(item.date);
+        const startDateObj = new Date(startDate);
+        return itemDate >= startDateObj && itemDate <= endDateObj;
+      });
+      setFilteredData(filteredData);
+    }
+  }, [startDate, endDate, data]);
+
   if (loading) {
     return (
       <div>
@@ -50,11 +81,14 @@ export default function WithdrawalHistory() {
           <h1 className="mb-6 font-bold text-lg">
             Money In {">"}Withdrawal History
           </h1>
+          <DateSelector />
           <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-            {data && data.length === 0 ? (
+            {filteredData && filteredData.length === 0 ? (
               <div>
                 <img alt="no data" src={gif1} className="m-auto" />
-                <p className="text-center font-bold text-xl">No Recoard !</p>
+                <p className="text-center dark:text-gray-200 font-bold text-xl">
+                  No Recoard !
+                </p>
               </div>
             ) : (
               <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -65,10 +99,6 @@ export default function WithdrawalHistory() {
                     </th>
                     <th scope="col" className="px-6 py-3">
                       AMOUNT
-                    </th>
-
-                    <th scope="col" className="px-6 py-3">
-                      withdrawal type
                     </th>
                     <th scope="col" className="px-6 py-3">
                       Status
@@ -81,7 +111,7 @@ export default function WithdrawalHistory() {
                     </th>
                   </tr>
                 </thead>
-                {data.length === 0 ? (
+                {filteredData.length === 0 ? (
                   <tbody>
                     <tr>
                       <td colspan="8" className="text-center p-4">
@@ -90,17 +120,22 @@ export default function WithdrawalHistory() {
                     </tr>
                   </tbody>
                 ) : (
-                  data.map((item, index) => (
+                  filteredData.map((item, index) => (
                     <tbody key={index}>
-                      <tr className="odd:bg-white text-black font-semibold dark:text-gray-200 odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                      <tr
+                        className={` text-black font-semibold dark:text-gray-200  border-b dark:border-gray-700 ${
+                          index % 2 === 0
+                            ? "bg-white dark:bg-gray-900"
+                            : "bg-gray-200 dark:bg-gray-800"
+                        }`}
+                      >
                         <th
                           scope="row"
                           className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                         >
                           {index + 1}.
                         </th>
-                        <td className="px-4 py-4">{item.amount}</td>
-                        <td className="px-6 py-4">{item.type}</td>
+                        <td className="px-4 py-4">₹{item.amount}</td>
                         <td className="px-6 py-4">{item.status}</td>
                         <td className="px-6 py-4">{item.date.split("T")[0]}</td>
                         <td className="px-6 py-4">
