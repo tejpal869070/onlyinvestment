@@ -5,10 +5,14 @@ import { Loading1 } from "../../Loading1";
 import gif1 from "../../../assets/photos/nodatagif.gif";
 import { useLocation } from "react-router-dom";
 import DateSelector from "../../Income/DateSelector";
+import { MdCancel } from "react-icons/md";
 
 export default function WithdrawalHistory() {
+  const classes1 = "flex justify-between border-b border-gray-400";
+
   const [isVisible, setIsVisible] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(null);
+  const [singleData, setSingleData] = useState();
 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -21,7 +25,7 @@ export default function WithdrawalHistory() {
   const GetPaymentHistory = async () => {
     const response = await GetUserPaymentHistory();
     if (response !== null) {
-      setData(response.filter((item) => item.payment_type === "Withdrawal"));
+      setData(response.reverse().filter((item) => item.payment_type === "Withdrawal"));
       setLoading(false);
     } else {
       setData([]);
@@ -142,19 +146,13 @@ export default function WithdrawalHistory() {
                           <FaRegEye
                             size={20}
                             className="cursor-pointer"
-                            onClick={() => showModal(index)}
+                            onClick={() => {
+                              showModal(index);
+                              setSingleData(item);
+                            }}
                           />
                         </td>
                       </tr>
-                      {isVisible && selectedIndex === index ? (
-                        <tr>
-                          <td colspan="7" className="text-center p-4">
-                            No Records Found!
-                          </td>
-                        </tr>
-                      ) : (
-                        ""
-                      )}
                     </tbody>
                   ))
                 )}
@@ -163,6 +161,62 @@ export default function WithdrawalHistory() {
           </div>
         </div>
       </div>
+
+      {/* Withdrawal Details */}
+      {isVisible && (
+        <div className="animate-fade-down animate-duration-500 fixed top-0 left-0 w-full h-full flex justify-center pt-10  bg-gray-400 bg-opacity-50 z-[9999]">
+          <div className=" text-white bg-gradient-to-r from-gray-700 rounded h-[70vh] to-slate-900 p-10 inline-block">
+            <h1 className="text-center text-2xl font-bold ">
+              WITHDRAWAL DETAIL
+            </h1>
+            <div className="flex flex-col mt-6 gap-2">
+              <div className={`${classes1}`}>
+                <p>Amount :</p>
+                <p>{singleData.amount}</p>
+              </div>
+
+              <div className={`${classes1}`}>
+                <p>Status :</p>
+                <p>{singleData.status}</p>
+              </div>
+
+              <div className={`${classes1}`}>
+                <p>Account Holder :</p>
+                <p>{singleData.uac_holder_name}</p>
+              </div>
+
+              <div className={`${classes1}`}>
+                <p>Bank Name :</p>
+                <p>{singleData.ubank_details}</p>
+              </div>
+
+              <div className={`${classes1}`}>
+                <p>Account No. :</p>
+                <p>{singleData.uac_no}</p>
+              </div>
+
+              <div className={`${classes1}`}>
+                <p>IFSC Code :</p>
+                <p>{singleData.uifsc_code}</p>
+              </div>
+
+              <div className={`${classes1}`}>
+                <p>Date :</p>
+                <p>{singleData.date.split("T")[0]}</p>
+              </div>
+              <div className={`${classes1}`}>
+                <p>Time :</p>
+                <p>{singleData.date.split("T")[1]}</p>
+              </div>
+            </div>
+            <MdCancel
+              size={30}
+              onClick={() => setIsVisible(false)}
+              className="cursor-pointer mt-8 flex justify-center m-auto"
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

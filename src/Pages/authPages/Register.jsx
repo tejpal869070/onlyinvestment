@@ -29,8 +29,12 @@ export default function Register() {
   const handleRegister = async (e) => {
     e.preventDefault();
     setLoading(true);
-    if (!name || !email || !mobile || !password) {
+    if (!name || !email || !password) {
       toast.error("All Details Are Required");
+      setLoading(false);
+      return;
+    } else if (mobile.length !== 10) {
+      toast.error("Invalid Mobile Number");
       setLoading(false);
       return;
     } else if (password.length < 6) {
@@ -166,7 +170,6 @@ export default function Register() {
         <OtpVerify goBack={goBack} formData={formData} />
       )}
 
-       
       <ToastContainer />
     </div>
   );

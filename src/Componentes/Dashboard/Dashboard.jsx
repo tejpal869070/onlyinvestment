@@ -11,19 +11,19 @@ const data = [
   {
     id: 1,
     title: "Direct Members Count",
-    value: "0",
+    value: "13",
     icons: <BsFillPeopleFill size={20} />,
   },
   {
     id: 2,
     title: "My Investment",
-    value: "$0",
+    value: "₹2460",
     icons: <FaWallet size={20} />,
   },
   {
     id: 3,
     title: "Total Withdrawal",
-    value: "$0",
+    value: "₹5102",
     icons: <PiHandWithdrawFill size={24} />,
   },
   {
@@ -35,7 +35,7 @@ const data = [
   {
     id: 5,
     title: "Direct Income",
-    value: "$0",
+    value: "₹8400",
     icons: <FaMoneyBills size={24} />,
   },
   {
@@ -44,7 +44,7 @@ const data = [
     value: "$0",
     icons: <GiWallet size={24} />,
   },
-  {
+  { 
     id: 7,
     title: "Matching Income",
     value: "$0",
@@ -53,7 +53,7 @@ const data = [
   {
     id: 3,
     title: "Total Business",
-    value: "$0",
+    value: "₹11,500",
     icons: <PiHandWithdrawFill size={24} />,
   },
 ];

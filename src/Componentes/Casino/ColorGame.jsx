@@ -1,114 +1,73 @@
-import React, { useState } from "react";
-import Timer from "../GamesComponent/Timer";
-import NumberColor from "../GamesComponent/NumberColor";
-import ColorGameHistory from "../GamesComponent/ColorGameHistory";
-import ColorGameChart from "../GamesComponent/ColorGameChart";
-import ColorGameMyHistory from "../GamesComponent/ColorGameMyHistory";
-import bg1 from "../../assets/photos/bg1.png";
-import ColorGamePopup from "../GamesComponent/ColorGamePopup";
+import React, { useEffect, useState } from "react";
+import { GetGameTypes } from "../../Controllers/User/GamesController";
+import swal from "sweetalert";
+import { API } from "../../Controllers/Api";
+import { Link } from "react-router-dom";
 
 export default function ColorGame() {
-  const [selectedHistoryTab, setSelectedHistoryTab] = useState(1);
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [gameTypes, setGameTypes] = useState([]);
 
-  const openPopup = () => setIsPopupOpen(true);
-  const closePopup = () => setIsPopupOpen(false);
+  const fetchGameTypes = async () => {
+    try {
+      const data = await GetGameTypes();
+      setGameTypes(data.data);
+    } catch (error) {
+      swal({
+        title: "Error!",
+        text: "Something Went Wrong",
+        icon: "error",
+        buttons: {
+          confirm: "OK",
+        },
+        dangerMode: true,
+      }).then((willRedirect) => {
+        if (willRedirect) {
+          window.location.href = "/home";
+        }
+      });
+    }
+  };
+
+  useEffect(() => {
+    fetchGameTypes();
+  }, []);
 
   return (
     <div>
-      <p className="text-center text-xl font-bold w-full   pb-2">Color Play</p>
-      <div
-        className="flex bg-no-repeat bg-cover px-4 justify-between w-full border-b-2 border-gray pb-2"
-        style={{ backgroundImage: `url(${bg1})` }}
-      >
-        <div className="py-2">
-          <p className="text-sm font-semibold">Number</p>
-          <p className="font-bold">2020216546554</p>
-        </div>
-        <div>
-          <Timer />
-        </div>
-      </div>
-
-      <div className="bg-gradient-to-r from-rose-100 to-teal-100 dark:bg-gradient-to-r dark:from-slate-500 dark:to-slate-800 py-4">
-        {/* color buttons */}
-        <div className="flex gap-6 justify-center py-2 border-b-2 border-white">
-          {Array(3)
-            .fill()
-            .map((item, index) => (
-              <div
-                key={index}
-                onClick={openPopup}
-                className={`px-8 cursor-pointer  hover:shadow-lg rounded-lg py-3 ${
-                  index === 0
-                    ? "bg-[#2ab51d]"
-                    : index === 1
-                    ? "bg-[#6655d3]"
-                    : "bg-[#de2925]"
-                }`}
-              >
-                <button className="text-2xl font-bold text-white">
-                  {index === 0 ? "Green" : index === 1 ? "Violet" : "Red"}
-                </button>
-              </div>
-            ))}
-        </div>
-
-        {/* color numbers */}
-        <NumberColor />
-
-        {/* big small */}
-        <div className="flex justify-center my-4 big-small-buttons">
-          <button className="btn1 w-52 h-12 shadow-xl" onClick={openPopup}>
-            BIG
-          </button>
-          <button className="btn2 w-52 h-12 shadow-xl" onClick={openPopup}>
-            SMALL
-          </button>
-        </div>
-      </div>
-
-      {/* history */}
-      <div className="flex gap-4 justify-between color-game-history mt-10">
-        <button
-          className={`${
-            selectedHistoryTab === 1 ? "bg-[#ff9600]" : "bg-[#babbbb]"
-          }`}
-          onClick={() => setSelectedHistoryTab(1)}
-        >
-          Game History
+      <div class="flex flex-wrap gap-6 mb-4">
+        <button class="relative" href="#">
+          <span class="absolute top-0 left-0 mt-1 ml-1 h-full w-full rounded bg-black"></span>
+          <span class="fold-bold relative inline-block h-full w-full rounded border-2 border-black bg-white px-3 py-1 text-base font-bold text-black transition duration-100 hover:bg-yellow-400 hover:text-gray-900">
+            Exchange Wallet Money
+          </span>
         </button>
-        <button
-          className={`${
-            selectedHistoryTab === 2 ? "bg-[#ff9600]" : "bg-[#babbbb]"
-          }`}
-          onClick={() => setSelectedHistoryTab(2)}
-        >
-          Chart
-        </button>
-        <button
-          className={`${
-            selectedHistoryTab === 3 ? "bg-[#ff9600]" : "bg-[#babbbb]"
-          }`}
-          onClick={() => setSelectedHistoryTab(3)}
-        >
-          My History
-        </button>
+        <p class="relative" href="#">
+          <span class="fold-bold relative inline-block h-full w-full rounded border-2 border-black bg-white px-3 py-1 text-base font-bold text-black transition duration-100  hover:text-gray-900">
+            Game Wallet Balance : ₹400
+          </span>
+        </p>
+        <p class="relative" href="#">
+          <span class="fold-bold relative inline-block h-full w-full rounded border-2 border-black bg-white px-3 py-1 text-base font-bold text-black transition duration-100  hover:text-gray-900">
+            Main Wallet Balance : ₹1650
+          </span>
+        </p>
       </div>
 
-      {/* history tabs */}
-      <div className="border-2 border-gray-400 mt-2 rounded-lg p-1">
-        {selectedHistoryTab === 1 ? (
-          <ColorGameHistory />
-        ) : selectedHistoryTab === 2 ? (
-          <ColorGameChart />
-        ) : (
-          <ColorGameMyHistory />
-        )}
+      <div class="grid grid-cols-1 xl:grid-cols-4 gap-9 px-4 py-3 border border-2 mt-6">
+        {gameTypes &&
+          gameTypes.map((item, index) => (
+            <Link
+              key={index}
+              className="w-40 h-40 bg-gray-300 rounded-xl flex flex-col "
+              to={{
+                pathname: "/home",
+                search: `?colorGameType=${item.id}`,
+              }}
+            >
+              <img alt={item.name} src={`${API.gametype_hostURL}${item.img}`} />
+            </Link>
+          ))}
       </div>
-
-      {/* popup */}
-      <ColorGamePopup isOpen={isPopupOpen} onClose={closePopup} />
     </div>
   );
 }

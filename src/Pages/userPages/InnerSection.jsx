@@ -20,6 +20,7 @@ import RoiIncome from "../../Componentes/Income/RoiIncome";
 import Inplay from "../../Componentes/Events/Inplay";
 import Events from "../../Componentes/Events/Events";
 import LiveCasino from "../LiveCasino";
+import ColorGameTime from "../../Componentes/Casino/ColorGameTime";
 
 export default function InnerSection() {
   const location = useLocation();
@@ -30,7 +31,6 @@ export default function InnerSection() {
   for (const [key, value] of queryParams.entries()) {
     paramsData[key] = value;
   }
- 
 
   if (paramsData && paramsData.event === "inplay") {
     return <div>{<Inplay />}</div>;
@@ -72,6 +72,8 @@ export default function InnerSection() {
     return <div> {<ReferIncome />} </div>;
   } else if (paramsData && paramsData.income === "roi-income") {
     return <div> {<RoiIncome />} </div>;
+  } else if (paramsData && paramsData.colorGameType) {
+    return <div> {<ColorGameTime gameType={paramsData.colorGameType} />} </div>;
   } else if (paramsData && paramsData.game !== undefined) {
     return <div> {<LiveCasino />} </div>;
   } else {

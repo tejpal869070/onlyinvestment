@@ -1,48 +1,73 @@
 import React, { useState } from "react";
-import img0 from "../../assets/photos/0.png";
-import img1 from "../../assets/photos/1.png";
-import img2 from "../../assets/photos/2.png";
-import img3 from "../../assets/photos/3.png";
-import img4 from "../../assets/photos/4.png";
-import img5 from "../../assets/photos/5.png";
-import img6 from "../../assets/photos/6.png";
-import img7 from "../../assets/photos/7.png";
-import img8 from "../../assets/photos/8.png";
-import img9 from "../../assets/photos/9.png";
 import ColorGamePopup from "./ColorGamePopup";
 
-export default function NumberColor() {
+export default function NumberColor({ numbersData }) {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const openPopup = () => setIsPopupOpen(true);
   const closePopup = () => setIsPopupOpen(false);
-  const data = [
-    { id: 1, img: img0 },
-    { id: 2, img: img1 },
-    { id: 3, img: img2 },
-    { id: 4, img: img3 },
-    { id: 5, img: img4 },
-    { id: 6, img: img5 },
-    { id: 7, img: img6 },
-    { id: 8, img: img7 },
-    { id: 9, img: img8 },
-    { id: 0, img: img9 },
-  ];
+
   return (
     <div className="  pt-4 border-b-2 border-white">
-      <div className="flex flex-wrap  justify-center   lg:px-10">
-        {data.map((item, index) => (
-          <div key={item.id} className="w-[20%] mb-4">
-            <img
-              src={item.img}
-              alt={item.id}
-              className="w-20 h-20 m-auto cursor-pointer"
-              onClick={openPopup}
+      <div className="grid grid-cols-5 grid-rows-2 gap-4 lg:px-10">
+        {numbersData &&
+          numbersData.map((item, index) => (
+            <ColorCircle
+              key={item.id}
+              number={item.number}
+              orders={item.orders}
             />
-          </div>
-        ))}
+            // <div
+            //   key={item.id}
+            //   className="w-24 h-24 bg-gray-400 mb-4 flex justify-center items-center rounded-full  "
+            //   onClick={openPopup}
+            // >
+            //   <div className="w-20 h-20 rounded-full bg-white m-auto flex justify-center items-center">
+            //     <p className="text-2xl font-bold ">{item.number}</p>
+            //   </div>
+            // </div>
+          ))}
       </div>
       <ColorGamePopup isOpen={isPopupOpen} onClose={closePopup} />
     </div>
   );
 }
+
+const ColorCircle = ({ orders, number }) => {
+  const colors = orders.map((order) => order.color_code);
+  const colorCount = colors.length;
+
+  const circleNumberStyle ="text-4xl font-bold text-gray-200  "
+
+  return (
+    <div className="relative h-24 w-24 rounded-full p-1 border-2 border-black dark:border-gray-400 overflow-hidden">
+      {colorCount === 1 ? (
+        <div
+          className="h-full w-full rounded-full flex justify-center items-center"
+          style={{ background: colors[0] }}
+        >
+          <p className={circleNumberStyle}>{number}</p>
+        </div>
+      ) : colorCount > 1 ? (
+        <div >
+          <div
+            className="absolute h-full rounded-l-full w-1/2"
+            style={{ background: colors[0] }}
+          />
+          <div
+            className="absolute h-full rounded-r-full w-1/2 right-0"
+            style={{ background: colors[1] }}
+          />
+          <p
+            className={`absolute h-full text-center flex justify-center items-center w-full m-auto inset-0 ${circleNumberStyle}`}
+          >
+            {number}
+          </p>
+        </div>
+      ) : (
+        <div className="h-full w-full bg-transparent" />
+      )}
+    </div>
+  );
+};
+//

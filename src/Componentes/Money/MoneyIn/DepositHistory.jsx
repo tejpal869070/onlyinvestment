@@ -20,7 +20,7 @@ export default function DepositHistory() {
   const GetPaymentHistory = async () => {
     const response = await GetUserPaymentHistory();
     if (response !== null) {
-      setData(response.filter((item) => item.payment_type === "Deposit"));
+      setData(response.reverse().filter((item) => item.payment_type === "Deposit"));
       setLoading(false);
     } else {
       setData([]);
