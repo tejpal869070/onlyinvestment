@@ -1,69 +1,31 @@
-import React from "react";
-import { FaCircle } from "react-icons/fa";
+import React from "react"; 
 
-const data = [
-  {
-    period: "202401010121",
-    number: "4",
-    big_small: "Big",
-    color: "green",
-  },
-  {
-    period: "202401010122",
-    number: "2",
-    big_small: "Small",
-    color: "red",
-  },
-  {
-    period: "202401010123",
-    number: "6",
-    big_small: "Big",
-    color: "blue",
-  },
-];
-
-export default function ColorGameHistory() {
-  return ( 
+export default function ColorGameHistory({ gameHistory }) {
+  return (
     <div>
       <div className="relative overflow-x-auto  z-0">
-        <table className="w-full text-[16px] font-semibold text-left rtl:text-right text-black dark:text-gray-400">
-          <thead className="text-sm text-black uppercase bg-gray-200 rounded-lg dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-              <th scope="col" className="px-6 py-3">
-                Period
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Number
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Big-Small
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Color
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((item, index) => (
-              <tr
-                key={index}
-                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-              >
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+        <p className="font-semibold dark:text-gray-200">Game Recoard : </p>
+        <div className="flex flex-wrap gap-4 mt-4">
+          {gameHistory &&
+            gameHistory.map((item, index) => (
+              <div className="relative flex justify-center w-16 h-16">
+                <div
+                  className="w-10 h-10 relative  text-white rounded-full flex items-center justify-center font-semibold text-lg"
+                  style={{ backgroundColor: item.color_code }}
                 >
-                  {item.period}
-                </th>
-                <td className="px-6 py-4">{item.number}</td>
-                <td className="px-6 py-4">{item.big_small}</td>
-                <td className="px-6 py-4">
-                  <FaCircle color={item.color} />
-                </td>
-              </tr>
+                  <p className="z-[999]">{item.number}</p>
+                </div>
+                {item.number === "5" || item.number === "0" ? (
+                  <div className="absolute w-5 h-10 rounded-r-full right-3  bg-[#5e1287]"></div>
+                ) : (
+                  ""
+                )}
+                <div className="absolute font-medium bottom-1 bg-gray-400 rounded-lg px-3 ">
+                  {item.period.slice(-4)}
+                </div>
+              </div>
             ))}
-          </tbody>
-        </table>
+        </div>
       </div>
     </div>
   );

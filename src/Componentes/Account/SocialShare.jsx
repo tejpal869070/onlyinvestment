@@ -3,7 +3,6 @@ import CopyToClipboard from "react-copy-to-clipboard";
 import { ToastContainer, toast } from "react-toastify";
 import { MdCancel } from "react-icons/md";
 
-
 const SocialShare = ({ url, onClose }) => {
   const [isCopied1, setIsCopied1] = useState(false);
   const [isCopied2, setIsCopied2] = useState(false);
@@ -31,10 +30,12 @@ const SocialShare = ({ url, onClose }) => {
   return (
     <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-gray-800 bg-opacity-50 z-[9999]">
       <div className="  flex items-center justify-center">
-        <div className="bg-gray-100 w-full mx-4 p-4 rounded-xl animate-fade-down animate-once animate-duration-500">
+        <div className="bg-gray-100 dark:bg-gray-300 w-full mx-4 p-4 rounded-xl animate-fade-down animate-once animate-duration-500">
           <div className="flex justify-between items center border-b border-gray-200 py-3">
             <div className="flex items-center justify-center">
-              <p className="text-xl font-bold text-gray-800">YOUR REFERRAL LINK</p>
+              <p className="text-xl font-bold text-gray-800">
+                YOUR REFERRAL LINK
+              </p>
             </div>
 
             <div
@@ -64,16 +65,23 @@ const SocialShare = ({ url, onClose }) => {
               <CopyToClipboard
                 text={url}
                 onCopy={handleCopy}
-                className="w-full md:w-[48%] bg-indigo-500 text-white rounded text-sm py-2 px-5   hover:bg-indigo-600"
+                className={`w-full md:w-[48%]  text-white rounded text-sm py-2 px-5    ${
+                  isCopied1 ? "bg-[green]" : "bg-indigo-500"
+                }`}
               >
                 <button> {isCopied1 ? "Copied" : "Copy Left Position"} </button>
               </CopyToClipboard>
               <CopyToClipboard
                 text={url}
                 onCopy={handleCopy2}
-                className="w-full md:w-[48%] bg-indigo-500 text-white rounded text-sm py-2 px-5   hover:bg-indigo-600"
+                className={`w-full md:w-[48%]  text-white rounded text-sm py-2 px-5    ${
+                  isCopied2 ? "bg-[green]" : "bg-indigo-500"
+                }`}
               >
-                <button> {isCopied2 ? "Copied" : "Copy Right Position"} </button>
+                <button>
+                  {" "}
+                  {isCopied2 ? "Copied" : "Copy Right Position"}{" "}
+                </button>
               </CopyToClipboard>
             </div>
           </div>

@@ -37,10 +37,10 @@ const ColorCircle = ({ orders, number }) => {
   const colors = orders.map((order) => order.color_code);
   const colorCount = colors.length;
 
-  const circleNumberStyle ="text-4xl font-bold text-gray-200  "
+  const circleNumberStyle = "text-4xl font-bold text-gray-200  ";
 
   return (
-    <div className="relative h-24 w-24 rounded-full p-1 border-2 border-black dark:border-gray-400 overflow-hidden">
+    <div className="relative h-24 w-24 rounded-full p-1 border-2 border-dotted border-black dark:border-gray-400 overflow-hidden">
       {colorCount === 1 ? (
         <div
           className="h-full w-full rounded-full flex justify-center items-center"
@@ -49,13 +49,12 @@ const ColorCircle = ({ orders, number }) => {
           <p className={circleNumberStyle}>{number}</p>
         </div>
       ) : colorCount > 1 ? (
-        <div >
+        <div
+          className="w-full h-full rounded-full"
+          style={{ background: colors[0] }}
+        > 
           <div
-            className="absolute h-full rounded-l-full w-1/2"
-            style={{ background: colors[0] }}
-          />
-          <div
-            className="absolute h-full rounded-r-full w-1/2 right-0"
+            className="absolute h-[90%] rounded-r-full w-[48%] right-1"
             style={{ background: colors[1] }}
           />
           <p

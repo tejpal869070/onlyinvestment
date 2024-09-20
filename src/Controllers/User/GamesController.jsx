@@ -54,3 +54,74 @@ export const ColorGameNumbers = async (id) => {
     throw error;
   }
 };
+
+export const ColorGameColors = async (id) => {
+  try {
+    const data = await EncodeString({ mobile, id });
+    const postData = {
+      data: data,
+    };
+    const response = await axios.post(
+      `${API.colorGameUrl}user/get-game-mapping-color`,
+      postData
+    );
+    const decodedData = await DecodeString(response.data);
+    return decodedData;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const ColorGameCurrentData = async (id) => {
+  try {
+    const data = await EncodeString({ mobile, id });
+    const postData = {
+      data: data,
+    };
+    const response = await axios.post(
+      `${API.colorGameUrl}user/get-record-not-complete`,
+      postData
+    );
+    const decodedData = await DecodeString(response.data);
+    return decodedData;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const ColorGameAllResult = async (id) => {
+  try {
+    let page = 1;
+    const data = await EncodeString({ mobile, id, page });
+    const postData = {
+      data: data,
+    };
+    const response = await axios.post(
+      `${API.colorGameUrl}user/get-record-complete`,
+      postData
+    );
+    const decodedData = await DecodeString(response.data);
+    return decodedData;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const MyColorGameHistory = async (id) => {
+  console.log(id)
+  try {
+    let page = 1;
+    const data = await EncodeString({ mobile, id, page });
+    const postData = {
+      data: data,
+    };
+    const response = await axios.post(
+      `${API.colorGameUrl}user/get-bet-record`,
+      postData
+    );
+    const decodedData = await DecodeString(response.data);
+    return decodedData;
+  } catch (error) {
+    throw error;
+  }
+};
