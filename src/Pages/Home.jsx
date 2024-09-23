@@ -13,7 +13,7 @@ import Cookies from "js-cookie";
 import { GetUserDetails } from "../Controllers/User/UserController";
 import ThemeToggle from "../Controllers/ThemeToggle";
 import { Loading1 } from "../Componentes/Loading1";
-import CreatePin from "../Componentes/Dashboard/CratePin"; 
+import CreatePin from "../Componentes/Dashboard/CratePin";
 
 export default function Home() {
   const [user, setUser] = React.useState({});
@@ -636,7 +636,7 @@ export default function Home() {
                 <li className="ml-11">
                   <Link
                     to={{ pathname: "/home", search: `?account=send-money` }}
-                    className="flex items-center w-full p-2  pl-0 text-gray-900 transition duration-75 rounded-lg   group  dark:text-black dark:hover:bg-gray-300 hover:text-center"
+                    className={`${dropdownClassList}`}
                   >
                     Send Money
                   </Link>
@@ -703,7 +703,7 @@ export default function Home() {
                       pathname: "/home",
                       search: `?income=matching-income`,
                     }}
-                    className="flex items-center w-full p-2  pl-0 text-gray-900 transition duration-75 rounded-lg   group  dark:text-black dark:hover:bg-gray-300 hover:text-center"
+                    className={`${dropdownClassList}`}
                   >
                     Matching Income
                   </Link>

@@ -9,7 +9,7 @@ const SocialShare = ({ url, onClose }) => {
 
   const handleCopy = () => {
     toast("Link copied. Share with your friends", {
-      position: "bottom-right",
+      position: "top-center",
     });
     setIsCopied1(true);
     setTimeout(function () {
@@ -19,7 +19,7 @@ const SocialShare = ({ url, onClose }) => {
 
   const handleCopy2 = () => {
     toast("Link copied. Share with your friends", {
-      position: "bottom-right",
+      position: "top-center",
     });
     setIsCopied2(true);
     setTimeout(function () {
