@@ -63,40 +63,7 @@ export default function Dashboard() {
     <div>
       <Hero1/>
       <GamesSlider/>
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
-        {data.map((item, index) => (
-          <div
-            className="p-[3px] bg-gray-400   shadow-lg rounded shadow-4"
-            key={index}
-          >
-            <div className="flex flex-col w-full  p-4 justify-center rounded bg-white dark:bg-[#00000000] h-28  ">
-              <div className="w-full flex justify-between">
-                {item.icons}
-                {index === 7 ? (
-                  ""
-                ) : (
-                  <p className="cursor-pointer font-semibold text-[blue] dark:text-white">
-                    View
-                  </p>
-                )}
-              </div>
-              <h5 className="text-left  font-semibold mt-4 mb-1">
-                {item.title}
-              </h5>
-              <div className="w-full flex justify-between">
-                <p className="font-bold text-2xl">{item.value}</p>
-                {index === 7 ? (
-                  <p className="text-sm font-semibold text-end">
-                    Left:0 | Right:0
-                  </p>
-                ) : (
-                  ""
-                )}
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
+       
     </div>
   );
 }

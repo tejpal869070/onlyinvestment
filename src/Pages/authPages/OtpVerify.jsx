@@ -9,6 +9,7 @@ import {
   VerifyOtp,
 } from "../../Controllers/Auth/AuthController";
 import { Loading1 } from "../../Componentes/Loading1";
+import { FaArrowCircleLeft } from "react-icons/fa";
 
 export default function OtpVerify({ goBack, formData }) {
   const [otp, setOtp] = useState("");
@@ -90,20 +91,12 @@ export default function OtpVerify({ goBack, formData }) {
   };
 
   return (
-    <div
-      className="   bg-fixed  bg-no-repeat bg-cover py-6 flex flex-col justify-center sm:py-12"
-      style={{
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${bg1})`,
-      }}
-    >
+    <div className=" min-h-screen bg-gray-500 bg-fixed  bg-no-repeat bg-cover py-6 flex flex-col justify-center sm:py-12">
       <div className="relative py-3 sm:max-w-xl sm:mx-auto">
-        <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-sky-500 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
         <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-10">
           <div className="mb-4 text-center">
             <h1 className="text-2xl font-semibold ">Enter OTP</h1>
-            <p className="text-sm mt-2 text-center">
-              OTP sent at {formData.email}
-            </p>
+            <p className="text-sm mt-2 text-center">{formData.email}</p>
           </div>
           <div className="flex justify-center items-center flex-col m-auto">
             <OtpInput
@@ -114,7 +107,7 @@ export default function OtpVerify({ goBack, formData }) {
               renderInput={(props) => <input {...props} />}
               inputStyle={{
                 border: "2px solid black",
-                borderRadius: "10px",
+                borderRadius: "2px",
                 width: "40px",
                 height: "40px",
               }}
@@ -122,13 +115,13 @@ export default function OtpVerify({ goBack, formData }) {
             <div className="relative mt-10">
               <div className="flex gap-4">
                 <button
-                  className="bg-cyan-500 hover:shadow-lg font-semibold text-white rounded-md px-6 py-2"
+                  className="rounded relative inline-flex group items-center justify-center px-3.5 py-2 m-1 cursor-pointer border-b-4 border-l-2 active:border-purple-600 active:shadow-none shadow-lg bg-gradient-to-tr from-purple-600 to-purple-500 border-purple-700 text-white"
                   onClick={resendOtp}
                 >
                   {otpSending ? <Loading1 width={30} /> : "RESEND OTP"}
                 </button>
                 <button
-                  className="bg-cyan-500 hover:shadow-lg font-semibold text-white rounded-md px-6 py-2"
+                  className="rounded relative inline-flex group items-center justify-center px-3.5 py-2 m-1 cursor-pointer border-b-4 border-l-2 active:border-purple-600 active:shadow-none shadow-lg bg-gradient-to-tr from-purple-600 to-purple-500 border-purple-700 text-white"
                   onClick={handleVerifyOtp}
                 >
                   {otpVerifying ? <Loading1 width={30} /> : "VERIFY"}
@@ -136,7 +129,9 @@ export default function OtpVerify({ goBack, formData }) {
               </div>
 
               <div className="text-center mt-4 font-semibold  underline cursor-pointer">
-                <div onClick={goBack}>Go Back </div>
+                <div onClick={goBack} className="flex gap-1 items-center">
+                  <FaArrowCircleLeft /> Go Back
+                </div>
               </div>
             </div>
           </div>

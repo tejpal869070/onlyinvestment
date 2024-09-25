@@ -1,5 +1,5 @@
 import React from "react";
-import loading1img from "../assets/photos/loadinggif.gif";
+import loading1img from "../assets/photos/giff3.gif";
 
 export function Loading1({ width }) {
   return (

@@ -31,6 +31,7 @@ export const userRegistration = async (formData) => {
       password: formData.password,
       email: formData.email,
       token: formData.token,
+      reffer_by : formData.reffer_by
     };
 
     const response = await axios.post(`${API.url}user/register`, postData);
