@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { FaEye } from "react-icons/fa";
+import { IoIosEye } from "react-icons/io";
 import { MyInvestMentHistory } from "../../Controllers/User/UserController";
 import { Loading1 } from "../Loading1";
 import Details from "./Details";
-import gif1 from "../../assets/photos/nodatagif.gif";
+import gif1 from "../../assets/photos/giff5.gif";
 
 export default function InvestmentHistory() {
   const [data, setData] = useState([]);
@@ -45,38 +45,35 @@ export default function InvestmentHistory() {
       <div className=" ">
         <div>
           <h1 className="mb-6 font-bold text-lg dark:text-white">
-            Investment {">"}Investment History
+            Investment History
           </h1>
           <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
             {data && data.length === 0 ? (
               <div>
-                <img alt="no data" src={gif1} className="m-auto" />
+                <img alt="no data" src={gif1} className="m-auto w-40" />
                 <p className="text-center font-bold text-xl">No Recoard !</p>
               </div>
             ) : (
               <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                <thead className="text-xs font-semibold text-black uppercase bg-gray-300 dark:bg-gray-700 dark:text-gray-400">
+                <thead className="text-xs font-semibold text-gray-100 uppercase bg-indigo-500 dark:bg-gray-700 dark:text-gray-400">
                   <tr>
                     <th scope="col" className="px-4 py-3">
                       S.No.
                     </th>
                     <th scope="col" className="px-6 py-3">
-                      INVESTMENT
+                      Plan
                     </th>
                     <th scope="col" className="px-6 py-3">
-                      TYPE
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                      CLAIM TIME
+                      Daily INcome
                     </th>
                     <th scope="col" className="px-6 py-3">
                       Status
                     </th>
                     <th scope="col" className="px-6 py-3">
-                      DATE START
+                      Buy ON
                     </th>
                     <th scope="col" className="px-6 py-3">
-                      DATE END
+                      Expire on
                     </th>
                     <th scope="col" className="px-6 py-3">
                       VIEW
@@ -89,27 +86,27 @@ export default function InvestmentHistory() {
                       className={` text-black font-semibold dark:text-gray-200  border-b dark:border-gray-700 ${
                         index % 2 === 0
                           ? "bg-white dark:bg-gray-900"
-                          : "bg-gray-200 dark:bg-gray-800"
+                          : "bg-indigo-200 dark:bg-gray-800"
                       }`}
                     >
                       <th
                         scope="row"
-                        className="px-6 py-4 font-medium text-gray-900 dark:text-gray-100 whitespace-nowrap dark:text-white"
+                        className="px-6 py-2 font-medium text-gray-900 dark:text-gray-100 whitespace-nowrap dark:text-white"
                       >
                         {index + 1}.
                       </th>
-                      <td className="px-4 py-4">{item.amount}</td>
-                      <td className="px-4 py-4">{item.plan_name}</td>
-                      <td className="px-6 py-4">
-                        {item.times} {item.title}
+                      <td className="px-4 py-2">{item.plan_name}</td>
+                      <td className="px-4 py-2">₹ {item.per_day_income}/day</td>
+                      <td className="px-6 py-2">
+                        {item.status}
+                      </td> 
+                      <td className="px-6 py-2">{item.date.split("T")[0]}</td>
+                      <td className="px-6 py-2">
+                        {/* {getEndDate(item.date, Number(item.day_count))} */}
+                        {item.expire_date.split("T")[0]}
                       </td>
-                      <td className="px-6 py-4">{item.status}</td>
-                      <td className="px-6 py-4">{item.date.split("T")[0]}</td>
-                      <td className="px-6 py-4">
-                        {getEndDate(item.date, Number(item.day_count))}
-                      </td>
-                      <td className="px-6 py-4">
-                        <FaEye
+                      <td className="px-6 py-2">
+                        <IoIosEye
                           size={20}
                           className="cursor-pointer"
                           onClick={() => {

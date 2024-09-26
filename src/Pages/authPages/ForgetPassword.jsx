@@ -50,8 +50,8 @@ export default function ForgetPassword() {
       } else {
         setError("Server Error !");
       }
-    } catch (error) { 
-      setError("An unexpected error occurred.");  
+    } catch (error) {
+      setError("An unexpected error occurred.");
     } finally {
       setLoading(false);
     }
@@ -129,7 +129,9 @@ export default function ForgetPassword() {
       const otpResponse = await SendOtp(formData);
       if (otpResponse.status) {
         setError("");
-        toast.success("OTP Sent.");
+        toast.success("OTP Sent.", {
+          position: "top-center",
+        });
       } else {
         setError("Server Error !");
       }
@@ -141,130 +143,123 @@ export default function ForgetPassword() {
   };
 
   return (
-    <div className="bg-gray-400 h-screen">
+    <div className="bg-indigo-700 h-screen">
       <div className="container mx-auto ">
         <div className="flex justify-center   px-6 py-12">
-          <div className="w-full shadow-xl  xl:w-3/4 lg:w-11/12 flex">
-            <div
-              className="w-full h-auto bg-gray-400 hidden lg:block lg:w-1/2 bg-cover rounded-l-lg"
-              style={{ backgroundImage: `url(${bg1})` }}
-            ></div>
-            <div className="w-full lg:w-1/2 bg-white p-5 rounded-lg lg:rounded-l-none">
-              <div className="px-8 mb-2  ">
-                <h3 className="pt-4 mb-2 text-2xl font-semibold">
-                  Forgot Your Password?
-                </h3>
-                <p className="mb-4 text-sm text-gray-700">
-                  Enter Email - Verify OTP - Reset Password
-                </p>
-                <p className="mb-2 text-sm text-[red]">{error}</p>
-              </div>
-              {!otpSuccess ? (
-                !otpSent ? (
-                  <form
-                    className="px-8 pt-6 pb-8 mb-4 bg-white rounded"
-                    onSubmit={handleForgetPassword}
-                  >
-                    <div className="mb-4">
-                      <label
-                        className="block mb-2 text-sm font-bold text-gray-700"
-                        for="email"
-                      >
-                        Email
-                      </label>
-                      <input
-                        className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                        id="email"
-                        type="email"
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="Enter Email Address..."
-                      />
-                    </div>
-                    <div className="mb-6 text-center">
-                      <button
-                        className="w-full px-4 py-2 font-bold text-white bg-red-500 rounded-full hover:bg-red-700 focus:outline-none focus:shadow-outline"
-                        type="submit"
-                        disabled={loading}
-                      >
-                        {loading ? <Loading1 width={30} /> : "SUBMIT"}
-                      </button>
-                    </div>
-                    <hr className="mb-6 border-t" />
-                  </form>
-                ) : (
-                  <form
-                    className="px-8 pt-4 pb-8 mb-4 bg-white rounded"
-                    onSubmit={handleVerifyOtp}
-                  >
-                    <div className="flex flex-col">
-                      <p className="mb-4  text-lg font-bold text-gray-700">
-                        Enter OTP
-                      </p>
-
-                      <OTPInput
-                        value={otp}
-                        onChange={setOtp}
-                        numInputs={4}
-                        renderSeparator={<span>-</span>}
-                        renderInput={(props) => <input {...props} />}
-                        inputStyle={{
-                          border: "2px solid black",
-                          borderRadius: "10px",
-                          width: "40px",
-                          height: "40px",
-                        }}
-                      />
-                      <p
-                        className="text-sm italic mt-1 font-medium cursor-pointer"
-                        onClick={handleResendOtp}
-                      >
-                        {sendingOtp ? "Sending..." : "Resend"}
-                      </p>
-                      <button
-                        type="submit"
-                        disabled={verifyOtp}
-                        className="w-1/2 mt-6 px-4 py-2 font-bold text-white bg-red-500 rounded-full hover:bg-red-700 focus:outline-none focus:shadow-outlin"
-                      >
-                        {verifyOtp ? <Loading1 width={30} /> : "VERIFY"}
-                      </button>
-                    </div>
-                  </form>
-                )
+          <div className="w-auto bg-white p-5 rounded-lg lg:rounded-l-none">
+            <div className="px-8 mb-2  ">
+              <h3 className="pt-4 mb-2 text-2xl font-semibold">
+                Forgot Your Password?
+              </h3>
+              <p className="mb-2 text-sm text-[red]">{error}</p>
+            </div>
+            {!otpSuccess ? (
+              !otpSent ? (
+                <form
+                  className="px-8 pt-6 pb-8 mb-4 bg-white rounded"
+                  onSubmit={handleForgetPassword}
+                >
+                  <div className="mb-4">
+                    <label
+                      className="block mb-2 text-sm font-bold text-gray-700"
+                      for="email"
+                    >
+                      Email
+                    </label>
+                    <input
+                      className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                      id="email"
+                      type="email"
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="Enter Email Address..."
+                    />
+                  </div>
+                  <div className="mb-6 text-center">
+                    <button
+                      className="px-6 py-2 min-w-[120px] text-center text-white bg-violet-600 border border-violet-600 rounded active:text-violet-500 hover:bg-transparent hover:text-violet-600 focus:outline-none focus:ring"
+                      type="submit"
+                      disabled={loading}
+                    >
+                      {loading ? <Loading1 width={30} /> : "SUBMIT"}
+                    </button>
+                  </div>
+                  <hr className="mb-6 border-t" />
+                </form>
               ) : (
-                <div className="px-8 pt-4 pb-8 mb-4 bg-white rounded">
-                  <form onSubmit={handleChangePassword}>
-                    <div className="mb-4 flex flex-col gap-4">
-                      <input
-                        className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                        id="password"
-                        type="password"
-                        onChange={(e) => setPassword(e.target.value)}
-                        placeholder="New Password..."
-                      />
-                      <input
-                        className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                        id="password"
-                        type="password"
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                        placeholder="Confirm Password..."
-                      />
-                    </div>
+                <form
+                  className="px-8 pt-4 pb-8 mb-4 bg-white rounded"
+                  onSubmit={handleVerifyOtp}
+                >
+                  <div className="flex flex-col">
+                    <p className="mb-4  text-lg font-bold text-gray-700">
+                      Enter OTP
+                    </p>
+
+                    <OTPInput
+                      value={otp}
+                      onChange={setOtp}
+                      numInputs={4}
+                      renderSeparator={<span>-</span>}
+                      renderInput={(props) => <input {...props} />}
+                      inputStyle={{
+                        border: "2px double black",
+                        borderRadius: "10px",
+                        width: "40px",
+                        height: "40px",
+                      }}
+                    />
+                    <p
+                      className="text-sm italic mt-1 font-medium cursor-pointer"
+                      onClick={handleResendOtp}
+                    >
+                      {sendingOtp ? "Sending..." : "Resend OTP Again"}
+                    </p>
                     <button
                       type="submit"
-                      disabled={changingPassword}
-                      className="w-1/2 mt-6 px-4 py-2 font-bold text-white bg-red-500 rounded-full hover:bg-red-700 focus:outline-none focus:shadow-outlin"
+                      disabled={verifyOtp}
+                      className="px-6 py-2 min-w-[120px] text-center text-white bg-violet-600 border border-violet-600 rounded active:text-violet-500 hover:bg-transparent hover:text-violet-600 focus:outline-none focus:ring mt-4"
                     >
-                      {changingPassword ? <Loading1 width={30} /> : "SUBMIT"}
+                      {verifyOtp ? <Loading1 width={30} /> : "VERIFY"}
                     </button>
-                  </form>
-                </div>
-              )}
+                  </div>
+                </form>
+              )
+            ) : (
+              <div className="px-8 pt-4 pb-8 mb-4 bg-white rounded">
+                <form onSubmit={handleChangePassword}>
+                  <div className="mb-4 flex flex-col gap-4">
+                    <input
+                      className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                      id="password"
+                      type="password"
+                      onChange={(e) => setPassword(e.target.value)}
+                      placeholder="New Password..."
+                    />
+                    <input
+                      className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                      id="password"
+                      type="password"
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      placeholder="Confirm Password..."
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    disabled={changingPassword}
+                    className="px-6 py-2 min-w-[120px] text-center text-white bg-violet-600 border border-violet-600 rounded active:text-violet-500 hover:bg-transparent hover:text-violet-600 focus:outline-none focus:ring mt-4"
+                  >
+                    {changingPassword ? <Loading1 width={30} /> : "SUBMIT"}
+                  </button>
+                </form>
+              </div>
+            )}
+            <div className="flex gap-6">
               <div className="text-center">
                 <Link
                   className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
                   to={"/register"}
                 >
-                  Create an Account!
+                  Register
                 </Link>
               </div>
               <div className="text-center">
@@ -272,7 +267,7 @@ export default function ForgetPassword() {
                   className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
                   to={"/login"}
                 >
-                  Already have an account? Login!
+                 Have Account ? Login!
                 </Link>
               </div>
             </div>

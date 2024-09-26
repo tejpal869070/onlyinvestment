@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import bg1 from "../../assets/photos/stadium.jpg";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -11,6 +11,9 @@ import { Loading1 } from "../../Componentes/Loading1";
 import OtpVerify from "./OtpVerify";
 
 export default function Register() {
+  const classNameList =
+    "w-full -ml-10 text-gray-800 font-medium  pr-3 py-2  bg-gray-200 border-b-2 border-indigo-500 outline-none border-x-0 border-t-0   focus:border-indigo-500";
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [mobile, setMobile] = useState("");
@@ -20,12 +23,24 @@ export default function Register() {
 
   const [otpSent, setOtpSent] = useState(false);
 
+  const location = useLocation();
+
+  useEffect(() => {
+    const getQueryParam = (name) => {
+      const searchParams = new URLSearchParams(location.search);
+      return searchParams.get(name);
+    };
+
+    const refferCode = getQueryParam("referrer_code");
+    setRefferBy(refferCode);
+  }, [location]);
+
   const formData = {
     name: name,
     email: email,
     mobile: mobile,
     password: password,
-    reffer_by: reffer_by,
+    reffer_by: reffer_by || "5Zw8gbwv",
   };
 
   const handleRegister = async (e) => {
@@ -78,7 +93,7 @@ export default function Register() {
   return (
     <div className="min-h-screen  bg-fixed  bg-no-repeat bg-cover      ">
       {!otpSent ? (
-        <div class="min-w-screen min-h-screen bg-gray-500 flex items-center justify-center px-5 py-5">
+        <div class="min-w-screen min-h-screen  bg-indigo-700 flex items-center justify-center px-5 py-5">
           <div class="bg-gray-100 max-w-[1000px] mx-auto text-gray-500 rounded-3xl shadow-xl w-full overflow-hidden">
             <div class="md:flex w-full">
               <div class="hidden md:block w-1/2 bg-indigo-500 py-10 px-10">
@@ -292,37 +307,31 @@ export default function Register() {
                   <p>Enter your information to register</p>
                 </div>
                 <form onSubmit={handleRegister}>
-                  <div class="flex -mx-3">
-                    <div class="w-1/2 px-3 mb-5">
-                      <label for="" class="text-xs font-semibold px-1">
-                        First name
-                      </label>
+                  <div class="flex flex-wrap -mx-3">
+                    <div class="w-full lg:w-1/2  px-3 mb-5">
                       <div class="flex">
                         <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
                           <i class="mdi mdi-account-outline text-gray-400 text-lg"></i>
                         </div>
                         <input
                           type="text"
-                          class="w-full -ml-10   pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-                          placeholder=""
+                          className={classNameList}
+                          placeholder="Full Name"
                           value={name}
                           required
                           onChange={(e) => setName(e.target.value)}
                         />
                       </div>
                     </div>
-                    <div class="w-1/2 px-3 mb-5">
-                      <label for="" class="text-xs font-semibold px-1">
-                        Mobile
-                      </label>
+                    <div class="w-full lg:w-1/2  px-3 mb-5">
                       <div class="flex">
                         <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
                           <i class="mdi mdi-account-outline text-gray-400 text-lg"></i>
                         </div>
                         <input
                           type="number"
-                          class="w-full -ml-10  pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-                          placeholder=" "
+                          className={classNameList}
+                          placeholder="Mobile"
                           value={mobile}
                           required
                           onChange={(e) => setMobile(e.target.value)}
@@ -332,17 +341,14 @@ export default function Register() {
                   </div>
                   <div class="flex -mx-3">
                     <div class="w-full px-3 mb-5">
-                      <label for="" class="text-xs font-semibold px-1">
-                        Email
-                      </label>
                       <div class="flex">
                         <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
                           <i class="mdi mdi-email-outline text-gray-400 text-lg"></i>
                         </div>
                         <input
                           type="email"
-                          class="w-full -ml-10  pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-                          placeholder=""
+                          className={classNameList}
+                          placeholder="Email"
                           value={email}
                           required
                           onChange={(e) => setEmail(e.target.value)}
@@ -350,38 +356,32 @@ export default function Register() {
                       </div>
                     </div>
                   </div>
-                  <div class="flex -mx-3">
-                    <div class="w-1/2 px-3 mb-5">
-                      <label for="" class="text-xs font-semibold px-1">
-                        Password
-                      </label>
+                  <div class="flex flex-wrap -mx-3">
+                    <div class="w-full lg:w-1/2  px-3 mb-5">
                       <div class="flex">
                         <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
                           <i class="mdi mdi-account-outline text-gray-400 text-lg"></i>
                         </div>
                         <input
                           type="password"
-                          class="w-full -ml-10   pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-                          placeholder=""
+                          className={classNameList}
+                          placeholder="Password"
                           value={password}
                           required
                           onChange={(e) => setPassword(e.target.value)}
                         />
                       </div>
                     </div>
-                    <div class="w-1/2 px-3 mb-5">
-                      <label for="" class="text-xs font-semibold px-1">
-                        Referral Code
-                      </label>
+                    <div class="w-full lg:w-1/2  px-3 mb-5">
                       <div class="flex">
                         <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
                           <i class="mdi mdi-account-outline text-gray-400 text-lg"></i>
                         </div>
                         <input
                           type="text"
-                          class="w-full -ml-10  pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-                          placeholder=" "
-                          value={reffer_by} 
+                          className={classNameList}
+                          placeholder="Referral Code"
+                          value={reffer_by}
                           onChange={(e) => setRefferBy(e.target.value)}
                         />
                       </div>
@@ -392,13 +392,16 @@ export default function Register() {
                       <button
                         type="submit"
                         disabled={loading}
-                        class="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold"
+                        class="block w-full rounded-lg max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white  px-3 py-3 font-semibold"
                       >
-                        {loading ? <Loading1  width={30}/> : "REGISTER NOW"}
+                        {loading ? <Loading1 width={30} /> : "REGISTER NOW"}
                       </button>
                     </div>
                   </div>
                 </form>
+                <Link className="text-center text-sm font-medium" to={"/login"}>
+                  Already Registered ? Login Now{" "}
+                </Link>
               </div>
             </div>
           </div>

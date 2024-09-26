@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import bg1 from "../../assets/photos/stadium.jpg";
 import { ToastContainer, toast } from "react-toastify";
-import Cookies from "js-cookie"; 
+import Cookies from "js-cookie";
 import { IoEyeOff } from "react-icons/io5";
 import { FaEye } from "react-icons/fa";
 import { Loading1 } from "../../Componentes/Loading1";
-import { userLogin } from "../../Controllers/Auth/AuthController"; 
+import { userLogin } from "../../Controllers/Auth/AuthController";
 
 export default function Login() {
   const [creating, setCreating] = useState(false);
@@ -27,11 +27,15 @@ export default function Login() {
     e.preventDefault();
     setCreating(true);
     if (mobile === "" || mobile.length < 10) {
-      toast.error("Mobile number required");
+      toast.error("Mobile number required", {
+        position: "top-center",
+      });
       setCreating(false);
       return;
     } else if (password.length < 6) {
-      toast.error("Please enter a valid password");
+      toast.error("Please enter a valid password", {
+        position: "top-center",
+      });
       setCreating(false);
       return;
     }
@@ -39,14 +43,18 @@ export default function Login() {
       const response = await userLogin(userData);
       if (response.status) {
         Cookies.set("token", response.token);
-        Cookies.set("mobile", response.mobile); 
-        toast.success("Login Successfull");
+        Cookies.set("mobile", response.mobile);
+        toast.success("Login Successfull", {
+          position: "top-center",
+        });
         setCreating(false);
         setTimeout(function () {
           window.location.href = "/home";
         }, 1000);
       } else {
-        toast.error("Invalid Credentials");
+        toast.error("Mobile Or Password is wrong.", {
+          position: "top-center",
+        });
         setCreating(false);
         return;
       }
@@ -56,82 +64,83 @@ export default function Login() {
         setCreating(false);
         return;
       }
-      toast.error("Server Error !");
+      toast.error("Server Error !", {
+        position: "top-center",
+      });
       setCreating(false);
     }
   };
 
-
-  
-
   return (
-    <div
-      className="min-h-screen  bg-fixed  bg-no-repeat bg-cover bg-black     py-6 flex flex-col justify-center sm:py-12"
-      style={{
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${bg1})`,
-      }}
-    >
-      <div className="relative py-3   sm:max-w-xl sm:mx-auto">
-        <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-sky-500 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
-        <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
-          <div className="max-w-md mx-auto">
-            <div>
-              <h1 className="text-2xl font-semibold">Login</h1>
-            </div>
-            <div className="divide-y divide-gray-200">
-              <form onSubmit={handleLogin}>
-                <div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
-                  <div className="relative">
-                    <input 
-                      id="Mobile"
-                      name="Mobile"
-                      type="text"
-                      value={mobile}
-                      onChange={(e) => setMobile(e.target.value)}
-                      className="peer  h-10 w-full border-b-2 border-0 border-gray-300 text-gray-900 focus:border-b-2 focus:border-gray-500 focus:outline-none"
-                      placeholder="Mobile Number"
-                    />
-                  </div>
-                  <div className="relative flex items-center">
-                    <input 
-                      id="password"
-                      name="password"
-                      type={showPassword ? "text" : "password"}
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      className="peer  h-10 w-full border-b-2 border-0 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
-                      placeholder="Password"
-                    />
-                    {showPassword ? (
-                      <FaEye
-                        className="mt-3 ml-[-25px] cursor-pointer"
-                        onClick={ShowPassword}
-                      />
-                    ) : (
-                      <IoEyeOff
-                        className="mt-3 ml-[-25px] cursor-pointer"
-                        onClick={ShowPassword}
-                      />
-                    )}
-                  </div>
-                  <div className="relative ">
-                    <button className="relative mt-4 w-full" type="submit">
-                      <span className="absolute top-0 left-0 mt-1 ml-1 h-full w-full rounded bg-black"></span>
-                      <span className="fold-bold relative inline-block h-full w-full rounded border-2 border-black bg-white px-3 py-1 text-base font-bold text-black transition duration-100 hover:bg-yellow-400 hover:text-gray-900">
-                        {creating ? <Loading1 width={30} /> : "LOGIN"}
-                      </span>
-                    </button>
-                  </div>
-                  <p className="text-sm">
-                    Don't have an account?{" "}
-                    <Link to={"/register"} className="underlined text-[blue]">Register Now</Link>
-                  </p>
-                  <Link to={"/forget-password"} className="text-sm font-semibold cursor-pointer">Forgot Password ?</Link>
-                </div>
-              </form>
+    <div class="flex h-screen bg-indigo-700">
+      <div class="w-full max-w-xs m-auto bg-indigo-100 rounded p-5">
+        <header>
+          <img
+            class="w-20 mx-auto mb-5"
+            src="https://img.icons8.com/fluent/344/year-of-tiger.png"
+            alt="imagagga"
+          />
+        </header>
+        <form onSubmit={handleLogin}>
+          <div>
+            <label class="block mb-2 text-indigo-500" for="username">
+              Mobile
+            </label>
+            <input
+              class="w-full p-2 mb-6 text-indigo-700 border-b-2 border-indigo-500 outline-none focus:bg-gray-300"
+              type="number"
+              value={mobile}
+              onChange={(e) => setMobile(e.target.value)}
+            />
+          </div>
+          <div>
+            <label class="block mb-2 text-indigo-500" for="password">
+              Password
+            </label>
+            <div className="flex ">
+              <input
+                class="w-full p-2 mb-6 text-indigo-700 border-b-2 border-indigo-500 outline-none focus:bg-gray-300"
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                name="password"
+              />
+              {showPassword ? (
+                <FaEye
+                  className="mt-3 ml-[-25px] cursor-pointer"
+                  onClick={ShowPassword}
+                />
+              ) : (
+                <IoEyeOff
+                  className="mt-3 ml-[-25px] cursor-pointer"
+                  onClick={ShowPassword}
+                />
+              )}
             </div>
           </div>
-        </div>
+          <div>
+            <button
+              class="w-full cursor-pointer bg-indigo-700 hover:bg-pink-700 text-white font-bold py-2 px-4 mb-6 rounded"
+              type="submit"
+            >
+              {creating ? "Processing..." : "LOGIN"}
+            </button>
+          </div>
+        </form>
+        <footer>
+          <Link
+            class="text-indigo-700 hover:text-pink-700 text-sm float-left"
+            to={"/forget-password"}
+          >
+            Forgot Password?
+          </Link>
+          <Link
+            class="text-indigo-700 hover:text-pink-700 text-sm float-right"
+            to={"/register"}
+          >
+            Create Account
+          </Link>
+        </footer>
       </div>
       <ToastContainer />
     </div>

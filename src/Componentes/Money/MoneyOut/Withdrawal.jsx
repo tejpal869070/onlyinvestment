@@ -11,11 +11,9 @@ export default function Withdrawal() {
   return (
     <div>
       <div className="relative z-0">
-        <p className="  font-bold text-xl dark:text-white">
-          Money Out {">"}Withdrawal
-        </p>
+         
         {/* Select Withdrawal type */}
-        <WithdrawalTypeSelect />
+        {/* <WithdrawalTypeSelect /> */}
         {withdrawalType === "crypto" ? (
           <CryptoWithdrawal />
         ) : (

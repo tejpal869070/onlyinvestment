@@ -6,13 +6,13 @@ import {
 } from "../../../../Controllers/User/UserController";
 import { Loading1 } from "../../../Loading1";
 import { ToastContainer, toast } from "react-toastify";
-import successImg from "../../../../assets/photos/success1-1--unscreen.gif";
+import successImg from "../../../../assets/photos/giff6.gif";
 import swal from "sweetalert";
 import gif1 from "../../../../assets/photos/withdrawgif.gif";
 import VerifyPin from "../../../VerifyPin";
 
 const inputClasses =
-  "shadow-sm bg-gray-50 font-medium border border-gray-300 dark:bg-gray-400 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5";
+  "shadow-sm bg-transparent border-b-2 border-indigo-500 outline-none border-x-0 border-t-0   font-medium   dark:bg-gray-400 text-gray-900 sm:text-sm    block w-full p-2.5";
 
 export default function BankWithDrawal() {
   const [user, setUser] = React.useState({});
@@ -22,7 +22,7 @@ export default function BankWithDrawal() {
   const [ac_no, setAccNo] = useState("");
   const [ifsc_code, setIfsc] = useState("");
   const [bank_name, setBankName] = useState("");
-  const [amount, setAmount] = useState(100); 
+  const [amount, setAmount] = useState(100);
   const [processing, setProcessing] = useState(false);
   const [withdrawaing, setWithdrawaing] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -33,7 +33,7 @@ export default function BankWithDrawal() {
     setIsOpen(false);
   };
 
-  const successFunction = async (pin) => { 
+  const successFunction = async (pin) => {
     handleWithdrawal(pin);
   };
 
@@ -75,19 +75,19 @@ export default function BankWithDrawal() {
       const response = await UpdateUserDetails(formData);
       if (response.status) {
         toast.success("Bank Details Updated Successfully", {
-          position: "bottom-right",
+          position: "top-center",
         });
         userDataGet();
         setProcessing(false);
       } else {
         toast.error("Failed to Update Bank Details", {
-          position: "bottom-right",
+          position: "top-center",
         });
         setProcessing(false);
       }
     } catch (error) {
       toast.error("Server Error or Try to Re-Login", {
-        position: "bottom-right",
+        position: "top-center",
       });
       setProcessing(false);
     }
@@ -97,7 +97,7 @@ export default function BankWithDrawal() {
     setWithdrawaing(true);
     if (amount < 100) {
       toast.error("Minimum withdrawal amount is 100", {
-        position: "bottom-right",
+        position: "top-center",
       });
       setWithdrawaing(false);
       return;
@@ -107,13 +107,13 @@ export default function BankWithDrawal() {
       if (response.status) {
         setSuccess(true);
         setWithdrawaing(false);
-        userDataGet()
+        userDataGet();
         setTimeout(() => {
           setSuccess(false);
         }, 3500);
       } else {
         toast.error("Failed to Withdraw", {
-          position: "bottom-right",
+          position: "top-center",
         });
       }
     } catch (error) {
@@ -159,10 +159,10 @@ export default function BankWithDrawal() {
 
   if (success) {
     return (
-      <div className="fixed top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-[#000000d1] bg-opacity-50 z-[9999]">
-        <img alt="success" src={successImg} />
+      <div className="fixed top-0 left-0 w-full h-full flex flex-col justify-center items-center   z-[9999]">
+        <img alt="success" src={successImg} className="w-60"/>
         <p className="text-2xl text-white font-semibold">
-          Withdrawal Success !
+          Withdrawal Request Sent Successfully !
         </p>
       </div>
     );
@@ -179,22 +179,16 @@ export default function BankWithDrawal() {
             <div class="w-full md:w-1/2 py-10 px-5 md:px-10">
               <div class="  mb-6">
                 <h1 class="font-bold text-3xl text-gray-900">
-                  BANK WITHDRAWAL
+                  WITHDRAW YOUR EARNINGS
                 </h1>
               </div>
               <p className="  font-medium text-lg text-[green] mb-4">
-                Account Balance: ₹{user && user.wallet_balance}
+                Your Account Balance: ₹{user && user.wallet_balance}
               </p>
 
               <div>
                 <div className="grid grid-cols-6 gap-6">
                   <div className="col-span-6 sm:col-span-3">
-                    <label
-                      for="product-name"
-                      className="text-sm font-medium text-gray-900 block mb-2 dark:text-white"
-                    >
-                      Beneficary Name *
-                    </label>
                     <input
                       type="text"
                       name="product-name"
@@ -202,19 +196,13 @@ export default function BankWithDrawal() {
                       className={`${inputClasses} ${
                         !editing ? "cursor-not-allowed" : ""
                       }`}
-                      placeholder=""
+                      placeholder="Account Holder"
                       disabled={!editing}
                       value={ac_name}
                       onChange={(e) => setAccName(e.target.value)}
                     />
                   </div>
                   <div className="col-span-6 sm:col-span-3">
-                    <label
-                      for="category"
-                      className="text-sm font-medium text-gray-900 block mb-2 dark:text-white"
-                    >
-                      Account Number *
-                    </label>
                     <input
                       type="number"
                       name="category"
@@ -222,7 +210,7 @@ export default function BankWithDrawal() {
                       className={`${inputClasses} ${
                         !editing ? "cursor-not-allowed" : ""
                       }`}
-                      placeholder=""
+                      placeholder="Account No."
                       disabled={!editing}
                       required
                       value={ac_no}
@@ -230,12 +218,6 @@ export default function BankWithDrawal() {
                     />
                   </div>
                   <div className="col-span-6 sm:col-span-3">
-                    <label
-                      for="brand"
-                      className="text-sm font-medium text-gray-900 block mb-2 dark:text-white"
-                    >
-                      Bank Name *
-                    </label>
                     <input
                       type="text"
                       name="brand"
@@ -243,7 +225,7 @@ export default function BankWithDrawal() {
                       className={`${inputClasses} ${
                         !editing ? "cursor-not-allowed" : ""
                       }`}
-                      placeholder=""
+                      placeholder="Bank Name"
                       disabled={!editing}
                       required
                       value={bank_name}
@@ -252,12 +234,6 @@ export default function BankWithDrawal() {
                   </div>
 
                   <div className="col-span-6 sm:col-span-3">
-                    <label
-                      for="product-details"
-                      className="text-sm font-medium text-gray-900 block mb-2 dark:text-white"
-                    >
-                      IFSC Code *
-                    </label>
                     <input
                       type="text"
                       name="price"
@@ -265,7 +241,7 @@ export default function BankWithDrawal() {
                       className={`${inputClasses} ${
                         !editing ? "cursor-not-allowed" : ""
                       }`}
-                      placeholder=""
+                      placeholder="IFSC Code"
                       disabled={!editing}
                       required
                       value={ifsc_code}
@@ -278,17 +254,11 @@ export default function BankWithDrawal() {
                       editing ? "hidden" : ""
                     }`}
                   >
-                    <label
-                      for="product-details"
-                      className="text-sm font-medium text-gray-900 block mb-2 dark:text-white"
-                    >
-                      Withdrawal Amount *
-                    </label>
                     <input
                       type="text"
                       name="price"
                       id="price"
-                      placeholder=""
+                      placeholder="Amount"
                       className={`${inputClasses}`}
                       value={amount}
                       onChange={(e) => setAmount(e.target.value)}
@@ -315,7 +285,7 @@ export default function BankWithDrawal() {
                   </div>
                 ) : (
                   <div className="flex flex-wrap justify-center gap-6 mt-6">
-                    <button 
+                    <button
                       onClick={() => setIsOpen(true)}
                       className="relative"
                       disabled={

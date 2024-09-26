@@ -91,9 +91,9 @@ export default function OtpVerify({ goBack, formData }) {
   };
 
   return (
-    <div className=" min-h-screen bg-gray-500 bg-fixed  bg-no-repeat bg-cover py-6 flex flex-col justify-center sm:py-12">
-      <div className="relative py-3 sm:max-w-xl sm:mx-auto">
-        <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-10">
+    <div className=" min-h-screen bg-indigo-500 bg-fixed  bg-no-repeat bg-cover py-6 flex flex-col justify-center sm:py-12">
+      <div className="relative py-3 px-3 sm:max-w-xl sm:mx-auto">
+        <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl   sm:p-10">
           <div className="mb-4 text-center">
             <h1 className="text-2xl font-semibold ">Enter OTP</h1>
             <p className="text-sm mt-2 text-center">{formData.email}</p>

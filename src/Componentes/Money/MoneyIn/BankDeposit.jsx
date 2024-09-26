@@ -6,14 +6,14 @@ import {
 } from "../../../Controllers/User/UserController";
 import { MdCancel } from "react-icons/md";
 import { Loading1 } from "../../Loading1";
-import CryptoDeposit from "./CryptoDeposit";
+import { RiBankLine } from "react-icons/ri";
 import gif1 from "../../../assets/photos/bankdepositgif.gif";
 import DepositMethod from "./DepositMethod";
-import successImg from "../../../assets/photos/success1-1--unscreen.gif";
+import successImg from "../../../assets/photos/giff6.gif";
 
 export default function BankDeposit() {
   const inputClasses =
-    "shadow-sm bg-gray-50 font-medium border border-gray-300 dark:bg-gray-400 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5";
+    "shadow-sm bg-transparent border-b-2 border-indigo-400 font-medium  border-x-0 border-t-0  focus:border-none dark:bg-gray-400 text-gray-900 sm:text-sm    block w-full p-2.5";
 
   const [tab, setTab] = useState(1);
   const [paymentMethods, setPaymentMethods] = useState([]);
@@ -57,19 +57,27 @@ export default function BankDeposit() {
     e.preventDefault();
     setCreating(true);
     if (utr.length !== 12) {
-      toast.error("Please enter valid UTR no.");
+      toast.error("Please enter valid UTR no.",{
+        position: "top-center",
+      });
       setCreating(false);
       return;
     } else if (deposit_id < 0 || deposit_id === undefined) {
-      toast.error("Please select deposit method.");
+      toast.error("Please select deposit method.",{
+        position: "top-center",
+      });
       setCreating(false);
       return;
     } else if (amount === "" || amount < 100) {
-      toast.error("Minimum deposit is Rs.100");
+      toast.error("Minimum deposit is Rs.100",{
+        position: "top-center",
+      });
       setCreating(false);
       return;
     } else if (image === null) {
-      toast.error("Please upload payment screenshot");
+      toast.error("Please upload payment screenshot",{
+        position: "top-center",
+      });
       setCreating(false);
       return;
     }
@@ -129,8 +137,8 @@ export default function BankDeposit() {
 
   if (success) {
     return (
-      <div className="fixed top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-[#000000d1] bg-opacity-50 z-[9999]">
-        <img alt="success" src={successImg} />
+      <div className="fixed top-0 left-0 w-full h-full flex flex-col justify-center items-center   z-[99999]">
+        <img alt="success" src={successImg} className="w-60"/>
         <p className="text-2xl text-white font-semibold">
           Deposit Request Sent Successfully !
         </p>
@@ -141,7 +149,6 @@ export default function BankDeposit() {
   return (
     <div>
       <div className=" ">
-         
         <div class="  mt-6 flex flex-col items-center justify-center  ">
           <div class="bg-[#e1e6ff] dark:bg-[#868ba3fc] text-gray-500 rounded-3xl shadow-xl w-full overflow-hidden">
             <div class="md:flex flex-row-reverse w-full">
@@ -151,62 +158,48 @@ export default function BankDeposit() {
               <div class="w-full md:w-1/2 py-10 px-5 md:px-10">
                 <div class="  mb-6">
                   <h1 class="font-bold text-3xl text-gray-900">
-                    UPI & BANK DEPOSIT
+                    DEPOSIT MONEY (INR)
                   </h1>
                 </div>
                 <div className="  mb-4">
                   <button
                     onClick={() => setIsOpen(true)}
-                    className="animate-bounce shadow-xl focus:animate-none   inline-flex text-md font-medium bg-indigo-900 mt-3 px-4 py-2 rounded-lg tracking-wide text-white"
+                    className="  shadow-xl focus:animate-none   inline-flex text-md font-medium bg-indigo-500 mt-3 px-4 py-2 rounded-lg tracking-wide text-white"
                   >
-                    <span className="ml-2">View Details to Deposit</span>
+                    <span className="ml-2 flex gap-2 items-center">
+                      Bank Accounts. Deposit Here
+                      <RiBankLine size={24} />
+                    </span>
                   </button>
                 </div>
 
                 <form onSubmit={handleDeposit}>
-                  <div className="grid grid-cols-12 gap-4">
+                  <div className="grid grid-cols-12 gap-4 mt-6">
                     <div className="col-span-6 sm:col-span-6">
-                      <label
-                        for="product-name"
-                        className="text-sm font-medium text-gray-900 block mb-1 dark:text-gray-200"
-                      >
-                        UTR No.*
-                      </label>
                       <input
                         type="text"
                         name="product-name"
                         id="product-name"
                         className={`${inputClasses}`}
-                        placeholder=""
+                        placeholder="UTR NO."
                         required=""
                         value={utr}
                         onChange={(e) => setUtr(e.target.value)}
                       />
                     </div>
                     <div className="col-span-6 sm:col-span-6">
-                      <label
-                        for="product-name"
-                        className="text-sm font-medium text-gray-900 block mb-1 dark:text-gray-200"
-                      >
-                        Amount*
-                      </label>
                       <input
                         type="text"
                         name="product-name"
                         id="product-name"
                         className={`${inputClasses}`}
                         required=""
+                        placeholder="Amount"
                         value={amount}
                         onChange={(e) => setAmount(e.target.value)}
                       />
                     </div>
-                    <div className="col-span-12 sm:col-span-12">
-                      <label
-                        for="product-name"
-                        className="text-sm font-medium text-gray-900 block mb-1 dark:text-gray-200"
-                      >
-                        Deposit On*
-                      </label>
+                    <div className="col-span-12 sm:col-span-12 mt-6">
                       <select
                         onChange={(e) => setSepositId(e.target.value)}
                         type="text"
@@ -226,14 +219,14 @@ export default function BankDeposit() {
                           ))}
                       </select>
                     </div>
-                    <div className="flex align-center items-center mt-4 col-span-6 sm:col-span-6">
+                    <div className="flex align-center items-center mt-6 col-span-6 sm:col-span-6">
                       {image !== null ? (
-                        <p className="w-full shadow-sm bg-gray-200 border-2 pr-[22px] border-gray-700 dark:bg-gray-400 text-gray-900 font-medium  rounded-xl focus:ring-cyan-600 focus:border-cyan-600 block  px-2.5 py-2.5">
+                        <p className="w-full shadow-sm bg-indigo-500 border-2 pr-[22px] border-gray-700 dark:bg-gray-400 text-gray-900 font-medium  rounded-xl focus:ring-cyan-600 focus:border-cyan-600 block  px-2.5 py-2.5">
                           {image.name}
                         </p>
                       ) : (
                         <input
-                          className="shadow-sm  bg-gray-50 border pr-[22px] border-gray-300 dark:bg-gray-400 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block  px-2.5"
+                          className="shadow-sm  bg-indigo-500 border pr-[22px] border-gray-300 dark:bg-gray-400 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block  px-2.5"
                           name="product-name"
                           id="product-name"
                           type="file"
@@ -253,7 +246,7 @@ export default function BankDeposit() {
                   </div>
 
                   <div className="flex flex-wrap justify-start mt-10 gap-6 w-full">
-                    <button
+                    {/* <button
                       className="relative  w-full"
                       type="submit"
                       disabled={creating}
@@ -266,21 +259,26 @@ export default function BankDeposit() {
                       >
                         {creating ? <Loading1 width={30} /> : "SUBMIT"}
                       </span>
+                    </button> */}
+                    <button
+                      type="submit"
+                      disabled={creating}
+                      class="relative px-5 py-2 font-medium text-white group w-full"
+                    >
+                      <span class="absolute inset-0 w-full h-full transition-all duration-300 ease-out transform translate-x-0 -skew-x-12 bg-purple-500 group-hover:bg-purple-700 group-hover:skew-x-12"></span>
+                      <span class="absolute inset-0 w-full h-full transition-all duration-300 ease-out transform skew-x-12 bg-purple-700 group-hover:bg-purple-500 group-hover:-skew-x-12"></span>
+                      <span class="absolute bottom-0 left-0 hidden w-10 h-20 transition-all duration-100 ease-out transform -translate-x-8 translate-y-10 bg-purple-600 -rotate-12"></span>
+                      <span class="absolute bottom-0 right-0 hidden w-10 h-20 transition-all duration-100 ease-out transform translate-x-10 translate-y-8 bg-purple-400 -rotate-12"></span>
+                      <span class="relative">
+                        {creating ? <Loading1 width={30} /> : "SUBMIT"}
+                      </span>
                     </button>
                   </div>
                 </form>
               </div>
             </div>
           </div>
-          <div className="border-t-2 border-gray-400 mt-6 text-sm rounded-lg font-semibold pt-4 bg-gradient-to-r from-rose-100 to-teal-100 pl-2 pb-4">
-            <p>Note.</p>
-            <p>
-              1. You can submit only one deposit request at a time, New request
-              can be made after success or fail of previous one.
-            </p>
-            <p>2. Minimum deposit amount is Rs.100</p>
-            <p>3. Submittion of wrong deposit details will be declined.</p>
-          </div>
+           
         </div>
       </div>
       {isOpen && (

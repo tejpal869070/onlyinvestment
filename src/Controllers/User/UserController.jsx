@@ -173,8 +173,7 @@ export const MakeNewInvestment = async (formData) => {
   const postData = {
     mobile: mobile,
     pin: formData.pin,
-    amount: formData.amount,
-    plan: formData.investmentPlan,
+    plan: formData.id,
   };
 
   const axiosConfig = {
@@ -310,6 +309,27 @@ export const GetAccountAllStatement = async () => {
   try {
     const response = await axios.post(
       `${API.url}user/get-statement`,
+      postData,
+      axiosConfig
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const GetReferData = async () => {
+  try {
+    const postData = {
+      mobile: mobile,
+    };
+    const axiosConfig = {
+      headers: {
+        Authorization: `Bearer ${bearerToken}`,
+      },
+    };
+    const response = await axios.post(
+      `${API.url}user/get-level`,
       postData,
       axiosConfig
     );

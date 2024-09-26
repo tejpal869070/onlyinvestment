@@ -16,21 +16,21 @@ export default function DepositMethod({ onClose, paymentMethods }) {
     autoplaySpeed: 4000,
     cssEase: "ease-in-out",
   };
- 
+
   return (
     <div className="fixed animate-fade-down animate-duration-[500ms] top-0 left-0 w-full h-full flex justify-center pt-10  bg-gray-400 bg-opacity-50 z-[9999]">
-      <div className=" text-white  bg-gradient-to-r from-gray-700 rounded h-[60vh]   w-[30vw] to-slate-900 p-10 pt-6 inline-block">
+      <div className=" text-white bg-gradient-to-r from-violet-500 to-purple-500 rounded h-[60vh]   w-[30vw] to-slate-900 p-10 pt-6 inline-block">
         <MdCancel
           size={28}
           className="cursor-pointer m-auto"
           onClick={onClose}
-        /> 
+        />
         <Slider {...settings}>
           {paymentMethods.map((item, index) =>
             item.type === "Bank" ? (
               <div className="flex flex-col mt-8 gap-8">
                 <p className="text-center text-xl text-gray-200 font-medium">
-                  ---{item.type} Deposit---
+                  {item.type} Deposit
                 </p>
                 <div className={`${classes1} mt-4`}>
                   <p>Bank Name :</p>
@@ -53,16 +53,16 @@ export default function DepositMethod({ onClose, paymentMethods }) {
                 </div>
 
                 <div className={`${classes1}`}>
-                  <p>Acc. Type : </p>
+                  <p>Account Type : </p>
                   <p>{item.ac_type}</p>
                 </div>
               </div>
             ) : (
               <div className="flex flex-row justify-center mt-6">
                 <p className="text-center text-xl text-gray-200 font-medium">
-                  ---{item.type} Deposit---
+                  {item.type} Deposit
                 </p>
-                <p className="mt-6 text-center">UPI ID : {item.upi_id}</p>
+
                 <div>
                   <img
                     alt="qr"
@@ -70,6 +70,7 @@ export default function DepositMethod({ onClose, paymentMethods }) {
                     src={`${API.url}assets/img/${item.qr_code}`}
                   />
                 </div>
+                <p className="mt-6 text-center">UPI ID : {item.upi_id}</p>
               </div>
             )
           )}

@@ -16,7 +16,6 @@ import { Loading1 } from "../Componentes/Loading1";
 import CreatePin from "../Componentes/Dashboard/CratePin";
 import { FaUser } from "react-icons/fa";
 
-
 export default function Home() {
   const [user, setUser] = React.useState({});
   const [loading, setLoading] = useState(true);
@@ -73,7 +72,7 @@ export default function Home() {
 
   return (
     <div className="dark:bg-black w-full h-full ">
-      <nav className="bg-gray-800 w-[85vw] m-auto">
+      <nav className="bg-gray-800 w-full lg:w-[85vw] m-auto">
         <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
           <div className="relative flex h-16 items-center justify-between">
             <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -194,15 +193,12 @@ export default function Home() {
                   >
                     Settings
                   </a>
-                  <a
-                    href="/"
-                    className="block px-4 py-2 text-sm text-gray-700"
-                    role="menuitem"
-                    tabindex="-1"
-                    id="user-menu-item-2"
+                  <button
+                    onClick={handleLogout}
+                    className="block px-4 py-2 text-sm text-gray-700" 
                   >
                     Sign out
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>
@@ -242,7 +238,7 @@ export default function Home() {
 
       {/* Content */}
       <div className=" ">
-        <div className="p-8 bg-gray-200  w-[85vw] m-auto  ">
+        <div className="p-2 lg:p-8 bg-gray-200  lg:w-[85vw] m-auto  ">
           <InnerSection />
         </div>
       </div>

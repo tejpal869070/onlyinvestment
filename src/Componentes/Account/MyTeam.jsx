@@ -1,28 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { GetUserPaymentHistory } from "../../../Controllers/User/UserController";
-import { FaEye } from "react-icons/fa";
-import { Loading1 } from "../../Loading1";
-import gif1 from "../../../assets/photos/giff5.gif";
-import DateSelector from "../../Income/DateSelector";
-import { useLocation } from "react-router-dom";
+import gif1 from "../../assets/photos/giff5.gif";
+import { GetReferData } from "../../Controllers/User/UserController";
+import { Loading1 } from "../Loading1";
 
-export default function DepositHistory() {
+export default function MyTeam() {
   const [data, setData] = useState([]);
-  const [selectedIndex, setSelectedIndex] = useState();
   const [loading, setLoading] = useState(true);
-  const [visible, setVisible] = useState(false);
-  const [startDate, setStartDate] = useState();
-  const [endDate, setEndDate] = useState();
-  const [filteredData, setFilteredData] = useState([]);
-
-  const location = useLocation();
 
   const GetPaymentHistory = async () => {
-    const response = await GetUserPaymentHistory();
+    const response = await GetReferData();
     if (response !== null) {
-      setData(
-        response.reverse().filter((item) => item.payment_type === "Deposit")
-      );
+      setData(response.data);
       setLoading(false);
     } else {
       setData([]);
@@ -33,31 +21,6 @@ export default function DepositHistory() {
   useEffect(() => {
     GetPaymentHistory();
   }, []);
-
-  useEffect(() => {
-    const start = new URLSearchParams(location.search).get("from");
-    const end = new URLSearchParams(location.search).get("to");
-    setStartDate(start);
-    setEndDate(end);
-  }, [location]);
-
-  useEffect(() => {
-    // Create a new date object for the endDate and set it to the end of the day
-    const endDateObj = new Date(endDate);
-    endDateObj.setHours(23, 59, 59, 999);
-
-    if (startDate === null || endDate === null) {
-      setFilteredData(data);
-    } else {
-      // Filter data between startDate and endDate
-      const filteredData = data.filter((item) => {
-        const itemDate = new Date(item.date);
-        const startDateObj = new Date(startDate);
-        return itemDate >= startDateObj && itemDate <= endDateObj;
-      });
-      setFilteredData(filteredData);
-    }
-  }, [startDate, endDate, data]);
 
   if (loading) {
     return (
@@ -71,10 +34,10 @@ export default function DepositHistory() {
     <div className=" ">
       <div>
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-          {filteredData && filteredData.length === 0 ? (
+          {data && data.length === 0 ? (
             <div>
-              <img alt="no data" src={gif1} className="m-auto" />
-              <p className="text-center font-bold text-xl">No Recoard !</p>
+              <img alt="no data" src={gif1} className="m-auto w-60" />
+              <p className="text-center font-bold text-xl">No Team  !</p>
             </div>
           ) : (
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -84,13 +47,13 @@ export default function DepositHistory() {
                     S.No.
                   </th>
                   <th scope="col" className="px-6 py-3">
-                    AMOUNT
+                    UID
                   </th>
                   <th scope="col" className="px-6 py-3">
-                    Transaction Hash
+                    USER
                   </th>
                   <th scope="col" className="px-6 py-3">
-                    TYPE
+                    LEVEL
                   </th>
                   <th scope="col" className="px-6 py-3">
                     Status
@@ -100,7 +63,7 @@ export default function DepositHistory() {
                   </th>
                 </tr>
               </thead>
-              {filteredData.length === 0 ? (
+              {data.length === 0 ? (
                 <tbody>
                   <tr>
                     <td colspan="8" className="text-center p-4">
@@ -109,8 +72,8 @@ export default function DepositHistory() {
                   </tr>
                 </tbody>
               ) : (
-                filteredData &&
-                filteredData.map((item, index) => (
+                data &&
+                data.map((item, index) => (
                   <tbody>
                     <tr
                       className={` text-black font-semibold dark:text-gray-200  border-b dark:border-gray-700 ${
@@ -121,15 +84,15 @@ export default function DepositHistory() {
                     >
                       <th
                         scope="row"
-                        className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                        className="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                       >
                         {index + 1}.
                       </th>
-                      <td className="px-4 py-4">{item.amount}</td>
-                      <td className="px-6 py-4">{item.transaction_id}</td>
-                      <td className="px-6 py-4">{item.type}</td>
-                      <td className="px-6 py-4">{item.status}</td>
-                      <td className="px-6 py-4">{item.date.split("T")[0]}</td>
+                      <td className="px-4 py-3">{item.uid}</td>
+                      <td className="px-6 py-3">{item.username}</td>
+                      <td className="px-6 py-3">{item.level}</td>
+                      <td className="px-6 py-3">{item.status}</td>
+                      <td className="px-6 py-3">{item.date.split("T")[0]}</td>
                     </tr>
                     {/* {visible && selectedIndex === index ? (
                       <tr className=" bg-gray-300 dark:bg-black animate-fade-down animate-duration-500">

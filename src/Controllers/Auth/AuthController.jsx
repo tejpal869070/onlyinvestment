@@ -10,6 +10,7 @@ export const CheckUserExistance = async (formData) => {
     const postData = {
       mobile: formData.mobile,
       email: formData.email,
+      reffer_by : formData.reffer_by
     };
 
     const response = await axios.post(
